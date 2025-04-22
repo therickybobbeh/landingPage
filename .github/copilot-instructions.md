@@ -15,6 +15,7 @@ The objective is to build a personal landing page that highlights my development
 - A **message form** for visitors to leave messages, which are saved to a PostgreSQL database.
 - An **owner login page** with basic **OAuth2 authentication**.
 - A **secure admin dashboard** where I can view and manage incoming messages.
+- A place where we will integrate stripe/ paypal to take donations
 
 ---
 
@@ -22,10 +23,13 @@ The objective is to build a personal landing page that highlights my development
 
 This is a full-stack application composed of:
 
-- A **Next.js frontend** in the `/nextjs-fronend` directory.
+- A **new Next.js frontend** in the `/frontend` directory.
 - A **FastAPI backend** under `/backend/`, exposing REST endpoints.
 - A **PostgreSQL database**, containerized using Docker.
 - Docker Compose orchestrates the services together.
+- use npm to manage packages
+
+> Note: There is also an existing legacy Next.js app in `/nextjs-fronend`. Use it as a reference, but **do not modify or delete it**. All new frontend work should happen in `/frontend`.
 
 ---
 
@@ -33,7 +37,8 @@ This is a full-stack application composed of:
 
 | Component     | Path                  | Notes                          |
 |---------------|-----------------------|--------------------------------|
-| Frontend      | `/nextjs-fronend`     | Next.js React app              |
+| New Frontend  | `/frontend`           | New Next.js app (do work here) |
+| Legacy Frontend | `/nextjs-fronend`  | Reference only; don't modify   |
 | Backend       | `/backend`            | FastAPI service (Python)       |
 | Database      | Docker service        | PostgreSQL, .env configured    |
 | API Models    | `/backend/app/models` | Pydantic models                |
@@ -44,17 +49,17 @@ This is a full-stack application composed of:
 ## ✅ Tasks Copilot Should Prioritize
 
 - Help scaffold or improve REST endpoints in FastAPI.
-- Assist in creating or updating React components in the frontend.
+- Assist in creating or updating React components in `/frontend`.
 - Suggest or validate TypeScript types shared between backend and frontend.
 - Ensure `.env` variables are used safely and consistently.
 - Generate Dockerfiles or docker-compose snippets when needed.
-- The `/nextjs-fronend` is originally from a template. Try to avoid deleting existing code until the final structure is complete.
+- Reference `/nextjs-fronend` for inspiration only — do not modify it.
 
 ---
 
 ## ❌ Tasks Copilot Should Avoid
 
-- Don’t assume the frontend lives at `/frontend`; it's specifically `/nextjs-fronend`.
+- Don’t assume the frontend lives at `/frontend`; always double-check it's not referring to `/nextjs-fronend`.
 - Avoid changing `docker-compose.yml` unless explicitly asked.
 - Do not alter `.env` secrets.
 

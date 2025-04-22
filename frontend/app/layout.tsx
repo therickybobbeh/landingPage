@@ -1,23 +1,27 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import './globals.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Developer Portfolio',
-  description: 'Personal developer portfolio showcasing projects, resume and skills',
+  description: 'A professional portfolio for developers to showcase their work',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         {children}
+        {/* Bootstrap JS will be loaded client-side */}
       </body>
     </html>
   );

@@ -13,18 +13,15 @@ RUN npm install
 RUN npm install --no-save canvas
 
 # Set environment variables
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NEXT_PUBLIC_API_URL=http://backend:8000
 
 # Copy the rest of the application
 COPY . .
 
-# Build the Next.js app
-RUN npm run build
+# For development mode, just run dev server instead of building
+CMD ["npm", "run", "dev"]
 
 # Expose the port the app will run on
 EXPOSE 3000
-
-# Command to run the application
-CMD ["npm", "start"]

@@ -97,4 +97,4 @@ docker-volumes/
 # Misc
 .cache/
 .sass-cache/
-frontend/.next/
+frontend/.next

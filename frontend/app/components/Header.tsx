@@ -7,6 +7,9 @@ import { usePathname } from 'next/navigation';
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+  
+  // Check if we're on the homepage
+  const isHomePage = pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,23 +32,52 @@ const Header = () => {
     { name: 'Contact', path: '/#contact-section' },
   ];
 
+  // Determine navbar background based on page and scroll state
+  const getNavbarBackground = () => {
+    if (isHomePage) {
+      // On homepage: transparent until scrolled
+      return isScrolled ? 'var(--black)' : 'transparent';
+    } else {
+      // On other pages: always solid
+      return 'var(--black)';
+    }
+  };
+  
+  // Determine navbar class based on page and scroll state
+  const getNavbarClass = () => {
+    if (isHomePage) {
+      return isScrolled ? 'bg-black-custom' : 'bg-transparent';
+    } else {
+      return 'bg-black-custom';
+    }
+  };
+  
+  // Determine border style based on page and scroll state
+  const getNavbarBorder = () => {
+    if (isHomePage) {
+      return isScrolled ? '1px solid rgba(112, 46, 192, 0.2)' : 'none';
+    } else {
+      return '1px solid rgba(112, 46, 192, 0.2)';
+    }
+  };
+
   return (
     <Navbar 
       expand="lg" 
       fixed="top" 
       variant="dark"
-      className={`py-3 transition-all ${isScrolled ? 'bg-black-custom' : 'bg-transparent'}`}
+      className={`py-3 transition-all ${getNavbarClass()}`}
       style={{ 
         transition: 'all 0.3s ease-in-out',
-        backgroundColor: isScrolled ? 'var(--black)' : 'transparent',
-        borderBottom: isScrolled ? '1px solid rgba(126, 87, 194, 0.2)' : 'none',
+        backgroundColor: getNavbarBackground(),
+        borderBottom: getNavbarBorder(),
       }}
     >
       <Container>
         <Link href="/" passHref>
           <Navbar.Brand className="fw-bold fs-3">
             <span className="text-white">Dev</span>
-            <span className="text-primary-light-custom">Portfolio</span>
+            <span className="text-secondary-custom">Portfolio</span>
           </Navbar.Brand>
         </Link>
 
@@ -76,7 +108,7 @@ const Header = () => {
                     style={{
                       height: '2px',
                       width: pathname === item.path ? '60%' : '0',
-                      backgroundColor: 'var(--primary-light)',
+                      backgroundColor: pathname === item.path ? 'var(--secondary)' : 'var(--tertiary)',
                       transition: 'all 0.3s ease',
                       opacity: pathname === item.path ? 1 : 0,
                     }}
@@ -89,8 +121,8 @@ const Header = () => {
           <div className="ms-lg-3 mt-3 mt-lg-0">
             <Link href="/#contact-section" passHref>
               <Button 
-                className="btn-primary-custom px-4 rounded-pill fw-medium"
-                style={{ boxShadow: '0 4px 15px rgba(94, 53, 177, 0.3)' }}
+                className="btn-gradient-warm btn-rounded px-4 fw-medium"
+                style={{ boxShadow: '0 4px 15px rgba(233, 75, 129, 0.3)' }}
               >
                 <i className="bi bi-chat-text-fill me-2"></i>
                 Get In Touch

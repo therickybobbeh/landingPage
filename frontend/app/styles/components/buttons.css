@@ -7,7 +7,7 @@
   border: none;
 }
 
-/* Custom color buttons */
+/* Primary buttons - Purple */
 .btn-primary-custom {
   background-color: var(--btn-primary-bg);
   border-color: var(--btn-primary-bg);
@@ -20,24 +20,42 @@
   border-color: var(--btn-primary-hover);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(94, 53, 177, 0.3);
+  box-shadow: 0 4px 8px rgba(112, 46, 192, 0.3);
 }
 
-.btn-accent-custom {
+/* Secondary buttons - Magenta */
+.btn-secondary-custom {
   background-color: var(--btn-accent-bg);
   border-color: var(--btn-accent-bg);
   color: white;
 }
 
-.btn-accent-custom:hover,
-.btn-accent-custom:focus {
+.btn-secondary-custom:hover,
+.btn-secondary-custom:focus {
   background-color: var(--btn-accent-hover);
   border-color: var(--btn-accent-hover);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+  box-shadow: 0 4px 8px rgba(233, 75, 129, 0.3);
 }
 
+/* Tertiary buttons - Light Blue */
+.btn-tertiary-custom {
+  background-color: var(--btn-tertiary-bg);
+  border-color: var(--btn-tertiary-bg);
+  color: var(--text-primary);
+}
+
+.btn-tertiary-custom:hover,
+.btn-tertiary-custom:focus {
+  background-color: var(--btn-tertiary-hover);
+  border-color: var(--btn-tertiary-hover);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(122, 215, 227, 0.3);
+}
+
+/* Dark buttons */
 .btn-black-custom {
   background-color: var(--black-800);
   border-color: var(--black);
@@ -52,7 +70,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Button with outline */
+/* Button with outline - Purple */
 .btn-outline-primary-custom {
   background-color: transparent;
   border: 2px solid var(--primary);
@@ -64,9 +82,40 @@
   background-color: var(--primary);
   color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(94, 53, 177, 0.3);
+  box-shadow: 0 4px 8px rgba(112, 46, 192, 0.3);
 }
 
+/* Button with outline - Magenta */
+.btn-outline-secondary-custom {
+  background-color: transparent;
+  border: 2px solid var(--secondary);
+  color: var(--secondary);
+}
+
+.btn-outline-secondary-custom:hover,
+.btn-outline-secondary-custom:focus {
+  background-color: var(--secondary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(233, 75, 129, 0.3);
+}
+
+/* Button with outline - Light Blue */
+.btn-outline-tertiary-custom {
+  background-color: transparent;
+  border: 2px solid var(--tertiary);
+  color: var(--tertiary);
+}
+
+.btn-outline-tertiary-custom:hover,
+.btn-outline-tertiary-custom:focus {
+  background-color: var(--tertiary);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(122, 215, 227, 0.3);
+}
+
+/* Button with outline - White */
 .btn-outline-white {
   background-color: transparent;
   border: 2px solid white;
@@ -134,6 +183,46 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient buttons */
+.btn-gradient-full {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 50%, var(--deep-purple) 100%);
+  color: white;
+  border: none;
+}
+
+.btn-gradient-full:hover,
+.btn-gradient-full:focus {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 40%, var(--deep-purple) 90%);
+  box-shadow: 0 4px 8px rgba(112, 46, 192, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-gradient-cool {
+  background: linear-gradient(135deg, var(--deep-purple) 0%, var(--blue) 50%, var(--light-blue) 100%);
+  color: white;
+  border: none;
+}
+
+.btn-gradient-cool:hover,
+.btn-gradient-cool:focus {
+  background: linear-gradient(135deg, var(--deep-purple) 0%, var(--blue) 40%, var(--light-blue) 90%);
+  box-shadow: 0 4px 8px rgba(75, 109, 233, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-gradient-warm {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
+  color: white;
+  border: none;
+}
+
+.btn-gradient-warm:hover,
+.btn-gradient-warm:focus {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 90%);
+  box-shadow: 0 4px 8px rgba(233, 75, 129, 0.4);
+  transform: translateY(-2px);
 }
 
 /* Button groups */

@@ -1,17 +1,34 @@
 :root {
-  /* Primary Color Palette - Enhanced Purple Theme */
-  --primary: #5e35b1;       /* Deep purple */
-  --primary-dark: #4527a0;  /* Darker purple */
-  --primary-light: #7e57c2; /* Lighter purple */
-  --primary-100: #ede7f6;   /* Very light purple */
-  --primary-200: #d1c4e9;   /* Light purple */
-  --primary-300: #b39ddb;   /* Medium-light purple */
-  --primary-400: #9575cd;   /* Medium purple */
-  --primary-500: #7e57c2;   /* Medium-strong purple */
-  --primary-600: #673ab7;   /* Strong purple */
-  --primary-700: #5e35b1;   /* Deep purple (same as primary) */
-  --primary-800: #4527a0;   /* Dark purple */
-  --primary-900: #311b92;   /* Very dark purple */
+  /* New Color Palette - Based on shared image */
+  --magenta: #e94b81;       /* Pink/Magenta from left */
+  --purple: #702ec0;        /* Purple from second column */
+  --deep-purple: #2e1e7a;   /* Deep Purple from center */
+  --blue: #4b6de9;          /* Blue from fourth column */
+  --light-blue: #7ad7e3;    /* Light Blue from right */
+  
+  /* Primary Color Palette - Adjusted to match new theme */
+  --primary: #702ec0;       /* New primary color - Purple */
+  --primary-dark: #2e1e7a;  /* Darker purple - Deep Purple */
+  --primary-light: #4b6de9; /* Lighter purple - Blue */
+  --primary-100: #f0f3fe;   /* Very light blue */
+  --primary-200: #d5dffb;   /* Light blue */
+  --primary-300: #b5c8f9;   /* Medium-light blue */
+  --primary-400: #8ba4f3;   /* Medium blue */
+  --primary-500: #4b6de9;   /* Medium-strong blue */
+  --primary-600: #702ec0;   /* Strong purple */
+  --primary-700: #5423a0;   /* Deep purple */
+  --primary-800: #2e1e7a;   /* Dark purple */
+  --primary-900: #1b114d;   /* Very dark purple */
+
+  /* Secondary Color for contrast and accent */
+  --secondary: #e94b81;     /* Magenta */
+  --secondary-dark: #d12c60;/* Darker magenta */
+  --secondary-light: #f27da6;/* Lighter magenta */
+  
+  /* Tertiary Color */
+  --tertiary: #7ad7e3;      /* Light blue */
+  --tertiary-dark: #52c5d4; /* Darker light blue */
+  --tertiary-light: #a5e5ed;/* Lighter light blue */
   
   /* Black shades for depth */
   --black: #000000;         /* Pure black */
@@ -20,16 +37,16 @@
   --black-600: #222222;     /* Dark charcoal */
   --black-500: #282828;     /* Charcoal */
   
-  /* Analogous colors to purple */
-  --analogous-blue: #3f51b5; /* Indigo blue */
-  --analogous-pink: #9c27b0; /* Deep pink/magenta */
-  --analogous-blue-dark: #303f9f; /* Dark indigo */
-  --analogous-pink-dark: #7b1fa2; /* Dark magenta */
+  /* Analogous colors preserved */
+  --analogous-blue: #4b6de9; /* Updated to match new blue */
+  --analogous-pink: #e94b81; /* Updated to match new magenta */
+  --analogous-blue-dark: #3a58c0; /* Dark blue */
+  --analogous-pink-dark: #d12c60; /* Dark magenta */
   
   /* Accent colors */
-  --accent: #ff9800;        /* Orange accent */
-  --accent-dark: #f57c00;   /* Darker orange */
-  --accent-light: #ffb74d;  /* Lighter orange */
+  --accent: #7ad7e3;        /* New accent - Light Blue */
+  --accent-dark: #52c5d4;   /* Darker light blue */
+  --accent-light: #a5e5ed;  /* Lighter light blue */
 
   /* Neutral colors */
   --neutral-50: #fafafa;    /* Almost white */
@@ -67,8 +84,10 @@
   /* Button styles */
   --btn-primary-bg: var(--primary);
   --btn-primary-hover: var(--primary-dark);
-  --btn-accent-bg: var(--accent);
-  --btn-accent-hover: var(--accent-dark);
+  --btn-accent-bg: var(--secondary);
+  --btn-accent-hover: var(--secondary-dark);
+  --btn-tertiary-bg: var(--tertiary);
+  --btn-tertiary-hover: var(--tertiary-dark);
 }
 
 /* Utility classes for the custom theme */
@@ -82,6 +101,14 @@
 
 .bg-primary-light-custom {
   background-color: var(--primary-light) !important;
+}
+
+.bg-secondary-custom {
+  background-color: var(--secondary) !important;
+}
+
+.bg-tertiary-custom {
+  background-color: var(--tertiary) !important;
 }
 
 .bg-black-custom {
@@ -104,8 +131,24 @@
   color: var(--primary-light) !important;
 }
 
+.text-secondary-custom {
+  color: var(--secondary) !important;
+}
+
+.text-tertiary-custom {
+  color: var(--tertiary) !important;
+}
+
 .border-primary-custom {
   border-color: var(--primary) !important;
+}
+
+.border-secondary-custom {
+  border-color: var(--secondary) !important;
+}
+
+.border-tertiary-custom {
+  border-color: var(--tertiary) !important;
 }
 
 .btn-primary-custom {
@@ -120,16 +163,28 @@
   border-color: var(--btn-primary-hover) !important;
 }
 
-.btn-accent-custom {
+.btn-secondary-custom {
   background-color: var(--btn-accent-bg) !important;
   border-color: var(--btn-accent-bg) !important;
   color: white !important;
 }
 
-.btn-accent-custom:hover,
-.btn-accent-custom:focus {
+.btn-secondary-custom:hover,
+.btn-secondary-custom:focus {
   background-color: var(--btn-accent-hover) !important;
   border-color: var(--btn-accent-hover) !important;
+}
+
+.btn-tertiary-custom {
+  background-color: var(--btn-tertiary-bg) !important;
+  border-color: var(--btn-tertiary-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+.btn-tertiary-custom:hover,
+.btn-tertiary-custom:focus {
+  background-color: var(--btn-tertiary-hover) !important;
+  border-color: var(--btn-tertiary-hover) !important;
 }
 
 .btn-black-custom {
@@ -169,7 +224,7 @@
 
 .form-control-custom:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.2rem rgba(94, 53, 177, 0.25);
+  box-shadow: 0 0 0 0.2rem rgba(112, 46, 192, 0.25);
 }
 
 /* Section styling */
@@ -185,7 +240,7 @@
 
 /* Gradient backgrounds */
 .section-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(135deg, var(--purple) 0%, var(--deep-purple) 100%);
   color: var(--text-light);
 }
 
@@ -194,13 +249,18 @@
   color: var(--text-light);
 }
 
-.section-gradient-analogous-blue {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--analogous-blue) 100%);
+.section-gradient-full {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 25%, var(--deep-purple) 50%, var(--blue) 75%, var(--light-blue) 100%);
   color: var(--text-light);
 }
 
-.section-gradient-analogous-pink {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--analogous-pink) 100%);
+.section-gradient-cool {
+  background: linear-gradient(135deg, var(--deep-purple) 0%, var(--blue) 50%, var(--light-blue) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-warm {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 50%, var(--deep-purple) 100%);
   color: var(--text-light);
 }
 
@@ -216,8 +276,23 @@
 
 /* Card gradients */
 .card-gradient-purple {
-  background: linear-gradient(135deg, var(--primary-400) 0%, var(--primary-700) 100%);
+  background: linear-gradient(135deg, var(--purple) 0%, var(--deep-purple) 100%);
   color: var(--text-light);
+}
+
+.card-gradient-magenta {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 100%);
+  color: var(--text-light);
+}
+
+.card-gradient-blue {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--deep-purple) 100%);
+  color: var(--text-light);
+}
+
+.card-gradient-light-blue {
+  background: linear-gradient(135deg, var(--light-blue) 0%, var(--blue) 100%);
+  color: var(--text-primary);
 }
 
 .card-gradient-dark {
@@ -225,7 +300,7 @@
   color: var(--text-light);
 }
 
-.card-gradient-analogous {
-  background: linear-gradient(135deg, var(--analogous-blue) 0%, var(--primary) 50%, var(--analogous-pink) 100%);
+.card-gradient-full {
+  background: linear-gradient(135deg, var(--magenta) 0%, var(--purple) 25%, var(--deep-purple) 50%, var(--blue) 75%, var(--light-blue) 100%);
   color: var(--text-light);
 }

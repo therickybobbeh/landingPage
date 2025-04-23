@@ -2,6 +2,8 @@
 import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import Link from 'next/link';
+import CodeAnimation from './animations/CodeAnimation';
+import FloatingElement from './animations/FloatingElement';
 
 const Banner = () => {
   return (
@@ -14,7 +16,7 @@ const Banner = () => {
       }}
     >
       {/* Background decoration elements */}
-      <div className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style={{ zIndex: 0 }}>
+      <div className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style={{ zIndex: 1 }}>
         <div className="position-absolute rounded-circle" 
           style={{ 
             width: '300px', 
@@ -103,26 +105,41 @@ const Banner = () => {
           </Col>
           <Col lg={5} className="order-lg-2 order-1">
             <div className="position-relative" style={{ maxWidth: '500px', margin: '0 auto' }}>
-              <div className="card-gradient-purple rounded-4 shadow-lg p-4" style={{ transform: 'rotate(-5deg)' }}>
-                <div className="bg-black-700 rounded-3 p-3">
-                  <pre className="text-light mb-0"><code>{`function Developer() {
-  return {
-    name: "John Doe",
-    skills: ["React", "Next.js", "FastAPI", "PostgreSQL"],
-    passion: "Building beautiful web applications"
-  };
-}
-
-// Let's build something amazing together!`}</code></pre>
+              <FloatingElement 
+                perspective={1500}
+                maxTilt={10}
+                glareIntensity={0.2}
+                className="w-100"
+              >
+                <div className="card-gradient-purple rounded-4 shadow-lg p-4">
+                  <CodeAnimation />
+                  
+                  {/* Tech Tags */}
+                  <div className="d-flex flex-wrap gap-2 mt-3">
+                    {['React', 'Next.js', 'TypeScript', 'Bootstrap', 'FastAPI'].map((tech, index) => (
+                      <span 
+                        key={index}
+                        className="badge rounded-pill" 
+                        style={{ 
+                          background: 'rgba(255,255,255,0.1)', 
+                          color: '#fff',
+                          backdropFilter: 'blur(10px)'
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div 
+              </FloatingElement>
+              
+              {/* <div 
                 className="position-absolute top-0 start-100 translate-middle badge rounded-pill card-gradient-magenta px-4 py-2 fs-6 fw-bold"
                 style={{ zIndex: 2, boxShadow: '0 4px 12px rgba(233, 75, 129, 0.4)' }}
               >
                 <i className="bi bi-check-circle-fill me-2"></i>
                 Expert
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>

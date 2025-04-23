@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Metadata } from 'next';
+import BootstrapClient from './components/BootstrapClient';
 
 export const metadata: Metadata = {
   title: 'Developer Portfolio',
@@ -20,8 +21,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <BootstrapClient />
         {children}
-        {/* Bootstrap JS will be loaded client-side */}
       </body>
     </html>
   );

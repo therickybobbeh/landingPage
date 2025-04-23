@@ -1,105 +1,112 @@
 "use client";
 import React from 'react';
-import { Container, Row, Col, ProgressBar, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image } from 'react-bootstrap';
 
-interface SkillCategory {
-  name: string;
-  skills: Skill[];
-}
-
-interface Skill {
-  name: string;
-  level: number;
-  icon?: string;
-}
-
-const skillsData: SkillCategory[] = [
-  {
-    name: "Frontend Development",
-    skills: [
-      { name: "React", level: 90, icon: "react" },
-      { name: "JavaScript", level: 85, icon: "javascript" },
-      { name: "HTML/CSS", level: 95, icon: "html5" },
-      { name: "Next.js", level: 80, icon: "nextjs" }
-    ]
-  },
-  {
-    name: "Backend Development",
-    skills: [
-      { name: "Python", level: 85, icon: "python" },
-      { name: "FastAPI", level: 75, icon: "fastapi" },
-      { name: "Node.js", level: 80, icon: "nodejs" },
-      { name: "PostgreSQL", level: 70, icon: "postgresql" }
-    ]
-  },
-  {
-    name: "Tools & Methods",
-    skills: [
-      { name: "Git", level: 90, icon: "git" },
-      { name: "Docker", level: 75, icon: "docker" },
-      { name: "CI/CD", level: 70, icon: "cicd" },
-      { name: "Agile", level: 85, icon: "agile" }
-    ]
-  }
-];
-
-// Helper function to determine progress bar variant based on skill level
-const getVariant = (level: number): string => {
-  if (level >= 90) return "success";
-  if (level >= 75) return "info";
-  if (level >= 60) return "primary";
-  return "secondary";
-};
-
-const Skills = () => {
+const AboutMe = () => {
   return (
-    <section id="skills-section" className="py-5 bg-light">
+    <section id="about-section" className="section-gradient-mono py-5">
       <Container className="py-5">
         <Row className="mb-5 text-center">
           <Col>
-            <h2 className="display-5 fw-bold mb-3">Technical Skills</h2>
-            <p className="lead text-muted mb-0">
-              Proficient in a variety of technologies and development methodologies
+            <h2 className="display-5 fw-bold mb-3 text-white">About Me</h2>
+            <p className="lead text-white-50 mb-0">
+              Passionate developer building innovative web solutions
             </p>
           </Col>
         </Row>
 
-        <Row className="g-4">
-          {skillsData.map((category, categoryIndex) => (
-            <Col key={categoryIndex} lg={4} md={6} className="mb-4">
-              <Card className="h-100 shadow-sm border-0">
-                <Card.Header className="bg-dark text-white py-3">
-                  <h5 className="mb-0">{category.name}</h5>
-                </Card.Header>
-                <Card.Body>
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="mb-4">
-                      <div className="d-flex justify-content-between align-items-center mb-1">
-                        <h6 className="mb-0 fw-bold">{skill.name}</h6>
-                        <span>{skill.level}%</span>
-                      </div>
-                      <ProgressBar 
-                        now={skill.level} 
-                        variant={getVariant(skill.level)} 
-                        className="skill-progress-bar" 
-                        style={{ height: '10px' }}
-                      />
-                    </div>
-                  ))}
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-
-        <Row className="mt-5 justify-content-center">
-          <Col md={8} className="text-center">
-            <h5 className="fw-bold mb-4">Additional Experience With</h5>
-            <div className="d-flex flex-wrap justify-content-center gap-2">
-              {['AWS', 'GraphQL', 'Redux', 'TypeScript', 'MongoDB', 'Jest', 'Firebase', 'Webpack', 'Sass'].map((item, i) => (
-                <span key={i} className="badge bg-secondary p-2 m-1">{item}</span>
-              ))}
+        <Row className="align-items-center">
+          <Col lg={4} md={5} className="mb-4 mb-md-0">
+            <div className="text-center">
+              <div className="position-relative d-inline-block">
+                <div className="card-gradient-purple rounded-circle position-absolute w-100 h-100" 
+                  style={{ transform: 'translate(10px, 10px)', zIndex: 0 }}></div>
+                <Image 
+                  src="/profile-placeholder.jpg" 
+                  alt="Profile Photo" 
+                  roundedCircle 
+                  className="img-fluid mb-4 shadow position-relative"
+                  style={{ maxWidth: '250px', border: '4px solid white', zIndex: 1 }}
+                />
+              </div>
             </div>
+          </Col>
+          <Col lg={8} md={7}>
+            <Card className="border-0 shadow-lg card-dark">
+              <Card.Body className="p-4">
+                <h3 className="mb-3 text-primary-light-custom">Hello, I'm John Doe</h3>
+                <p className="mb-3 text-white-50">
+                  I'm a full-stack developer with over 5 years of experience building web applications
+                  using modern technologies. My expertise spans across frontend frameworks like React and Next.js,
+                  as well as backend technologies including FastAPI and PostgreSQL.
+                </p>
+                <p className="mb-3 text-white-50">
+                  My approach to development focuses on creating clean, maintainable code that delivers
+                  exceptional user experiences. I'm passionate about building accessible applications
+                  that solve real-world problems.
+                </p>
+                <p className="mb-4 text-white-50">
+                  When I'm not coding, you can find me hiking in the mountains, reading science fiction,
+                  or experimenting with new technologies to expand my skill set.
+                </p>
+                
+                <h4 className="border-bottom border-primary pb-2 mb-3 text-white">My Focus Areas</h4>
+                <Row className="g-4">
+                  <Col md={6}>
+                    <div className="card-gradient-purple rounded-3 p-3 h-100">
+                      <div className="d-flex align-items-center">
+                        <div className="bg-black-700 p-3 rounded-3 text-white me-3">
+                          <i className="bi bi-laptop fs-4"></i>
+                        </div>
+                        <div>
+                          <h5 className="mb-1 text-white">Web Development</h5>
+                          <p className="mb-0 text-white-50 small">Responsive, modern interfaces</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className="card-gradient-purple rounded-3 p-3 h-100">
+                      <div className="d-flex align-items-center">
+                        <div className="bg-black-700 p-3 rounded-3 text-white me-3">
+                          <i className="bi bi-server fs-4"></i>
+                        </div>
+                        <div>
+                          <h5 className="mb-1 text-white">API Design</h5>
+                          <p className="mb-0 text-white-50 small">Scalable backend services</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className="card-gradient-dark rounded-3 p-3 h-100">
+                      <div className="d-flex align-items-center">
+                        <div className="bg-primary-light p-3 rounded-3 text-white me-3">
+                          <i className="bi bi-database fs-4"></i>
+                        </div>
+                        <div>
+                          <h5 className="mb-1 text-white">Database Architecture</h5>
+                          <p className="mb-0 text-white-50 small">Optimized data structures</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className="card-gradient-dark rounded-3 p-3 h-100">
+                      <div className="d-flex align-items-center">
+                        <div className="bg-primary-light p-3 rounded-3 text-white me-3">
+                          <i className="bi bi-diagram-3 fs-4"></i>
+                        </div>
+                        <div>
+                          <h5 className="mb-1 text-white">DevOps</h5>
+                          <p className="mb-0 text-white-50 small">CI/CD and containerization</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>
@@ -107,4 +114,4 @@ const Skills = () => {
   );
 };
 
-export default Skills;
+export default AboutMe;

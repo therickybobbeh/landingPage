@@ -1,63 +1,111 @@
-"use client"
-import React, { useState } from 'react';
-import Image from 'next/image';
+"use client";
+import React from 'react';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import ModalVideo from 'react-modal-video';
+import Link from 'next/link';
 
 const Banner = () => {
-  const [isOpen, setOpen] = useState(false);
-
   return (
-    <section id="home-section" className="bg-dark position-relative py-5">
-      {/* Video modal for "How it works" */}
-      <ModalVideo channel='youtube' isOpen={isOpen} videoId="your_video_id" onClose={() => setOpen(false)} />
-      
-      <Container className="py-5">
-        <Row className="align-items-center py-5">
-          <Col lg={7} className="mb-5 mb-lg-0">
-            <h1 className="display-4 fw-bold text-white mb-4">
-              Developer Portfolio<br />
-              Showcase Your Work
+    <section 
+      className="section-gradient-black py-5 position-relative" 
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center'
+      }}
+    >
+      {/* Background decoration elements */}
+      <div className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style={{ zIndex: 0 }}>
+        <div className="position-absolute rounded-circle" 
+          style={{ 
+            width: '300px', 
+            height: '300px', 
+            background: 'rgba(94, 53, 177, 0.1)',
+            filter: 'blur(50px)',
+            top: '10%',
+            left: '5%'
+          }}
+        ></div>
+        <div className="position-absolute rounded-circle" 
+          style={{ 
+            width: '200px', 
+            height: '200px', 
+            background: 'rgba(94, 53, 177, 0.15)',
+            filter: 'blur(40px)',
+            bottom: '15%',
+            right: '10%'
+          }}
+        ></div>
+      </div>
+
+      <Container className="py-5 position-relative" style={{ zIndex: 1 }}>
+        <Row className="align-items-center g-5">
+          <Col lg={7} className="order-lg-1 order-2">
+            <h5 className="text-accent-custom fw-bold mb-3 d-flex align-items-center">
+              <span className="me-2 bg-accent" style={{ width: '30px', height: '2px', display: 'inline-block' }}></span>
+              Full Stack Developer
+            </h5>
+            <h1 className="display-3 fw-bold text-white mb-4">
+              Crafting Digital <span className="text-primary-light-custom">Experiences</span> with Modern Technology
             </h1>
-            <p className="text-light fs-5 mb-5">
-              A professional portfolio highlighting skills, projects, and experience. 
-              Connect with potential clients and employers through this 
-              interactive platform.
+            <p className="lead text-white-50 mb-5">
+              I design and develop custom web applications that solve real-world problems.
+              From responsive frontends to scalable backends, I bring your digital vision to life.
             </p>
+            
             <div className="d-flex flex-wrap gap-3">
-              <Button variant="primary" size="lg" className="px-4 py-3">
-                View Projects
-              </Button>
-              <Button 
-                variant="outline-light" 
-                className="d-flex align-items-center px-4 py-3"
-                onClick={() => setOpen(true)}
-              >
-                <i className="bi bi-play-circle me-2 fs-5"></i>
-                Watch Overview
-              </Button>
+              <Link href="/#projects-section" className="btn btn-primary-custom btn-lg px-4 py-2">
+                View My Work
+              </Link>
+              <Link href="/#contact-section" className="btn btn-outline-light btn-lg px-4 py-2">
+                Get In Touch
+              </Link>
+            </div>
+
+            <div className="mt-5 pt-3 d-flex align-items-center">
+              <div className="me-4">
+                <div className="d-flex">
+                  <div className="rounded-circle overflow-hidden border-3 border-light" style={{ width: '35px', height: '35px', marginLeft: '-5px' }}>
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" className="img-fluid" />
+                  </div>
+                  <div className="rounded-circle overflow-hidden border-3 border-light" style={{ width: '35px', height: '35px', marginLeft: '-5px' }}>
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" className="img-fluid" />
+                  </div>
+                  <div className="rounded-circle overflow-hidden border-3 border-light" style={{ width: '35px', height: '35px', marginLeft: '-5px' }}>
+                    <img src="https://randomuser.me/api/portraits/men/57.jpg" alt="Client" className="img-fluid" />
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p className="fw-bold text-white mb-0">10+ Clients</p>
+                <p className="text-white-50 small mb-0">Trusted worldwide</p>
+              </div>
+              <div className="ms-4 ps-4 border-start border-white-50">
+                <p className="fw-bold text-white mb-0">25+ Projects</p>
+                <p className="text-white-50 small mb-0">Delivered on time</p>
+              </div>
             </div>
           </Col>
+          <Col lg={5} className="order-lg-2 order-1">
+            <div className="position-relative" style={{ maxWidth: '500px', margin: '0 auto' }}>
+              <div className="card-gradient-analogous rounded-4 shadow-lg p-4" style={{ transform: 'rotate(-5deg)' }}>
+                <div className="bg-black-700 rounded-3 p-3">
+                  <pre className="text-white mb-0"><code>{`function Developer() {
+  return {
+    name: "John Doe",
+    skills: ["React", "Next.js", "FastAPI", "PostgreSQL"],
+    passion: "Building beautiful web applications"
+  };
+}
 
-          <Col lg={5} className="text-center">
-            <div className="position-relative banner-image-container">
-              {/* Profile image placeholder */}
-              <Image 
-                src="/profile-placeholder.jpg" 
-                alt="Developer Profile" 
-                width={400} 
-                height={400} 
-                className="rounded-circle shadow img-fluid"
-                style={{ objectFit: 'cover' }}
-              />
-              
-              {/* Decorative elements */}
-              <div className="position-absolute top-0 start-0 translate-middle bg-primary rounded-circle p-3 d-none d-lg-block">
-                <i className="bi bi-code-slash text-white fs-5"></i>
+// Let's build something amazing together!`}</code></pre>
+                </div>
               </div>
-              
-              <div className="position-absolute bottom-0 end-0 translate-middle bg-info rounded-circle p-3 d-none d-lg-block">
-                <i className="bi bi-braces text-white fs-5"></i>
+              <div 
+                className="position-absolute top-0 start-100 translate-middle badge rounded-pill card-gradient-purple px-4 py-2 fs-6 fw-bold"
+                style={{ zIndex: 2 }}
+              >
+                <i className="bi bi-check-circle-fill me-2"></i>
+                Expert
               </div>
             </div>
           </Col>

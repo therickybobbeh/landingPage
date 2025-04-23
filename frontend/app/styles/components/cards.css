@@ -1,0 +1,70 @@
+/* Card component styles */
+
+/* Base card styles */
+.card-custom {
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark themed card */
+.card-dark {
+  background-color: var(--black-700);
+  color: var(--text-light);
+}
+
+/* Different colored gradient cards */
+.card-gradient-purple {
+  background: linear-gradient(135deg, var(--primary-400) 0%, var(--primary-700) 100%);
+  color: var(--text-light);
+}
+
+.card-gradient-dark {
+  background: linear-gradient(135deg, var(--primary-800) 0%, var(--black-700) 100%);
+  color: var(--text-light);
+}
+
+.card-gradient-analogous {
+  background: linear-gradient(135deg, var(--analogous-blue) 0%, var(--primary) 50%, var(--analogous-pink) 100%);
+  color: var(--text-light);
+}
+
+/* Card accents and decorations */
+.card-accent-bar-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  border-top-left-radius: var(--bs-card-border-radius);
+  border-bottom-left-radius: var(--bs-card-border-radius);
+}
+
+/* Card hover animations */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Card body spacing */
+.card-body-lg {
+  padding: 2rem;
+}
+
+/* Card header styles */
+.card-header-accent {
+  background-color: var(--primary);
+  color: white;
+  border-bottom: 0;
+}
+
+.card-header-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  border-bottom: 0;
+}

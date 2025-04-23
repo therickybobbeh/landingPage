@@ -1,0 +1,205 @@
+/* Typography utility classes */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary-400) 0%, var(--primary-700) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.text-truncate-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text-truncate-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Flexbox and grid utilities */
+.center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-flex-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Card styling utilities */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.card-overlay-visible {
+  opacity: 1;
+}
+
+/* Accent bars and decorations */
+.accent-bar-left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+}
+
+.accent-circle {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accent-line {
+  display: inline-block;
+  width: 30px;
+  height: 2px;
+  vertical-align: middle;
+}
+
+/* Badge styles */
+.custom-badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.375rem;
+}
+
+.floating-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  margin: 0.5rem;
+}
+
+/* Icon containers */
+.icon-circle {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.icon-circle-lg {
+  width: 48px;
+  height: 48px;
+}
+
+/* Background decorations */
+.bg-blur-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  z-index: 0;
+  opacity: 0.2;
+}
+
+/* Transitions */
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.transition-transform {
+  transition: transform 0.3s ease;
+}
+
+/* Link effect */
+.hover-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hover-link:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.hover-link:hover:after {
+  width: 100%;
+}
+
+/* Social icons */
+.social-icon {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(126, 87, 194, 0.3);
+}
+
+/* Form controls */
+.form-control-dark {
+  background-color: var(--black-700);
+  border: 1px solid var(--black-600);
+  color: white;
+}
+
+.form-control-dark:focus {
+  background-color: var(--black-700);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(94, 53, 177, 0.25);
+}
+
+/* Custom section padding for consistent spacing */
+.section-padding {
+  padding: 5rem 0;
+}

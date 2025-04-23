@@ -13,6 +13,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
+      # Use a named volume without existing data
       - postgres_data:/var/lib/postgresql/data
       # Uncomment to add initialization scripts
       # - ./backend/db/init:/docker-entrypoint-initdb.d

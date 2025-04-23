@@ -1,0 +1,231 @@
+:root {
+  /* Primary Color Palette - Enhanced Purple Theme */
+  --primary: #5e35b1;       /* Deep purple */
+  --primary-dark: #4527a0;  /* Darker purple */
+  --primary-light: #7e57c2; /* Lighter purple */
+  --primary-100: #ede7f6;   /* Very light purple */
+  --primary-200: #d1c4e9;   /* Light purple */
+  --primary-300: #b39ddb;   /* Medium-light purple */
+  --primary-400: #9575cd;   /* Medium purple */
+  --primary-500: #7e57c2;   /* Medium-strong purple */
+  --primary-600: #673ab7;   /* Strong purple */
+  --primary-700: #5e35b1;   /* Deep purple (same as primary) */
+  --primary-800: #4527a0;   /* Dark purple */
+  --primary-900: #311b92;   /* Very dark purple */
+  
+  /* Black shades for depth */
+  --black: #000000;         /* Pure black */
+  --black-800: #121212;     /* Rich black */
+  --black-700: #181818;     /* Soft black */
+  --black-600: #222222;     /* Dark charcoal */
+  --black-500: #282828;     /* Charcoal */
+  
+  /* Analogous colors to purple */
+  --analogous-blue: #3f51b5; /* Indigo blue */
+  --analogous-pink: #9c27b0; /* Deep pink/magenta */
+  --analogous-blue-dark: #303f9f; /* Dark indigo */
+  --analogous-pink-dark: #7b1fa2; /* Dark magenta */
+  
+  /* Accent colors */
+  --accent: #ff9800;        /* Orange accent */
+  --accent-dark: #f57c00;   /* Darker orange */
+  --accent-light: #ffb74d;  /* Lighter orange */
+
+  /* Neutral colors */
+  --neutral-50: #fafafa;    /* Almost white */
+  --neutral-100: #f5f5f5;   /* Very light gray */
+  --neutral-200: #eeeeee;   /* Light gray */
+  --neutral-300: #e0e0e0;   /* Gray */
+  --neutral-700: #616161;   /* Dark gray */
+  --neutral-800: #424242;   /* Darker gray */
+  --neutral-900: #212121;   /* Almost black */
+  
+  /* Semantic colors */
+  --success: #66bb6a;       /* Green */
+  --info: #29b6f6;          /* Blue */
+  --warning: #ffa726;       /* Orange */
+  --danger: #f44336;        /* Red */
+
+  /* Text Colors */
+  --text-primary: var(--neutral-900);
+  --text-secondary: var(--neutral-700);
+  --text-light: var(--neutral-50);
+  
+  /* Background colors */
+  --bg-light: var(--neutral-50);
+  --bg-dark: var(--black-700);
+  --bg-primary: var(--primary);
+  
+  /* Component specific */
+  --header-bg: var(--black-700);
+  --footer-bg: var(--black-800);
+  --card-bg: white;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --form-bg: var(--neutral-50);
+  --form-border: var(--neutral-300);
+  
+  /* Button styles */
+  --btn-primary-bg: var(--primary);
+  --btn-primary-hover: var(--primary-dark);
+  --btn-accent-bg: var(--accent);
+  --btn-accent-hover: var(--accent-dark);
+}
+
+/* Utility classes for the custom theme */
+.bg-primary-custom {
+  background-color: var(--primary) !important;
+}
+
+.bg-primary-dark-custom {
+  background-color: var(--primary-dark) !important;
+}
+
+.bg-primary-light-custom {
+  background-color: var(--primary-light) !important;
+}
+
+.bg-black-custom {
+  background-color: var(--black-800) !important;
+}
+
+.bg-charcoal-custom {
+  background-color: var(--black-500) !important;
+}
+
+.text-primary-custom {
+  color: var(--primary) !important;
+}
+
+.text-primary-dark-custom {
+  color: var(--primary-dark) !important;
+}
+
+.text-primary-light-custom {
+  color: var(--primary-light) !important;
+}
+
+.border-primary-custom {
+  border-color: var(--primary) !important;
+}
+
+.btn-primary-custom {
+  background-color: var(--btn-primary-bg) !important;
+  border-color: var(--btn-primary-bg) !important;
+  color: white !important;
+}
+
+.btn-primary-custom:hover,
+.btn-primary-custom:focus {
+  background-color: var(--btn-primary-hover) !important;
+  border-color: var(--btn-primary-hover) !important;
+}
+
+.btn-accent-custom {
+  background-color: var(--btn-accent-bg) !important;
+  border-color: var(--btn-accent-bg) !important;
+  color: white !important;
+}
+
+.btn-accent-custom:hover,
+.btn-accent-custom:focus {
+  background-color: var(--btn-accent-hover) !important;
+  border-color: var(--btn-accent-hover) !important;
+}
+
+.btn-black-custom {
+  background-color: var(--black-800) !important;
+  border-color: var(--black) !important;
+  color: white !important;
+}
+
+.btn-black-custom:hover,
+.btn-black-custom:focus {
+  background-color: var(--black) !important;
+}
+
+/* Custom card styling */
+.card-custom {
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-dark {
+  background-color: var(--black-700);
+  color: var(--text-light);
+}
+
+/* Form styles */
+.form-control-custom {
+  border-color: var(--form-border);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control-custom:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(94, 53, 177, 0.25);
+}
+
+/* Section styling */
+.section-dark {
+  background-color: var(--black-800);
+  color: var(--text-light);
+}
+
+.section-light {
+  background-color: var(--primary-100);
+  color: var(--text-primary);
+}
+
+/* Gradient backgrounds */
+.section-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-mono {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-900) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-analogous-blue {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--analogous-blue) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-analogous-pink {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--analogous-pink) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-black {
+  background: linear-gradient(135deg, var(--primary-900) 0%, var(--black) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-charcoal {
+  background: linear-gradient(135deg, var(--black-600) 0%, var(--black-800) 100%);
+  color: var(--text-light);
+}
+
+/* Card gradients */
+.card-gradient-purple {
+  background: linear-gradient(135deg, var(--primary-400) 0%, var(--primary-700) 100%);
+  color: var(--text-light);
+}
+
+.card-gradient-dark {
+  background: linear-gradient(135deg, var(--primary-800) 0%, var(--black-700) 100%);
+  color: var(--text-light);
+}
+
+.card-gradient-analogous {
+  background: linear-gradient(135deg, var(--analogous-blue) 0%, var(--primary) 50%, var(--analogous-pink) 100%);
+  color: var(--text-light);
+}

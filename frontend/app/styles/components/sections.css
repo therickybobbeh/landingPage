@@ -1,0 +1,149 @@
+/* Section component styles */
+
+/* Base section styling */
+.section {
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-sm {
+  padding: 3rem 0;
+}
+
+.section-lg {
+  padding: 8rem 0;
+}
+
+/* Section backgrounds */
+.section-dark {
+  background-color: var(--black-800);
+  color: var(--text-light);
+}
+
+.section-light {
+  background-color: var(--primary-100);
+  color: var(--text-primary);
+}
+
+/* Gradient backgrounds */
+.section-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-mono {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-900) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-analogous-blue {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--analogous-blue) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-analogous-pink {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--analogous-pink) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-black {
+  background: linear-gradient(135deg, var(--primary-900) 0%, var(--black) 100%);
+  color: var(--text-light);
+}
+
+.section-gradient-charcoal {
+  background: linear-gradient(135deg, var(--black-600) 0%, var(--black-800) 100%);
+  color: var(--text-light);
+}
+
+/* Section decorations */
+.section-decoration {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.section-decoration-top-right {
+  top: -50px;
+  right: -50px;
+}
+
+.section-decoration-bottom-left {
+  bottom: -50px;
+  left: -50px;
+}
+
+/* Section dividers */
+.section-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.section-divider svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 70px;
+}
+
+.divider-wave .shape-fill {
+  fill: var(--primary-900);
+}
+
+/* Section content */
+.section-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Section headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  opacity: 0.8;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Background blur decorations for sections */
+.bg-blur-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  z-index: 0;
+  opacity: 0.2;
+}
+
+.bg-blur-circle-purple {
+  background: linear-gradient(135deg, var(--primary-400) 0%, var(--primary-700) 100%);
+}
+
+.bg-blur-circle-lg {
+  width: 400px;
+  height: 400px;
+}
+
+.bg-blur-circle-md {
+  width: 300px;
+  height: 300px;
+}
+
+.bg-blur-circle-sm {
+  width: 200px;
+  height: 200px;
+}

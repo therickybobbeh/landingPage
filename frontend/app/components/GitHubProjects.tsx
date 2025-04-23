@@ -1,172 +1,71 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
-
-interface GitHubRepo {
-  id: number;
-  name: string;
-  description: string;
-  html_url: string;
-  language: string;
-  stargazers_count: number;
-  forks_count: number;
-  topics: string[];
-}
-
-// Sample GitHub repos data (would be fetched from GitHub API in production)
-const sampleRepos: GitHubRepo[] = [
-  {
-    id: 1,
-    name: "personal-portfolio",
-    description: "Developer portfolio website built with Next.js and Bootstrap",
-    html_url: "https://github.com/username/personal-portfolio",
-    language: "TypeScript",
-    stargazers_count: 15,
-    forks_count: 3,
-    topics: ["nextjs", "typescript", "portfolio", "bootstrap"]
-  },
-  {
-    id: 2,
-    name: "api-dashboard",
-    description: "Interactive dashboard for monitoring API performance metrics",
-    html_url: "https://github.com/username/api-dashboard",
-    language: "Python",
-    stargazers_count: 28,
-    forks_count: 7,
-    topics: ["python", "fastapi", "dashboard", "data-visualization"]
-  },
-  {
-    id: 3,
-    name: "e-commerce-platform",
-    description: "Full-featured online store with payment processing",
-    html_url: "https://github.com/username/e-commerce-platform",
-    language: "JavaScript",
-    stargazers_count: 42,
-    forks_count: 12,
-    topics: ["react", "ecommerce", "stripe", "nodejs"]
-  }
-];
-
-const githubLanguageColors: Record<string, string> = {
-  JavaScript: "#f1e05a",
-  TypeScript: "#2b7489",
-  Python: "#3572A5",
-  HTML: "#e34c26",
-  CSS: "#563d7c",
-  Java: "#b07219",
-  "C#": "#178600",
-  PHP: "#4F5D95",
-  Ruby: "#701516",
-  Go: "#00ADD8",
-  Swift: "#ffac45",
-  Kotlin: "#F18E33",
-  Rust: "#dea584"
-};
+import React, { useState } from 'react';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 
 const GitHubProjects = () => {
-  const [repos, setRepos] = useState<GitHubRepo[]>(sampleRepos);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  // In a real implementation, this would fetch from GitHub API
-  // useEffect(() => {
-  //   const fetchGitHubRepos = async () => {
-  //     setIsLoading(true);
-  //     try {
-  //       const response = await fetch('https://api.github.com/users/username/repos?sort=updated&per_page=6');
-  //       const data = await response.json();
-  //       setRepos(data);
-  //     } catch (error) {
-  //       console.error('Error fetching GitHub repos:', error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   
-  //   fetchGitHubRepos();
-  // }, []);
-
   return (
-    <section id="github-section" className="py-5 bg-light">
+    <section id="about-me-section" className="section-gradient-mono py-5">
       <Container className="py-5">
         <Row className="mb-5 text-center">
           <Col>
-            <h2 className="display-5 fw-bold mb-3">GitHub Repositories</h2>
-            <p className="lead text-muted mb-0">
-              Check out my open source contributions and projects
+            <h2 className="display-5 fw-bold mb-3 text-white">About Me</h2>
+            <p className="lead text-white-50 mb-0">
+              I am a passionate developer with experience in building full-stack applications. I specialize in creating responsive and user-friendly web applications using modern technologies like Next.js, FastAPI, and PostgreSQL. My goal is to deliver high-quality software solutions that solve real-world problems.
             </p>
           </Col>
         </Row>
 
         <Row className="g-4">
-          {repos.map((repo) => (
-            <Col key={repo.id} lg={4} md={6} className="mb-4">
-              <Card className="h-100 shadow-sm hover-lift border-0">
-                <Card.Body>
+          <Col lg={6} md={12} className="mb-4">
+            <Card className="h-100 shadow-lg hover-lift border-0 card-dark">
+              <div className="card-gradient-purple h-100 w-2 position-absolute top-0 start-0 bottom-0" 
+                style={{ borderTopLeftRadius: 'var(--bs-card-border-radius)', borderBottomLeftRadius: 'var(--bs-card-border-radius)' }}></div>
+              <Card.Body className="p-4 ps-5">
+                <h4 className="card-title mb-3 fw-bold text-primary-light-custom">My Journey</h4>
+                <Card.Text className="text-white-50">
+                  I started my development journey with a focus on front-end technologies and gradually expanded my skill set to include back-end development and database management. Over the years, I have worked on various projects ranging from personal portfolios to complex e-commerce platforms.
+                </Card.Text>
+                <div className="mt-3 d-flex">
+                  <div className="rounded-pill py-2 px-3 me-2 bg-black-custom text-white-50 small">
+                    <i className="bi bi-calendar-check me-1 text-primary-light-custom"></i> 5+ Years Experience
+                  </div>
+                  <div className="rounded-pill py-2 px-3 me-2 bg-black-custom text-white-50 small">
+                    <i className="bi bi-code-slash me-1 text-primary-light-custom"></i> 25+ Projects
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col lg={6} md={12} className="mb-4">
+            <Card className="h-100 shadow-lg hover-lift border-0 card-dark">
+              <div className="card-gradient-analogous h-100 w-2 position-absolute top-0 start-0 bottom-0" 
+                style={{ borderTopLeftRadius: 'var(--bs-card-border-radius)', borderBottomLeftRadius: 'var(--bs-card-border-radius)' }}></div>
+              <Card.Body className="p-4 ps-5">
+                <h4 className="card-title mb-3 fw-bold text-primary-light-custom">My Vision</h4>
+                <Card.Text className="text-white-50">
+                  My vision is to continuously learn and grow as a developer while contributing to meaningful projects. I believe in the power of technology to bring positive change and strive to create applications that are not only functional but also impactful.
+                </Card.Text>
+                <div className="mt-4">
                   <div className="d-flex align-items-center mb-3">
-                    <i className="bi bi-github fs-5 me-2"></i>
-                    <h5 className="card-title mb-0 fw-bold">{repo.name}</h5>
-                  </div>
-                  
-                  <Card.Text className="mb-3">{repo.description}</Card.Text>
-                  
-                  <div className="mb-3">
-                    {repo.topics.slice(0, 4).map((topic, index) => (
-                      <Badge 
-                        key={index} 
-                        bg="light" 
-                        text="dark" 
-                        className="me-2 mb-2"
-                      >
-                        {topic}
-                      </Badge>
-                    ))}
-                  </div>
-                  
-                  <div className="d-flex justify-content-between align-items-center mt-3">
-                    <div className="d-flex align-items-center">
-                      <span 
-                        className="repo-language-color me-2 rounded-circle d-inline-block" 
-                        style={{ 
-                          backgroundColor: githubLanguageColors[repo.language] || "#858585",
-                          width: "12px", 
-                          height: "12px" 
-                        }}
-                      ></span>
-                      <small>{repo.language}</small>
+                    <div className="bg-primary-900 me-3 p-2 rounded-circle text-center" style={{ width: '40px', height: '40px' }}>
+                      <i className="bi bi-lightbulb text-primary-light-custom"></i>
                     </div>
                     <div>
-                      <small className="me-3">
-                        <i className="bi bi-star me-1"></i>
-                        {repo.stargazers_count}
-                      </small>
-                      <small>
-                        <i className="bi bi-diagram-2 me-1"></i>
-                        {repo.forks_count}
-                      </small>
+                      <h6 className="mb-0 text-white">Innovation-Driven Development</h6>
                     </div>
                   </div>
-                </Card.Body>
-                <Card.Footer className="bg-white border-0">
-                  <Button 
-                    variant="outline-primary" 
-                    href={repo.html_url} 
-                    target="_blank" 
-                    className="w-100"
-                  >
-                    View Repository
-                  </Button>
-                </Card.Footer>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-        
-        <Row className="mt-5">
-          <Col className="text-center">
-            <a href="https://github.com/username" className="btn btn-dark px-4 py-2" target="_blank">
-              <i className="bi bi-github me-2"></i>
-              View All Repositories
-            </a>
+                  <div className="d-flex align-items-center">
+                    <div className="bg-primary-900 me-3 p-2 rounded-circle text-center" style={{ width: '40px', height: '40px' }}>
+                      <i className="bi bi-people text-primary-light-custom"></i>
+                    </div>
+                    <div>
+                      <h6 className="mb-0 text-white">User-Centered Solutions</h6>
+                    </div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
           </Col>
         </Row>
       </Container>

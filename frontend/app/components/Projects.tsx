@@ -1,105 +1,142 @@
 "use client";
 import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card, Badge } from 'react-bootstrap';
+import Link from 'next/link';
 
-interface ProjectData {
-  imgSrc: string;
+interface Project {
+  id: number;
   title: string;
   description: string;
+  image: string;
   technologies: string[];
   demoUrl: string;
   codeUrl: string;
+  featured: boolean;
+  gradient: string;
 }
 
-const projectsData: ProjectData[] = [
+// Sample projects data (would be fetched from API in production)
+const projects: Project[] = [
   {
-    imgSrc: '/project-1.jpg',
-    title: 'E-Commerce Platform',
-    description: 'A full-featured online store with shopping cart, user authentication, and payment processing.',
-    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-    demoUrl: 'https://project-demo.com',
-    codeUrl: 'https://github.com/username/project1'
+    id: 1,
+    title: "E-Commerce Platform",
+    description: "A full-featured online store with secure payment processing, user accounts, and an admin dashboard.",
+    image: "/project-1.jpg",
+    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+    demoUrl: "https://demo-ecommerce.example.com",
+    codeUrl: "https://github.com/username/ecommerce-platform",
+    featured: true,
+    gradient: "card-gradient-purple"
   },
   {
-    imgSrc: '/project-2.jpg',
-    title: 'Task Management App',
-    description: 'A productivity application for organizing tasks with drag-and-drop functionality and team collaboration features.',
-    technologies: ['Vue.js', 'Express', 'PostgreSQL', 'Socket.io'],
-    demoUrl: 'https://project-demo.com',
-    codeUrl: 'https://github.com/username/project2'
+    id: 2,
+    title: "Budget Tracker App",
+    description: "Personal finance application that helps users track expenses, set budgets, and visualize spending patterns.",
+    image: "/project-2.jpg",
+    technologies: ["Vue.js", "Express", "PostgreSQL", "Chart.js"],
+    demoUrl: "https://budget-app.example.com",
+    codeUrl: "https://github.com/username/budget-tracker",
+    featured: false,
+    gradient: "card-gradient-dark"
   },
   {
-    imgSrc: '/project-3.jpg',
-    title: 'Weather Dashboard',
-    description: 'Interactive weather application providing real-time forecasts, historical data, and location-based services.',
-    technologies: ['React', 'Redux', 'OpenWeather API', 'Chart.js'],
-    demoUrl: 'https://project-demo.com',
-    codeUrl: 'https://github.com/username/project3'
-  }
+    id: 3,
+    title: "Social Media Dashboard",
+    description: "Analytics dashboard for social media managers with scheduled posting and engagement metrics.",
+    image: "/project-3.jpg",
+    technologies: ["Next.js", "TypeScript", "FastAPI", "Redis"],
+    demoUrl: "https://social-dash.example.com",
+    codeUrl: "https://github.com/username/social-dashboard",
+    featured: true,
+    gradient: "card-gradient-analogous"
+  },
 ];
 
 const Projects = () => {
   return (
-    <section id="projects-section" className="py-5 bg-light">
-      <Container className="py-5">
-        <Row className="mb-5 text-center">
-          <Col>
-            <h2 className="display-5 fw-bold mb-3">Featured Projects</h2>
-            <p className="lead text-muted mb-0">
-              Explore my recent work and technical achievements
-            </p>
-          </Col>
-        </Row>
+    <section id="projects-section" className="section section-gradient-charcoal">
+      <Container className="section-content">
+        <div className="section-header">
+          <h2 className="section-title text-white">Featured Projects</h2>
+          <p className="section-subtitle text-white-50">
+            Check out some of my recent development work
+          </p>
+        </div>
 
         <Row className="g-4">
-          {projectsData.map((project, index) => (
-            <Col key={index} lg={4} md={6} className="mb-4">
-              <Card className="h-100 shadow-sm border-0 transition-transform hover-lift">
+          {projects.map((project) => (
+            <Col lg={4} md={6} key={project.id}>
+              <Card className="card-custom card-hover card-dark h-100 border-0">
                 <div className="position-relative">
+                  <div className={`position-absolute w-100 h-100 opacity-50 ${project.gradient}`} 
+                    style={{ mixBlendMode: 'overlay', zIndex: 1 }}></div>
                   <Card.Img 
                     variant="top" 
-                    src={project.imgSrc} 
-                    alt={project.title} 
+                    src={project.image} 
+                    alt={project.title}
                     className="project-image"
-                    height={220}
-                    style={{ objectFit: 'cover' }}
+                    style={{ height: '200px', objectFit: 'cover' }}
                   />
-                  <div className="position-absolute top-0 end-0 p-2">
-                    <span className="badge bg-primary">Featured</span>
-                  </div>
+                  {project.featured && (
+                    <Badge bg="accent" className="floating-badge custom-badge">
+                      <i className="bi bi-star-fill me-1"></i> Featured
+                    </Badge>
+                  )}
                 </div>
-                <Card.Body>
-                  <Card.Title className="fw-bold">{project.title}</Card.Title>
-                  <Card.Text>{project.description}</Card.Text>
-                  
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title className="fw-bold mb-3 text-primary-light-custom">
+                    {project.title}
+                  </Card.Title>
+                  <Card.Text className="text-white-50 mb-4">
+                    {project.description}
+                  </Card.Text>
                   <div className="mb-3">
-                    {project.technologies.map((tech, i) => (
-                      <span key={i} className="badge bg-secondary me-2 mb-1">
+                    {project.technologies.map((tech) => (
+                      <Badge 
+                        key={tech} 
+                        className={`me-2 mb-2 py-2 px-3 custom-badge ${project.gradient}`}
+                        style={{ boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
+                      >
                         {tech}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
+                  <div className="mt-auto d-flex gap-2">
+                    <Link 
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary-custom flex-grow-1 btn-icon"
+                    >
+                      <i className="bi bi-display btn-icon-start"></i> Live Demo
+                    </Link>
+                    <Link 
+                      href={project.codeUrl}
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="btn btn-black-custom btn-icon"
+                    >
+                      <i className="bi bi-github btn-icon-start"></i> Code
+                    </Link>
+                  </div>
                 </Card.Body>
-                <Card.Footer className="bg-white border-0 d-flex justify-content-between">
-                  <a href={project.demoUrl} className="btn btn-sm btn-outline-primary" target="_blank" rel="noopener noreferrer">
-                    Live Demo
-                  </a>
-                  <a href={project.codeUrl} className="btn btn-sm btn-outline-secondary" target="_blank" rel="noopener noreferrer">
-                    <i className="bi bi-github me-1"></i> Code
-                  </a>
-                </Card.Footer>
               </Card>
             </Col>
           ))}
         </Row>
-        
-        <Row className="mt-5">
-          <Col className="text-center">
-            <a href="/projects" className="btn btn-primary px-4 py-2">
-              View All Projects <i className="bi bi-arrow-right ms-2"></i>
-            </a>
-          </Col>
-        </Row>
+
+        <div className="text-center mt-5">
+          <Link 
+            href="https://github.com/username"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-accent-custom px-5 py-3 fw-bold btn-icon"
+            style={{ boxShadow: '0 4px 15px rgba(255, 152, 0, 0.3)' }}
+          >
+            <i className="bi bi-github btn-icon-start"></i>
+            View More on GitHub
+          </Link>
+        </div>
       </Container>
     </section>
   );

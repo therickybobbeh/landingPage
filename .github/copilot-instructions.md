@@ -69,33 +69,41 @@ Owner login with secure dashboard to view/manage messages
 Component layout following the structure in /nextjs-fronend (Banner, Features, etc.)
 
 7. Non-Functional Requirements
-Security: HTTPS in prod, secrets via env vars, secure CORS policy
-Scalability: Microservice-ready containers
-Maintainability: Clear separation of concerns, typed models
-Portability: Full container support with Docker Compose
-Logging: Log to file or stdout; track errors and API calls
-UI/UX: Responsive design using Bootstrap components
+	•	Security: HTTPS in prod, secrets via env vars, secure CORS policy
+	•	Scalability: Microservice-ready containers
+	•	Maintainability: Clear separation of concerns, typed models
+	•	Portability: Full container support with Docker Compose
+	•	Logging: Log to file or stdout; track errors and API calls
+	•	UI/UX: Responsive design using Bootstrap components
 
 8. Best Practices
+
 Frontend (Next.js)
-  - .env.local for dev, .env.production for prod
-  - Use functional components and hooks
-  - Separate API layer with reusable client
-  - Validate data on client and server side
-  - Adapt /nextjs-fronend component structure to /frontend
-  - Convert Tailwind CSS to Bootstrap 
-  - Maintain component organization similar to /nextjs-fronend
+	•	.env.local for dev, .env.production for prod
+	•	Use functional components and hooks
+	•	Separate API layer with reusable client
+	•	Validate data on client and server side
+	•	Start new work in /frontend, do not modify /nextjs-fronend
+	•	Convert Tailwind CSS to Bootstrap
+	•	Maintain component organization similar to /nextjs-fronend
+	•	Apply Atomic Design principles: structure UI into Atoms, Molecules, Organisms, Templates, and Pages
 
 Backend (FastAPI)
-  - Use pydantic for validation and models
-  - Route modules for clean APIs (e.g., /api/messages)
-  - Dependency injection with Depends()
-  - Enable Swagger UI (/docs) in dev only
+	•	Use pydantic for validation and models
+	•	Route modules for clean APIs (e.g., /api/messages)
+	•	Dependency injection with Depends()
+	•	Enable Swagger UI (/docs) in dev only
 
 Database
-  - SQLAlchemy or ORM to abstract raw queries
-  - Alembic for version-controlled migrations
-  - Seed scripts for staging/testing environments
+	•	SQLAlchemy or ORM to abstract raw queries
+	•	Alembic for version-controlled migrations
+	•	Seed scripts for staging/testing environments
+
+DevOps
+	•	Dockerize everything
+	•	Health checks for critical services
+	•	Use volumes for DB persistence
+	•	Use a Makefile or bootstrap.sh to spin up the dev environment quickly
 
 DevOps
   - Dockerize everything
@@ -116,9 +124,11 @@ Admin dashboard for user/message management
 Audit logging for all sensitive data changes
 
 10. Component Migration Strategy
-  - Copy structure and functionality of components from /nextjs-fronend
-  - Update package.json to include Bootstrap instead of Tailwind CSS
-  - Convert Tailwind classes to Bootstrap equivalents
-  - Maintain same component breakdown (Banner, Navbar, Features, etc.)
-  - Ensure responsive design across all device sizes
-  - Preserve animations and interactive elements where appropriate
+	•	Copy structure and functionality of components from /nextjs-fronend
+	•	Update package.json to include Bootstrap instead of Tailwind CSS
+	•	Convert Tailwind classes to Bootstrap equivalents
+	•	Maintain same component breakdown (Banner, Navbar, Features, etc.)
+	•	Apply Atomic Design methodology:
+	•	Break down components into reusable Atoms (buttons, inputs), Molecules (form groups), Organisms (message section), Templates, and Pages
+	•	Ensure responsive design across all device sizes
+	•	Preserve animations and interactive elements where appropriate

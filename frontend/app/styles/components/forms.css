@@ -1,0 +1,136 @@
+/* Form component styles */
+
+/* Dark-themed form controls */
+.form-control-dark {
+  background-color: var(--black-700);
+  border: 1px solid var(--black-600);
+  color: white;
+  padding: 0.625rem 1rem;
+}
+
+.form-control-dark:focus {
+  background-color: var(--black-700);
+  color: white;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 0.25rem rgba(126, 87, 194, 0.25);
+}
+
+.form-control-dark::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Form labels */
+.form-label-light {
+  color: white;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Enhanced textarea for comments/messages */
+.textarea-expandable {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Custom styled checkbox */
+.custom-checkbox {
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: var(--black-700);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+  background-color: var(--black-600);
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: var(--primary);
+}
+
+.custom-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Form layout helpers */
+.form-grid {
+  display: grid;
+  grid-gap: 1rem;
+}
+
+.form-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form feedback styles */
+.form-feedback {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.form-feedback-error {
+  color: var(--danger);
+}
+
+.form-feedback-success {
+  color: var(--success);
+}
+
+/* Submit button specific styling */
+.btn-submit {
+  min-width: 150px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+}
+
+.btn-submit .spinner {
+  margin-right: 0.5rem;
+}
+
+/* Form container for consistent spacing */
+.form-container {
+  padding: 2rem;
+  background-color: var(--black-700);
+  border-radius: 0.5rem;
+}

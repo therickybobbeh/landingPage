@@ -216,6 +216,16 @@
   color: var(--text-light);
 }
 
+.card-light {
+  background-color: var(--neutral-200);
+  color: var(--text-primary);
+}
+
+.card-light-grey {
+  background-color: #f5f5f7;
+  color: var(--text-primary);
+}
+
 /* Form styles */
 .form-control-custom {
   border-color: var(--form-border);

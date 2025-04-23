@@ -34,31 +34,17 @@ const Header = () => {
 
   // Determine navbar background based on page and scroll state
   const getNavbarBackground = () => {
-    if (isHomePage) {
-      // On homepage: transparent until scrolled
-      return isScrolled ? 'var(--black)' : 'transparent';
-    } else {
-      // On other pages: always solid
-      return 'var(--black)';
-    }
+    return 'var(--black)';
   };
   
   // Determine navbar class based on page and scroll state
   const getNavbarClass = () => {
-    if (isHomePage) {
-      return isScrolled ? 'bg-black-custom' : 'bg-transparent';
-    } else {
-      return 'bg-black-custom';
-    }
+    return 'bg-black-custom';
   };
   
-  // Determine border style based on page and scroll state
+  // Determine border style based on scroll state only
   const getNavbarBorder = () => {
-    if (isHomePage) {
-      return isScrolled ? '1px solid rgba(112, 46, 192, 0.2)' : 'none';
-    } else {
-      return '1px solid rgba(112, 46, 192, 0.2)';
-    }
+    return isScrolled ? '1px solid rgba(112, 46, 192, 0.2)' : 'none';
   };
 
   return (

@@ -4,13 +4,18 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
 
 // Set up the worker for PDF.js
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+// Using CDN for the worker file to ensure it loads correctly
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
 
 const Resume = () => {
+  // Define the PDF file path to the actual file on the server
+  const pdfFilePath = '/Robert Cole - Software Engineer - Resume copy.pdf';
+  
   const [numPages, setNumPages] = useState<number | null>(null);
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [pdfWidth, setPdfWidth] = useState<number>(800);
+  const [pdfError, setPdfError] = useState<boolean>(false);
 
   useEffect(() => {
     // Update width after component mounts (client-side only)
@@ -31,6 +36,13 @@ const Resume = () => {
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);
     setIsLoading(false);
+    setPdfError(false);
+  };
+
+  const onDocumentLoadError = (error: any) => {
+    console.error("PDF load error:", error);
+    setIsLoading(false);
+    setPdfError(true);
   };
 
   const goToPrevPage = () => {
@@ -63,8 +75,8 @@ const Resume = () => {
                 <div>
                   <a 
                     className="btn btn-accent-custom" 
-                    href="/resume.pdf" 
-                    download
+                    href={pdfFilePath} 
+                    download="Robert Cole - Software Engineer - Resume.pdf"
                   >
                     <i className="bi bi-download me-1"></i> Download PDF
                   </a>
@@ -79,21 +91,29 @@ const Resume = () => {
                     </div>
                   )}
                   
-                  <Document
-                    file="/resume.pdf"
-                    onLoadSuccess={onDocumentLoadSuccess}
-                    loading={<div className="py-5"><Spinner animation="border" style={{ color: 'var(--primary)' }} /></div>}
-                    className="d-flex justify-content-center"
-                    error={<div className="py-5 text-danger">Failed to load PDF. Please check that the resume file exists.</div>}
-                  >
-                    <Page 
-                      pageNumber={pageNumber} 
-                      renderTextLayer={false} 
-                      renderAnnotationLayer={false}
-                      width={pdfWidth}
-                      className="my-3"
-                    />
-                  </Document>
+                  {pdfError && (
+                    <div className="py-5 text-danger">
+                      <p>Failed to load PDF. Please try using the direct links below.</p>
+                    </div>
+                  )}
+                  
+                  {!isLoading && !pdfError && (
+                    <Document
+                      file={pdfFilePath}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      onLoadError={onDocumentLoadError}
+                      // No loading prop here - we're handling loading state separately
+                      className="d-flex justify-content-center"
+                    >
+                      <Page 
+                        pageNumber={pageNumber} 
+                        renderTextLayer={false} 
+                        renderAnnotationLayer={false}
+                        width={pdfWidth}
+                        className="my-3"
+                      />
+                    </Document>
+                  )}
                 </div>
               </Card.Body>
               {numPages && (
@@ -129,7 +149,7 @@ const Resume = () => {
               </p>
               <div className="d-flex justify-content-center gap-3">
                 <a 
-                  href="/resume.pdf" 
+                  href={pdfFilePath} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-primary-custom"
@@ -138,8 +158,8 @@ const Resume = () => {
                   View PDF
                 </a>
                 <a 
-                  href="/resume.pdf" 
-                  download 
+                  href={pdfFilePath} 
+                  download="Robert Cole - Software Engineer - Resume.pdf" 
                   className="btn btn-accent-custom"
                 >
                   <i className="bi bi-file-earmark-arrow-down me-2"></i>

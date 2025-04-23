@@ -66,7 +66,7 @@ const Projects = () => {
         <Row className="g-4">
           {projects.map((project) => (
             <Col lg={4} md={6} key={project.id}>
-              <Card className="card-custom card-hover card-dark h-100 border-0">
+              <Card className="card-custom card-hover card-light-grey h-100 border-0">
                 <div className="position-relative">
                   <div className={`position-absolute w-100 h-100 opacity-50 ${project.gradient}`} 
                     style={{ mixBlendMode: 'overlay', zIndex: 1 }}></div>
@@ -84,10 +84,10 @@ const Projects = () => {
                   )}
                 </div>
                 <Card.Body className="d-flex flex-column">
-                  <Card.Title className="fw-bold mb-3 text-primary-light-custom">
+                  <Card.Title className="fw-bold mb-3 text-primary-custom">
                     {project.title}
                   </Card.Title>
-                  <Card.Text className="text-white-50 mb-4">
+                  <Card.Text className="mb-4">
                     {project.description}
                   </Card.Text>
                   <div className="mb-3">

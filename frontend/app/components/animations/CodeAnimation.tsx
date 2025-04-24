@@ -3,9 +3,13 @@ import React, { useEffect, useState, useRef } from 'react';
 
 interface CodeAnimationProps {
   className?: string;
+  height?: string | number;
 }
 
-const CodeAnimation: React.FC<CodeAnimationProps> = ({ className = '' }) => {
+const CodeAnimation: React.FC<CodeAnimationProps> = ({ 
+  className = '',
+  height = 350 
+}) => {
   const [displayedCode, setDisplayedCode] = useState<string>('');
   const [currentLine, setCurrentLine] = useState<number>(0);
   const [isTyping, setIsTyping] = useState<boolean>(true);
@@ -66,9 +70,11 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({ className = '' }) => {
     return () => clearTimeout(timeout);
   }, [displayedCode, currentLine, isTyping]);
 
+  const containerHeight = typeof height === 'number' ? `${height}px` : height;
+
   return (
     <div 
-      className={`${className}`} 
+      className={`${className} w-100`} 
       ref={containerRef}
       style={{
         position: 'relative',
@@ -76,8 +82,8 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({ className = '' }) => {
         backgroundColor: 'rgba(255, 255, 255, 0.05)',
         borderRadius: '12px',
         overflow: 'hidden',
-        height: '350px',
-        maxWidth: '900px',
+        height: containerHeight,
+        maxWidth: '100%',
         margin: '0 auto',
         boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
         border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -110,18 +116,28 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({ className = '' }) => {
       </div>
       
       {/* Code content with proper padding to account for the navbar */}
-      <pre className="mb-0 overflow-hidden" style={{ 
-        height: 'calc(100% - 40px)', 
-        marginTop: '40px', 
-        padding: '0.75rem',
-        backgroundColor: '#f5f5f5',
-        color: '#333'
-      }}>
-        <code>
-          {displayedCode}
-          {isTyping && cursorVisible ? <span className="text-secondary-custom">|</span> : ''}
-        </code>
-      </pre>
+      <div className="h-100 pt-5 position-relative">
+        <pre className="mb-0 overflow-auto" style={{ 
+          height: 'calc(100% - 40px)', 
+          padding: '0.75rem',
+          backgroundColor: '#1b2433',
+          color: '#e6e6e6',
+          fontSize: '0.9rem',
+          whiteSpace: 'pre-wrap',
+          wordBreak: 'keep-all',
+          margin: 0,
+          position: 'absolute',
+          top: '40px',
+          left: 0,
+          right: 0,
+          bottom: 0
+        }}>
+          <code>
+            {displayedCode}
+            {isTyping && cursorVisible ? <span className="text-secondary-custom">|</span> : ''}
+          </code>
+        </pre>
+      </div>
     </div>
   );
 };

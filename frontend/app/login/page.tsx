@@ -1,123 +1,167 @@
-'use client';
-
-import { useState, FormEvent } from 'react';
+"use client";
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, InputGroup, Alert } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
-export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+// Import our atomic components
+import { Card, CardBody, Heading, Text, Button, Icon } from '../components/atoms';
+import { FormGroup } from '../components/molecules';
+
+export default function LoginPage() {
   const router = useRouter();
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(e: FormEvent) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+    setError(null);
+    setIsSubmitting(true);
     
+    // Mock login - Replace with actual authentication
     try {
-      // Prepare form data for OAuth2 password flow
-      const formData = new URLSearchParams();
-      formData.append('username', username);
-      formData.append('password', password);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Send login request to backend API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/token`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData.toString(),
-      });
-      
-      if (!response.ok) {
-        throw new Error('Login failed. Please check your credentials.');
+      if (formData.email === 'admin@example.com' && formData.password === 'password') {
+        // Success - redirect to admin
+        router.push('/admin');
+      } else {
+        setError('Invalid email or password. Please try again.');
       }
-      
-      const data = await response.json();
-      
-      // Store the token in localStorage
-      localStorage.setItem('token', data.access_token);
-      
-      // Redirect to admin dashboard
-      router.push('/admin');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+      setError('An error occurred during login. Please try again.');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
-    <main className="min-h-screen flex flex-col">
-      <Header />
-      
-      <div className="flex-1 pt-24">
-        <div className="max-w-md mx-auto px-4 py-8">
-          <div className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
-            <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
-            
-            {error && (
-              <div className="mb-4 p-3 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-md">
-                {error}
-              </div>
-            )}
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="username" className="block mb-2 text-sm font-medium">
-                  Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                  required
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  id="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
-                  required
-                />
-              </div>
-              
-              <button
-                type="submit"
-                className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 disabled:cursor-not-allowed text-white font-medium rounded-md transition-colors"
-                disabled={loading}
-              >
-                {loading ? 'Logging in...' : 'Login'}
-              </button>
-            </form>
-            
-            <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-              <p>
-                This login is for the site administrator only. 
-                <br />
-                <Link href="/" className="text-blue-600 hover:underline dark:text-blue-400">
-                  Return to home page
-                </Link>
-              </p>
+    <div className="min-vh-100 d-flex align-items-center bg-light">
+      <Container>
+        <Row className="justify-content-center">
+          <Col lg={5} md={8} sm={11}>
+            <div className="text-center mb-4">
+              <Link href="/" className="text-decoration-none">
+                <Heading level={3} color="primary" className="mb-0">
+                  Dev<span className="text-secondary">Portfolio</span>
+                </Heading>
+              </Link>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <Footer />
-    </main>
+            
+            <Card roundedSize="lg" className="shadow-sm border-0">
+              <CardBody className="p-4 p-md-5">
+                <div className="text-center mb-4">
+                  <Heading level={4}>Admin Login</Heading>
+                  <Text color="muted">Sign in to access the dashboard</Text>
+                </div>
+                
+                {error && (
+                  <Alert variant="danger" className="mb-4">
+                    {error}
+                  </Alert>
+                )}
+                
+                <Form onSubmit={handleSubmit}>
+                  <FormGroup
+                    controlId="email"
+                    label="Email Address"
+                    required
+                  >
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <Icon name="envelope" />
+                      </InputGroup.Text>
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        placeholder="admin@example.com"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  
+                  <FormGroup
+                    controlId="password"
+                    label="Password"
+                    required
+                  >
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <Icon name="lock" />
+                      </InputGroup.Text>
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        placeholder="••••••••"
+                        value={formData.password}
+                        onChange={handleChange}
+                        required
+                      />
+                    </InputGroup>
+                  </FormGroup>
+                  
+                  <div className="mb-3 form-check">
+                    <input type="checkbox" className="form-check-input" id="rememberMe" />
+                    <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
+                  </div>
+                  
+                  <div className="d-grid">
+                    <Button 
+                      type="submit" 
+                      variant="primary"
+                      size="lg"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          Signing In...
+                        </>
+                      ) : (
+                        'Sign In'
+                      )}
+                    </Button>
+                  </div>
+                </Form>
+                
+                <div className="text-center mt-4">
+                  <Text variant="small">
+                    <Link href="/" className="text-decoration-none">
+                      Forgot your password?
+                    </Link>
+                  </Text>
+                </div>
+                
+                <hr className="my-4" />
+                
+                <div className="text-center">
+                  <Text variant="small" color="muted">
+                    <Link href="/" className="btn btn-sm btn-light">
+                      <Icon name="arrow-left" className="me-1" />
+                      Return to Website
+                    </Link>
+                  </Text>
+                </div>
+              </CardBody>
+            </Card>
+            
+            <div className="text-center mt-4">
+              <Text variant="small" color="muted">
+                © {new Date().getFullYear()} DevPortfolio. All rights reserved.
+              </Text>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 }

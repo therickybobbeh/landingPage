@@ -66,10 +66,8 @@ const Projects = () => {
         <Row className="g-4">
           {projects.map((project) => (
             <Col lg={4} md={6} key={project.id}>
-              <Card className="card-custom card-hover card-light-grey h-100 border-0">
+              <Card className="card-custom card-hover h-100 border-0 bg-white shadow">
                 <div className="position-relative">
-                  <div className={`position-absolute w-100 h-100 opacity-50 ${project.gradient}`} 
-                    style={{ mixBlendMode: 'overlay', zIndex: 1 }}></div>
                   <Card.Img 
                     variant="top" 
                     src={project.image} 
@@ -87,15 +85,15 @@ const Projects = () => {
                   <Card.Title className="fw-bold mb-3 text-primary-custom">
                     {project.title}
                   </Card.Title>
-                  <Card.Text className="mb-4">
+                  <Card.Text className="mb-4 text-dark">
                     {project.description}
                   </Card.Text>
                   <div className="mb-3">
                     {project.technologies.map((tech) => (
                       <Badge 
                         key={tech} 
-                        className={`me-2 mb-2 py-2 px-3 custom-badge ${project.gradient}`}
-                        style={{ boxShadow: '0 2px 5px rgba(0,0,0,0.2)' }}
+                        className="me-2 mb-2 py-2 px-3 bg-light text-dark"
+                        style={{ boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
                       >
                         {tech}
                       </Badge>

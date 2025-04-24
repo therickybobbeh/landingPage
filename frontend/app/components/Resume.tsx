@@ -2,10 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { Container, Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import 'react-pdf/dist/Page/TextLayer.css';
+import 'react-pdf/dist/Page/AnnotationLayer.css';
 
 // Set up the worker for PDF.js
 // Using CDN for the worker file to ensure it loads correctly
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.min.js`;
+if (typeof window !== 'undefined') {
+  pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+}
 
 const Resume = () => {
   // Define the PDF file path to the actual file on the server
@@ -97,21 +101,28 @@ const Resume = () => {
                     </div>
                   )}
                   
-                  {!isLoading && !pdfError && (
+                  {/* Only render the Document component on the client side */}
+                  {typeof window !== 'undefined' && (
                     <Document
                       file={pdfFilePath}
                       onLoadSuccess={onDocumentLoadSuccess}
                       onLoadError={onDocumentLoadError}
-                      // No loading prop here - we're handling loading state separately
+                      loading={
+                        <div className="py-5">
+                          <Spinner animation="border" style={{ color: 'var(--primary)' }} />
+                        </div>
+                      }
                       className="d-flex justify-content-center"
                     >
-                      <Page 
-                        pageNumber={pageNumber} 
-                        renderTextLayer={false} 
-                        renderAnnotationLayer={false}
-                        width={pdfWidth}
-                        className="my-3"
-                      />
+                      {!isLoading && !pdfError && (
+                        <Page 
+                          pageNumber={pageNumber} 
+                          renderTextLayer={false} 
+                          renderAnnotationLayer={false}
+                          width={pdfWidth}
+                          className="my-3"
+                        />
+                      )}
                     </Document>
                   )}
                 </div>

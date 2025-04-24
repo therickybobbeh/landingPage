@@ -48,7 +48,7 @@ const Banner = () => {
           <Col lg={7} className="order-lg-1 order-2">
             <div className="d-flex align-items-center mb-3">
               <div className="bg-info" style={{ width: '30px', height: '2px' }}></div>
-              <Text color="primary" weight="bold" className="ms-2 mb-0">
+              <Text color="white" weight="bold" className="ms-2 mb-0">
                 Full Stack Developer
               </Text>
             </div>
@@ -89,44 +89,6 @@ const Banner = () => {
               </Link>
             </div>
 
-            <div className="mt-5 pt-3 d-flex align-items-center">
-              <div className="me-4">
-                <div className="d-flex">
-                  <Avatar 
-                    src="https://randomuser.me/api/portraits/men/32.jpg" 
-                    alt="Client" 
-                    size="sm" 
-                    borderColor="white" 
-                    borderWidth={2} 
-                    overlapping={false}
-                  />
-                  <Avatar 
-                    src="https://randomuser.me/api/portraits/women/44.jpg" 
-                    alt="Client" 
-                    size="sm" 
-                    borderColor="white" 
-                    borderWidth={2} 
-                    overlapping={true}
-                  />
-                  <Avatar 
-                    src="https://randomuser.me/api/portraits/men/57.jpg" 
-                    alt="Client" 
-                    size="sm" 
-                    borderColor="white" 
-                    borderWidth={2} 
-                    overlapping={true}
-                  />
-                </div>
-              </div>
-              <div>
-                <Text color="white" weight="bold" className="mb-0">10+ Clients</Text>
-                <Text color="white-50" variant="small" className="mb-0">Trusted worldwide</Text>
-              </div>
-              <div className="ms-4 ps-4 border-start border-white-50">
-                <Text color="white" weight="bold" className="mb-0">25+ Projects</Text>
-                <Text color="white-50" variant="small" className="mb-0">Delivered on time</Text>
-              </div>
-            </div>
           </Col>
           <Col lg={5} className="order-lg-2 order-1">
             <div className="position-relative" style={{ maxWidth: '500px', margin: '0 auto' }}>
@@ -140,7 +102,6 @@ const Banner = () => {
                 className="p-4"
               >
                 <CodeAnimation />
-                
                 {/* Tech Tags */}
                 <div className="d-flex flex-wrap gap-2 mt-3">
                   {['React', 'Next.js', 'TypeScript', 'Bootstrap', 'FastAPI'].map((tech, index) => (

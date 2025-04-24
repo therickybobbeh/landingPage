@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import { Container, Row, Col, Card, Image } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image, Carousel } from 'react-bootstrap';
 
 const AboutMe = () => {
   return (
@@ -10,7 +10,7 @@ const AboutMe = () => {
           <Col>
             <h2 className="display-5 fw-bold mb-3 text-white">About Me</h2>
             <p className="lead text-white-50 mb-0">
-              Passionate developer building innovative web solutions
+              Software Engineer passionate about building innovative solutions
             </p>
           </Col>
         </Row>
@@ -23,22 +23,62 @@ const AboutMe = () => {
                   style={{ transform: 'translate(10px, 10px)', zIndex: 0 }}></div>
                 <Image 
                   src="/profile-placeholder.jpg" 
-                  alt="Profile Photo" 
+                  alt="Robert Cole - Profile Photo" 
                   roundedCircle 
                   className="img-fluid mb-4 shadow position-relative"
                   style={{ maxWidth: '250px', border: '4px solid white', zIndex: 1 }}
                 />
+              </div>
+              
+              {/* Interests Carousel */}
+              <div className="mt-4">
+                <h5 className="text-white mb-3">Life Beyond Code</h5>
+                <Carousel className="interest-carousel shadow rounded bg-white">
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100 rounded"
+                      src="/images/interests/snowboarding.jpg"
+                      alt="Snowboarding"
+                      style={{ height: '200px', objectFit: 'cover' }}
+                    />
+                    <Carousel.Caption>
+                      <h5 className="bg-dark bg-opacity-50 p-1 rounded">Snowboarding</h5>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100 rounded"
+                      src="/images/interests/beach.jpg"
+                      alt="Beach time"
+                      style={{ height: '200px', objectFit: 'cover' }}
+                    />
+                    <Carousel.Caption>
+                      <h5 className="bg-dark bg-opacity-50 p-1 rounded">Beach Escapes</h5>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                  <Carousel.Item>
+                    <img
+                      className="d-block w-100 rounded"
+                      src="/images/interests/hiking.jpg"
+                      alt="Outdoor adventures"
+                      style={{ height: '200px', objectFit: 'cover' }}
+                    />
+                    <Carousel.Caption>
+                      <h5 className="bg-dark bg-opacity-50 p-1 rounded">Outdoor Adventures</h5>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                </Carousel>
               </div>
             </div>
           </Col>
           <Col lg={8} md={7}>
             <Card className="border-0 shadow-lg card-light-grey">
               <Card.Body className="p-4">
-                <h3 className="mb-3 text-primary-custom">Hello, I'm John Doe</h3>
+                <h3 className="mb-3 text-primary-custom">Hello, I'm Robert Cole</h3>
                 <p className="mb-3">
-                  I'm a full-stack developer with over 5 years of experience building web applications
-                  using modern technologies. My expertise spans across frontend frameworks like React and Next.js,
-                  as well as backend technologies including FastAPI and PostgreSQL.
+                  I'm a Software Engineer with extensive experience in full-stack development, creating robust web applications
+                  using modern technologies. I specialize in React, Next.js, TypeScript and various backend technologies
+                  to deliver high-quality solutions.
                 </p>
                 <p className="mb-3">
                   My approach to development focuses on creating clean, maintainable code that delivers
@@ -46,8 +86,9 @@ const AboutMe = () => {
                   that solve real-world problems.
                 </p>
                 <p className="mb-4">
-                  When I'm not coding, you can find me hiking in the mountains, reading science fiction,
-                  or experimenting with new technologies to expand my skill set.
+                  When I'm not coding, you'll find me enjoying the great outdoors - carving down slopes on my snowboard,
+                  relaxing at the beach, or exploring hiking trails. I believe in maintaining a healthy work-life balance,
+                  and these activities keep me refreshed and inspired to tackle new technical challenges.
                 </p>
                 
                 <h4 className="border-bottom border-primary pb-2 mb-3">My Focus Areas</h4>
@@ -59,8 +100,8 @@ const AboutMe = () => {
                           <i className="bi bi-laptop fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Web Development</h5>
-                          <p className="mb-0 text-muted small">Responsive, modern interfaces</p>
+                          <h5 className="mb-1">Frontend Development</h5>
+                          <p className="mb-0 text-muted small">React, Next.js, TypeScript</p>
                         </div>
                       </div>
                     </div>
@@ -72,8 +113,8 @@ const AboutMe = () => {
                           <i className="bi bi-server fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">API Design</h5>
-                          <p className="mb-0 text-muted small">Scalable backend services</p>
+                          <h5 className="mb-1">Backend Development</h5>
+                          <p className="mb-0 text-muted small">FastAPI, Node.js, PostgreSQL</p>
                         </div>
                       </div>
                     </div>
@@ -82,11 +123,11 @@ const AboutMe = () => {
                     <div className="card-light rounded-3 p-3 h-100 shadow-sm">
                       <div className="d-flex align-items-center">
                         <div className="bg-tertiary p-3 rounded-3 text-dark me-3">
-                          <i className="bi bi-database fs-4"></i>
+                          <i className="bi bi-code-slash fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Database Architecture</h5>
-                          <p className="mb-0 text-muted small">Optimized data structures</p>
+                          <h5 className="mb-1">Software Architecture</h5>
+                          <p className="mb-0 text-muted small">Scalable, maintainable systems</p>
                         </div>
                       </div>
                     </div>
@@ -99,7 +140,7 @@ const AboutMe = () => {
                         </div>
                         <div>
                           <h5 className="mb-1">DevOps</h5>
-                          <p className="mb-0 text-muted small">CI/CD and containerization</p>
+                          <p className="mb-0 text-muted small">Docker, CI/CD, Cloud services</p>
                         </div>
                       </div>
                     </div>

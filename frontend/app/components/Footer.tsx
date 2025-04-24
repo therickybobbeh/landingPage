@@ -140,7 +140,7 @@ const Footer = () => {
       }}>
         <Container className="text-center">
           <p className="text-white-50 mb-0 small">
-            © {currentYear} <span className="text-tertiary">DevPortfolio</span>. All rights reserved | Designed with <i className="bi bi-heart-fill text-secondary-custom mx-1"></i> by <a href="/" className="text-tertiary text-decoration-none">John Doe</a>
+            © {currentYear} <span className="text-trtiary">DevPortfolio</span>. All rights reserved | Designed with <i className="bi bi-heart-fill text-secondary-custom mx-1"></i> by <a href="/" className="text-tertiary text-decoration-none">John Doe</a>
           </p>
         </Container>
       </div>

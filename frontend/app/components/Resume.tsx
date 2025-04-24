@@ -64,7 +64,7 @@ const Resume = () => {
       <Container className="py-5">
         <Row className="mb-5 text-center">
           <Col>
-            <h2 className="display-5 fw-bold mb-3 text-primary-custom">Professional Resume</h2>
+            <h2 className="display-5 fw-bold mb-3 text-primary-custom mt-3">Professional Resume</h2>
             <p className="lead text-muted mb-0">
               View my qualifications, experience, and education
             </p>

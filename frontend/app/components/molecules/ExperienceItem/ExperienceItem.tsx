@@ -12,7 +12,7 @@ export interface ExperienceItemProps {
   description: string;
   responsibilities: string[];
   skills: string[];
-  logo?: string;
+  logo?: string | { photo: string; background: true};
   workType?: string;
 }
 
@@ -33,9 +33,16 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
         <Row className="align-items-center mb-3">
           <Col xs="auto">
             {logo ? (
-              <div className="bg-light rounded p-2" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div className="rounded p-2" style={{ 
+                width: '64px', 
+                height: '64px', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                background: typeof logo === 'object' && logo.background === true ? '#000000' : '#ffffff' 
+              }}>
                 <Image
-                  src={logo}
+                  src={typeof logo === 'string' ? logo : logo.photo}
                   alt={`${company} logo`}
                   width={50}
                   height={50}

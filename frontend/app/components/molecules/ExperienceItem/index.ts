@@ -1,4 +1,4 @@
 import ExperienceItem, { ExperienceItemProps } from './ExperienceItem';
 
-export { ExperienceItemProps };
+export type { ExperienceItemProps };
 export default ExperienceItem;

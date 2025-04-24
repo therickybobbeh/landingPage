@@ -51,7 +51,10 @@ const Experience = () => {
         "SOC tasks such as working with client vulnerability assessments"
       ],
       skills: ["Linux", "Vulnerability Assessment", "System Administration", "Network Security"],
-      logo: "/images/company-logos/servit-logo.png",
+      logo: {
+        photo: "/images/company-logos/servit-logo.png",
+        background: true
+      },
       workType: "Part-time"
     },
     {
@@ -66,7 +69,10 @@ const Experience = () => {
         "Created new policies regarding onboarding and offboarding"
       ],
       skills: ["Vulnerability Assessment", "GitHub", "PowerShell", "Azure AD"],
-      logo: "/images/company-logos/servit-logo.png",
+      logo: {
+        photo: "/images/company-logos/servit-logo.png",
+        background: true
+      },
       workType: "Full-time"
     },
     {
@@ -94,7 +100,7 @@ const Experience = () => {
     duration: "2023 - Present",
     logo: "/images/education/gatech-logo.png"
   };
-  
+
   const educationUndergrad = {
     school: "Kennesaw State University",
     degree: "Bachelor of Science, Cybersecurity",
@@ -143,7 +149,7 @@ const Experience = () => {
               </div>
             </div>
             <hr className="my-4" />
-            
+
             <div className="d-flex align-items-center mb-4">
               <div className="bg-light rounded p-2 me-3" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {educationUndergrad.logo ? (

@@ -84,7 +84,7 @@ const AboutMe = () => {
                       className="d-block w-100 rounded"
                       src="/images/personal/crab.jpeg"
                       alt="Crabbing"
-                      style={{ height: '200px', objectFit: 'cover' }}
+                      style={{ height: '200px', objectFit: 'cover', objectPosition: 'center 15%' }}
                     />
                     <Carousel.Caption>
                       <h5 className="bg-dark bg-opacity-50 p-1 rounded">Crabbing Experiences</h5>

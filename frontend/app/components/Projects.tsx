@@ -128,7 +128,7 @@ const Projects = () => {
             href="https://github.com/username"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-tertiary-custom px-5 py-3 fw-bold btn-icon"
+            className="btn btn-primary-custom px-5 py-3 fw-bold btn-icon"
             style={{ boxShadow: '0 4px 15px rgba(122, 215, 227, 0.3)' }}
           >
             <i className="bi bi-github btn-icon-start"></i>

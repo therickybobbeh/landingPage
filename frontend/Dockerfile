@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
 # Install dependencies for canvas
 RUN apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev
@@ -7,21 +7,38 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 # Install canvas separately
 RUN npm install --no-save canvas
 
-# Set environment variables
-ENV NODE_ENV=development
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NEXT_PUBLIC_API_URL=http://backend:8000
-
 # Copy the rest of the application
 COPY . .
 
-# For development mode, just run dev server instead of building
-CMD ["npm", "run", "dev"]
+# Build the Next.js app
+RUN npm run build
+
+# Production image
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+# Install only production dependencies
+COPY --from=builder /app/package*.json ./
+RUN npm ci --only=production
+RUN npm install --no-save canvas
+
+# Copy built application
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/next.config.js ./next.config.js
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Expose the port the app will run on
 EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]

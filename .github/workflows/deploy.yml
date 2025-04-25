@@ -61,7 +61,7 @@ jobs:
 
       # Upload docker-compose file as artifact
       - name: Upload docker-compose as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-compose-config
           path: docker-compose.production.yml
@@ -81,7 +81,7 @@ jobs:
 
       # Download docker-compose file artifact
       - name: Download docker-compose artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: docker-compose-config
           

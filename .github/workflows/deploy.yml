@@ -9,8 +9,9 @@ on:
       - main
 
 permissions:
-  contents: 'read'
-  packages: 'write'
+  contents: read
+  packages: write
+  id-token: write # This is needed for azure/login
 
 jobs:
   build:
@@ -38,7 +39,9 @@ jobs:
         with:
           context: ./frontend
           push: true
-          tags: ghcr.io/${{ env.REPO }}/frontend:${{ github.sha }}
+          tags: |
+            ghcr.io/${{ env.REPO }}/frontend:${{ github.sha }}
+            ghcr.io/${{ env.REPO }}/frontend:latest
           file: ./frontend/Dockerfile
 
       # Create a production docker-compose file with updated image tags
@@ -50,7 +53,7 @@ jobs:
             frontend:
               image: ghcr.io/${{ env.REPO }}/frontend:${{ github.sha }}
               ports:
-                - "3000:3000"
+                - "80:3000"
               environment:
                 - NEXT_PUBLIC_API_URL=https://api.yourbackend.com  # Update this to your actual API URL
               restart: always
@@ -85,11 +88,18 @@ jobs:
         with:
           name: docker-compose-config
           
+      # Log in to Azure
+      - name: Log in to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          
       # Deploy to Azure Web App with Docker Compose
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          configuration-file: docker-compose.production.yml
+          images: ghcr.io/${{ env.REPO }}/frontend:${{ github.sha }}

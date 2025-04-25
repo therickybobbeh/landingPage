@@ -16,13 +16,13 @@ const nextConfig = {
   images: {
     domains: ['localhost'],
   },
-  // Disable static exports which can cause issues with server components
-  output: 'standalone',
+  // Disable standalone mode to use standard Next.js deployment
+  // output: 'standalone',
   // Set to development mode to bypass some strict checks
-  experimental: {
-    // Disable static page generation to avoid server component issues
-    appDir: true,
-  },
+  // experimental: {
+  //   // Disable static page generation to avoid server component issues
+  //   appDir: true,
+  // },
 }
 
 module.exports = nextConfig;

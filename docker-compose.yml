@@ -1,14 +1,42 @@
-version: '3.8'
-
 services:
-  frontend:
-    build: ./frontend
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
     volumes:
       - ./frontend:/app
       - /app/node_modules
       - /app/.next
+    depends_on:
+      - api
+  
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
     environment:
-      - NEXT_PUBLIC_API_URL=https://api.yourbackend.com  # Replace with your actual API URL
-    restart: always
+      - DATABASE_URL=postgresql://postgres:admin@db:5432/myapp_db
+      - SECRET_KEY=supersecretkey
+      - FRONTEND_URL=http://localhost:3000
+    depends_on:
+      - db
+  
+  db:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=myapp_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

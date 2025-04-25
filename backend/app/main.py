@@ -31,6 +31,11 @@ async def root():
     """Root endpoint to check if the API is running."""
     return {"message": "Welcome to the Developer Portfolio API!"}
 
+@app.get("/health", status_code=200)
+async def health_check():
+    """Health check endpoint for Docker container monitoring."""
+    return {"status": "healthy"}
+
 # Import and include API routes
 from app.api.router import api_router
 app.include_router(api_router, prefix="/api")

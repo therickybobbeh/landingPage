@@ -1,44 +1,49 @@
-FROM node:18-alpine AS builder
+FROM node:18-alpine AS base
 
-# Install dependencies for canvas
-RUN apk add --no-cache build-base g++ cairo-dev jpeg-dev pango-dev giflib-dev
-
+# Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package*.json ./
+# Install dependencies only when needed
+FROM base AS deps
+WORKDIR /app
+
+# Install dependencies required for building
+RUN apk add --no-cache libc6-compat python3 make g++
+
+# Copy package files
+COPY package.json package-lock.json* ./
 RUN npm ci
 
-# Install canvas separately
-RUN npm install --no-save canvas
-
-# Copy the rest of the application
+# Rebuild the source code only when needed
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build the Next.js app
+# Next.js build
 RUN npm run build
 
-# Production image
-FROM node:18-alpine AS runner
-
+# Production image, copy all the files and run next
+FROM base AS runner
 WORKDIR /app
 
-# Install only production dependencies
-COPY --from=builder /app/package*.json ./
-RUN npm ci --only=production
-RUN npm install --no-save canvas
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
 
-# Copy built application
-COPY --from=builder /app/.next ./.next
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy necessary files - standard Next.js deployment (not standalone)
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./next.config.js
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
 
-# Set environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+USER nextjs
 
-# Expose the port the app will run on
 EXPOSE 3000
 
-# Start the application
+ENV PORT 3000
+
+# Start the application using npm start
 CMD ["npm", "start"]

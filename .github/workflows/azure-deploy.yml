@@ -14,9 +14,9 @@ env:
   API_APP_NAME: 'portfolio-api'             # Azure App Service name for backend
 
 jobs:
-  build-and-deploy:
+  build-and-push:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -24,17 +24,31 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Log in to Azure
+      # Azure login using proper service principal credentials
+      - name: Azure Login
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      # Get ACR access credentials
+      - name: Get ACR credentials
+        id: get-acr-credentials
+        run: |
+          ACR_USERNAME=$(az acr credential show -n therickybobbehArc --query "username" -o tsv)
+          ACR_PASSWORD=$(az acr credential show -n therickybobbehArc --query "passwords[0].value" -o tsv)
+          echo "::add-mask::$ACR_PASSWORD"
+          echo "username=$ACR_USERNAME" >> $GITHUB_OUTPUT
+          echo "password=$ACR_PASSWORD" >> $GITHUB_OUTPUT
+
+      # Log in to ACR 
       - name: Log in to Azure Container Registry
-        uses: azure/docker-login@v1
+        uses: docker/login-action@v2
         with:
-          login-server: ${{ env.REGISTRY }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ steps.get-acr-credentials.outputs.username }}
+          password: ${{ steps.get-acr-credentials.outputs.password }}
 
       # Build and push frontend image
       - name: Build and push frontend image
@@ -47,7 +61,20 @@ jobs:
           cache-to: type=inline
           build-args: |
             NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}
-
+  
+  # Use a separate job for deployment that depends on the build job
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Azure Login for Deployment
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
       # Build and push backend image
       - name: Build and push backend image
         uses: docker/build-push-action@v4

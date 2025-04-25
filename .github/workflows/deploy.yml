@@ -1,0 +1,130 @@
+name: Build and deploy Docker Compose to Azure Web App
+
+env:
+  AZURE_WEBAPP_NAME: development-profile   # Your actual web app name
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: 'read'
+  packages: 'write'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lowercase the repo name
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
+      # Build and push frontend container
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend
+          push: true
+          tags: ghcr.io/${{ env.REPO }}/frontend:${{ github.sha }}
+          file: ./frontend/Dockerfile
+
+      # Build and push backend container
+      - name: Build and push backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ghcr.io/${{ env.REPO }}/backend:${{ github.sha }}
+          file: ./backend/Dockerfile
+
+      # Create a production docker-compose file with updated image tags
+      - name: Generate production docker-compose file
+        run: |
+          cat <<EOF > docker-compose.production.yml
+          version: '3'
+          services:
+            frontend:
+              image: ghcr.io/${{ env.REPO }}/frontend:${{ github.sha }}
+              ports:
+                - "3000:3000"
+              environment:
+                - NEXT_PUBLIC_API_URL=http://localhost:8000
+              restart: always
+              depends_on:
+                - backend
+
+            backend:
+              image: ghcr.io/${{ env.REPO }}/backend:${{ github.sha }}
+              ports:
+                - "8000:8000"
+              environment:
+                - DATABASE_URL=postgresql://postgres:admin@db:5432/myapp_db
+                - SECRET_KEY=${{ secrets.SECRET_KEY }}
+                - FRONTEND_URL=http://localhost:3000
+              restart: always
+              depends_on:
+                - db
+
+            db:
+              image: postgres:14
+              ports:
+                - "5432:5432"
+              environment:
+                - POSTGRES_USER=postgres
+                - POSTGRES_PASSWORD=admin
+                - POSTGRES_DB=myapp_db
+              volumes:
+                - postgres_data:/var/lib/postgresql/data
+              restart: always
+
+          volumes:
+            postgres_data:
+          EOF
+
+      # Upload docker-compose file as artifact
+      - name: Upload docker-compose as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-compose-config
+          path: docker-compose.production.yml
+          retention-days: 1  # Only keep for 1 day since it's just for deployment
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Lowercase the repo name
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+
+      # Download docker-compose file artifact
+      - name: Download docker-compose artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-compose-config
+          
+      # Deploy to Azure Web App with Docker Compose
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          configuration-file: docker-compose.production.yml

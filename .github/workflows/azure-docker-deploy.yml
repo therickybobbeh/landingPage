@@ -66,8 +66,8 @@ jobs:
         run: |
           docker compose build web
           # Use the correct image name based on the repository name
-          docker tag ${{ steps.repo-name.outputs.repo_name }}_web:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
-          docker tag ${{ steps.repo-name.outputs.repo_name }}_web:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+          docker tag ${{ steps.repo-name.outputs.repo_name }}:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+          docker tag ${{ steps.repo-name.outputs.repo_name }}:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
           docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
           docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
 

@@ -8,8 +8,8 @@ on:
 
 env:
   REGISTRY: 'therickybobbehArc.azurecr.io'  # Your ACR name
-  FRONTEND_IMAGE: 'portfolio-frontend'
-  BACKEND_IMAGE: 'portfolio-backend'
+  FRONTEND_IMAGE: 'portfolio-frontend'      # Lowercase image name for frontend
+  BACKEND_IMAGE: 'portfolio-backend'        # Lowercase image name for backend
   FRONTEND_APP_NAME: 'development-profile'   # Your Azure Web App name for frontend
   BACKEND_APP_NAME: 'portfolio-api'          # Your Azure Web App name for backend
 
@@ -25,12 +25,12 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       # Get repository name (used for image naming by docker-compose)
-      - name: Get repository name
+      - name: Get repository name and convert to lowercase
         id: repo-name
         run: |
-          REPO_NAME=$(basename $GITHUB_WORKSPACE)
+          REPO_NAME=$(basename $GITHUB_WORKSPACE | tr '[:upper:]' '[:lower:]')
           echo "repo_name=$REPO_NAME" >> $GITHUB_OUTPUT
-          echo "Repository name: $REPO_NAME"
+          echo "Repository name (lowercase): $REPO_NAME"
 
       # Azure login using the correct format for service principal
       - name: Azure Login
@@ -61,25 +61,33 @@ jobs:
           username: ${{ steps.acr-creds.outputs.username }}
           password: ${{ steps.acr-creds.outputs.password }}
 
-      # Build and push frontend image directly from docker-compose services
-      - name: Build and push frontend image
-        run: |
-          docker compose build web
-          # Use the correct image name based on the repository name
-          docker tag ${{ steps.repo-name.outputs.repo_name }}:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
-          docker tag ${{ steps.repo-name.outputs.repo_name }}:latest ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
-          docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
-          docker push ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+      # Debug: List Docker images
+      - name: List Docker images before build
+        run: docker images
 
-      # Build and push backend image directly from docker-compose services
-      - name: Build and push backend image
-        run: |
-          docker compose build api
-          # Use the correct image name based on the repository name
-          docker tag ${{ steps.repo-name.outputs.repo_name }}_api:latest ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
-          docker tag ${{ steps.repo-name.outputs.repo_name }}_api:latest ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
-          docker push ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
-          docker push ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
+      # Build frontend from dockerfile directly to avoid naming problems
+      - name: Build frontend image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+          cache-to: type=inline
+
+      # Build backend from dockerfile directly to avoid naming problems
+      - name: Build backend image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
+          cache-to: type=inline
 
       # Deploy frontend to Azure Web App
       - name: Deploy frontend to Azure Web App

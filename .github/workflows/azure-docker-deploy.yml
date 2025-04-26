@@ -1,72 +1,50 @@
-name: Build and Deploy to Azure
+name: Build & Deploy to Azure
 
 on:
   push:
     branches:
       - main
-  workflow_dispatch:  # For manual triggers
+  workflow_dispatch:
 
 env:
-  REGISTRY: 'therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io'  # Corrected ACR name
-  FRONTEND_IMAGE: 'portfolio-frontend'      # Lowercase image name for frontend
-  BACKEND_IMAGE: 'portfolio-backend'        # Lowercase image name for backend
-  FRONTEND_APP_NAME: 'development-profile'   # Your Azure Web App name for frontend
-  BACKEND_APP_NAME: 'portfolio-api'          # Your Azure Web App name for backend
+  # Azure Container Registry details
+  REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
+  FRONTEND_IMAGE: portfolio-frontend
+  BACKEND_IMAGE: portfolio-backend
+  
+  # Azure Web App names
+  FRONTEND_APP_NAME: development-profile
+  BACKEND_APP_NAME: portfolio-api
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-      - name: Checkout repository
+      # Checkout repository
+      - name: Checkout
         uses: actions/checkout@v3
 
+      # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Get repository name (used for image naming by docker-compose)
-      - name: Get repository name and convert to lowercase
-        id: repo-name
-        run: |
-          REPO_NAME=$(basename $GITHUB_WORKSPACE | tr '[:upper:]' '[:lower:]')
-          echo "repo_name=$REPO_NAME" >> $GITHUB_OUTPUT
-          echo "Repository name (lowercase): $REPO_NAME"
-
-      # Azure login using the correct format for service principal
+      # Login to Azure
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          enable-AzPSSession: false
-          environment: azurecloud
-          allow-no-subscriptions: false
-          audience: api://AzureADTokenExchange
-          auth-type: SERVICE_PRINCIPAL
 
-      # Get ACR credentials dynamically
-      - name: Get ACR credentials
-        id: acr-creds
-        run: |
-          ACR_USERNAME=$(az acr credential show -n therickybobbehArc --query "username" -o tsv)
-          ACR_PASSWORD=$(az acr credential show -n therickybobbehArc --query "passwords[0].value" -o tsv)
-          echo "::add-mask::$ACR_PASSWORD"
-          echo "username=$ACR_USERNAME" >> $GITHUB_OUTPUT
-          echo "password=$ACR_PASSWORD" >> $GITHUB_OUTPUT
-
-      # Log in to Azure Container Registry with dynamic credentials
-      - name: ACR login
-        uses: azure/docker-login@v1
+      # Login to ACR - using your stored credentials
+      - name: Login to Azure Container Registry
+        uses: docker/login-action@v2
         with:
-          login-server: ${{ env.REGISTRY }}
-          username: ${{ steps.acr-creds.outputs.username }}
-          password: ${{ steps.acr-creds.outputs.password }}
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
 
-      # Debug: List Docker images
-      - name: List Docker images before build
-        run: docker images
-
-      # Build frontend from dockerfile directly to avoid naming problems
-      - name: Build frontend image
+      # Build and push frontend image
+      - name: Build & Push frontend
         uses: docker/build-push-action@v4
         with:
           context: ./frontend
@@ -77,8 +55,8 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
           cache-to: type=inline
 
-      # Build backend from dockerfile directly to avoid naming problems
-      - name: Build backend image
+      # Build and push backend image
+      - name: Build & Push backend
         uses: docker/build-push-action@v4
         with:
           context: ./backend
@@ -89,16 +67,20 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
           cache-to: type=inline
 
-      # Verify images in Azure Container Registry before deployment
-      - name: Verify frontend image in ACR
+      # Verify images exist in ACR before deployment
+      - name: Verify images in ACR
         run: |
-          az acr repository show-tags --name therickybobbeharc-ctc3e3gyg6ffbth7 --repository portfolio-frontend --output table
-          echo "✅ Verified frontend image exists in ACR."
-
-      - name: Verify backend image in ACR
-        run: |
-          az acr repository show-tags --name therickybobbeharc-ctc3e3gyg6ffbth7 --repository portfolio-backend --output table
-          echo "✅ Verified backend image exists in ACR."
+          # List repositories in ACR
+          echo "Available repositories in ACR:"
+          az acr repository list --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --output table
+          
+          # List frontend image tags
+          echo "Frontend image tags:"
+          az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.FRONTEND_IMAGE }} --output table
+          
+          # List backend image tags
+          echo "Backend image tags:"
+          az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.BACKEND_IMAGE }} --output table
 
       # Deploy frontend to Azure Web App
       - name: Deploy frontend to Azure Web App
@@ -107,9 +89,32 @@ jobs:
           app-name: ${{ env.FRONTEND_APP_NAME }}
           images: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
 
-      # Deploy backend to Azure Web App (if needed)
+      # Check if backend app exists before trying to deploy
+      # - name: Check backend app exists
+      #   id: check-backend
+      #   continue-on-error: true
+      #   run: |
+      #     az webapp show --name ${{ env.BACKEND_APP_NAME }} --query name -o tsv
+      #     if [ $? -eq 0 ]; then
+      #       echo "backend_exists=true" >> $GITHUB_OUTPUT
+      #     else
+      #       echo "backend_exists=false" >> $GITHUB_OUTPUT
+      #     fi
+
+      # # Deploy backend to Azure Web App (if it exists)
       # - name: Deploy backend to Azure Web App
+      #   if: steps.check-backend.outputs.backend_exists == 'true'
       #   uses: azure/webapps-deploy@v2
       #   with:
       #     app-name: ${{ env.BACKEND_APP_NAME }}
       #     images: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+
+      # # Display deployment information
+      # - name: Deployment Information
+      #   run: |
+      #     echo "✅ Frontend deployed to: https://${{ env.FRONTEND_APP_NAME }}.azurewebsites.net"
+      #     if [[ "${{ steps.check-backend.outputs.backend_exists }}" == "true" ]]; then
+      #       echo "✅ Backend deployed to: https://${{ env.BACKEND_APP_NAME }}.azurewebsites.net"
+      #     else
+      #       echo "❓ Backend app '${{ env.BACKEND_APP_NAME }}' not found. Backend deployment skipped."
+      #     fi

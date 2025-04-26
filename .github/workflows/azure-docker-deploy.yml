@@ -89,6 +89,17 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
           cache-to: type=inline
 
+      # Verify images in Azure Container Registry before deployment
+      - name: Verify frontend image in ACR
+        run: |
+          az acr repository show-tags --name therickybobbeharc-ctc3e3gyg6ffbth7 --repository portfolio-frontend --output table
+          echo "✅ Verified frontend image exists in ACR."
+
+      - name: Verify backend image in ACR
+        run: |
+          az acr repository show-tags --name therickybobbeharc-ctc3e3gyg6ffbth7 --repository portfolio-backend --output table
+          echo "✅ Verified backend image exists in ACR."
+
       # Deploy frontend to Azure Web App
       - name: Deploy frontend to Azure Web App
         uses: azure/webapps-deploy@v2

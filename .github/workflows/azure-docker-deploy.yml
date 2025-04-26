@@ -35,13 +35,23 @@ jobs:
           audience: api://AzureADTokenExchange
           auth-type: SERVICE_PRINCIPAL
 
-      # Log in to Azure Container Registry
+      # Get ACR credentials dynamically
+      - name: Get ACR credentials
+        id: acr-creds
+        run: |
+          ACR_USERNAME=$(az acr credential show -n therickybobbehArc --query "username" -o tsv)
+          ACR_PASSWORD=$(az acr credential show -n therickybobbehArc --query "passwords[0].value" -o tsv)
+          echo "::add-mask::$ACR_PASSWORD"
+          echo "username=$ACR_USERNAME" >> $GITHUB_OUTPUT
+          echo "password=$ACR_PASSWORD" >> $GITHUB_OUTPUT
+
+      # Log in to Azure Container Registry with dynamic credentials
       - name: ACR login
         uses: azure/docker-login@v1
         with:
           login-server: ${{ env.REGISTRY }}
-          username: ${{ secrets.AZURE_CLIENT_ID }}
-          password: ${{ secrets.AZURE_CLIENT_SECRET }}
+          username: ${{ steps.acr-creds.outputs.username }}
+          password: ${{ steps.acr-creds.outputs.password }}
 
       # Build and push frontend image directly from docker-compose services
       - name: Build and push frontend

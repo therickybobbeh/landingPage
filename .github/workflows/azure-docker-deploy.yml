@@ -7,8 +7,9 @@ on:
   workflow_dispatch:
 
 env:
-  # Azure Container Registry details
-  REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
+  # GitHub Container Registry details (matching App Service configuration)
+  REGISTRY: ghcr.io
+  REPOSITORY: therickybobbeh
   FRONTEND_IMAGE: portfolio-frontend
   BACKEND_IMAGE: portfolio-backend
   
@@ -19,6 +20,9 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
       # Checkout repository
@@ -29,92 +33,77 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Login to Azure
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      # Login to ACR - using your stored credentials
-      - name: Login to Azure Container Registry
+      # Login to GitHub Container Registry
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ secrets.ACR_USERNAME }}
-          password: ${{ secrets.ACR_PASSWORD }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Build and push frontend image
+      # Build and push frontend image to GitHub Container Registry
       - name: Build & Push frontend
         uses: docker/build-push-action@v4
         with:
           context: ./frontend
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.FRONTEND_IMAGE }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.FRONTEND_IMAGE }}:latest
           cache-to: type=inline
 
-      # Build and push backend image
+      # Build and push backend image to GitHub Container Registry
       - name: Build & Push backend
         uses: docker/build-push-action@v4
         with:
           context: ./backend
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+            ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.BACKEND_IMAGE }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.BACKEND_IMAGE }}:latest
           cache-to: type=inline
 
-      # Verify images exist in ACR before deployment
-      - name: Verify images in ACR
-        run: |
-          # List repositories in ACR
-          echo "Available repositories in ACR:"
-          az acr repository list --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --output table
-          
-          # List frontend image tags
-          echo "Frontend image tags:"
-          az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.FRONTEND_IMAGE }} --output table
-          
-          # List backend image tags
-          echo "Backend image tags:"
-          az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.BACKEND_IMAGE }} --output table
+      # Login to Azure for deployment
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Deploy frontend to Azure Web App
       - name: Deploy frontend to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
           app-name: ${{ env.FRONTEND_APP_NAME }}
-          images: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}
 
       # Check if backend app exists before trying to deploy
-      # - name: Check backend app exists
-      #   id: check-backend
-      #   continue-on-error: true
-      #   run: |
-      #     az webapp show --name ${{ env.BACKEND_APP_NAME }} --query name -o tsv
-      #     if [ $? -eq 0 ]; then
-      #       echo "backend_exists=true" >> $GITHUB_OUTPUT
-      #     else
-      #       echo "backend_exists=false" >> $GITHUB_OUTPUT
-      #     fi
+      - name: Check backend app exists
+        id: check-backend
+        continue-on-error: true
+        run: |
+          az webapp show --name ${{ env.BACKEND_APP_NAME }} --query name -o tsv
+          if [ $? -eq 0 ]; then
+            echo "backend_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "backend_exists=false" >> $GITHUB_OUTPUT
+          fi
 
-      # # Deploy backend to Azure Web App (if it exists)
-      # - name: Deploy backend to Azure Web App
-      #   if: steps.check-backend.outputs.backend_exists == 'true'
-      #   uses: azure/webapps-deploy@v2
-      #   with:
-      #     app-name: ${{ env.BACKEND_APP_NAME }}
-      #     images: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
+      # Deploy backend to Azure Web App (if it exists)
+      - name: Deploy backend to Azure Web App
+        if: steps.check-backend.outputs.backend_exists == 'true'
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.BACKEND_APP_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.REPOSITORY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
 
-      # # Display deployment information
-      # - name: Deployment Information
-      #   run: |
-      #     echo "✅ Frontend deployed to: https://${{ env.FRONTEND_APP_NAME }}.azurewebsites.net"
-      #     if [[ "${{ steps.check-backend.outputs.backend_exists }}" == "true" ]]; then
-      #       echo "✅ Backend deployed to: https://${{ env.BACKEND_APP_NAME }}.azurewebsites.net"
-      #     else
-      #       echo "❓ Backend app '${{ env.BACKEND_APP_NAME }}' not found. Backend deployment skipped."
-      #     fi
+      # Display deployment information
+      - name: Deployment Information
+        run: |
+          echo "✅ Frontend deployed to: https://${{ env.FRONTEND_APP_NAME }}.azurewebsites.net"
+          if [[ "${{ steps.check-backend.outputs.backend_exists }}" == "true" ]]; then
+            echo "✅ Backend deployed to: https://${{ env.BACKEND_APP_NAME }}.azurewebsites.net"
+          else
+            echo "❓ Backend app '${{ env.BACKEND_APP_NAME }}' not found. Backend deployment skipped."
+          fi

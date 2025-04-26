@@ -7,7 +7,7 @@ on:
   workflow_dispatch:  # For manual triggers
 
 env:
-  REGISTRY: 'therickybobbehArc.azurecr.io'  # Your ACR name
+  REGISTRY: 'therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io'  # Corrected ACR name
   FRONTEND_IMAGE: 'portfolio-frontend'      # Lowercase image name for frontend
   BACKEND_IMAGE: 'portfolio-backend'        # Lowercase image name for backend
   FRONTEND_APP_NAME: 'development-profile'   # Your Azure Web App name for frontend

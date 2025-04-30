@@ -13,42 +13,54 @@ interface Project {
   codeUrl: string;
   featured: boolean;
   gradient: string;
+  showImage?: boolean;
+  disableDemo?: boolean;
+  disableCode?: boolean; 
 }
 
-// Sample projects data (would be fetched from API in production)
+
 const projects: Project[] = [
   {
     id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-featured online store with secure payment processing, user accounts, and an admin dashboard.",
-    image: "/project-1.jpg",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-    demoUrl: "https://demo-ecommerce.example.com",
-    codeUrl: "https://github.com/username/ecommerce-platform",
+    title: "Peritoneal Dialysis (PD) Management App",
+    description: "A full stack application for managing peritoneal dialysis (PD) schedules, treatments, and patient records working whith fhir servers. The application allows patients to log their health data, provides analytics for trend monitoring, and enables providers to make informed treatment decisions based on notifications.",
+    image: "/githubPreview/dialysisImage.png",
+    technologies: ["Angular", "fhir", "PostgreSQL", "python", "FastAPI"],
+    demoUrl: "",
+    codeUrl: "https://github.com/therickybobbeh/dialysisApp",
     featured: true,
-    gradient: "card-gradient-purple"
+    gradient: "card-gradient-purple",
+    showImage: true,
+    disableDemo: true,
   },
   {
     id: 2,
-    title: "Budget Tracker App",
-    description: "Personal finance application that helps users track expenses, set budgets, and visualize spending patterns.",
-    image: "/project-2.jpg",
-    technologies: ["Vue.js", "Express", "PostgreSQL", "Chart.js"],
-    demoUrl: "https://budget-app.example.com",
-    codeUrl: "https://github.com/username/budget-tracker",
+    title: "This website",
+    description: "Personal project where I explore differnt tools to create frontends.",
+    image: "/githubPreview/react.png",
+    technologies: ["react", "next.js", "azure", "typescript"],
+    demoUrl: "",
+    codeUrl: "https://github.com/therickybobbeh/landingPage",
     featured: false,
-    gradient: "card-gradient-dark"
+    gradient: "card-gradient-dark",
+    showImage: true,
+    disableDemo: true,
   },
   {
     id: 3,
-    title: "Social Media Dashboard",
-    description: "Analytics dashboard for social media managers with scheduled posting and engagement metrics.",
-    image: "/project-3.jpg",
+    title: "Ravens Scale matrix AI",
+    description: "An ai made from scratch using purely knowledge based implemntaion. \
+      The AI is designed to solve the Ravens Progressive Matrices, a non-verbal test of intelligence \
+      that requires pattern recognition and logical reasoning. \n\n\
+      To access this project please email me individually the school has not given me permission to share it publicly.",
+    image: "/githubPreview/ravensScale.png",
     technologies: ["Next.js", "TypeScript", "FastAPI", "Redis"],
     demoUrl: "https://social-dash.example.com",
     codeUrl: "https://github.com/username/social-dashboard",
     featured: true,
-    gradient: "card-gradient-analogous"
+    gradient: "card-gradient-analogous",
+    showImage: true,
+    disableDemo: true,
   },
 ];
 
@@ -68,13 +80,22 @@ const Projects = () => {
             <Col lg={4} md={6} key={project.id}>
               <Card className="card-custom card-hover h-100 border-0 bg-white shadow">
                 <div className="position-relative">
-                  <Card.Img 
-                    variant="top" 
-                    src={project.image} 
-                    alt={project.title}
-                    className="project-image"
-                    style={{ height: '200px', objectFit: 'cover' }}
-                  />
+                  {/* Conditionally render the image preview */}
+                  {project.showImage !== false && (
+                    <Card.Img
+                      variant="top"
+                      src={project.image}
+                      alt={project.title}
+                      className="project-image"
+                      style={{
+                        height: '200px',
+                        objectFit: 'cover',
+                        border: '4px solid #ffffff',
+                        boxShadow: '0 4px 10px rgba(0,0,0,0.1)',
+                        borderRadius: '8px'
+                      }}
+                    />
+                  )}
                   {project.featured && (
                     <Badge bg="accent" className="floating-badge custom-badge">
                       <i className="bi bi-star-fill me-1"></i> Featured
@@ -90,8 +111,8 @@ const Projects = () => {
                   </Card.Text>
                   <div className="mb-3">
                     {project.technologies.map((tech) => (
-                      <Badge 
-                        key={tech} 
+                      <Badge
+                        key={tech}
                         className="me-2 mb-2 py-2 px-3 bg-light text-dark"
                         style={{ boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
                       >
@@ -100,22 +121,28 @@ const Projects = () => {
                     ))}
                   </div>
                   <div className="mt-auto d-flex gap-2">
-                    <Link 
-                      href={project.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary-custom flex-grow-1 btn-icon"
-                    >
-                      <i className="bi bi-display btn-icon-start"></i> Live Demo
-                    </Link>
-                    <Link 
-                      href={project.codeUrl}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="btn btn-black-custom btn-icon"
-                    >
-                      <i className="bi bi-github btn-icon-start"></i> Code
-                    </Link>
+                    {/* Conditionally render the demo button */}
+                    {!project.disableDemo && project.demoUrl && (
+                      <Link
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary-custom flex-grow-1 btn-icon"
+                      >
+                        <i className="bi bi-display btn-icon-start"></i> Live Demo
+                      </Link>
+                    )}
+                    {/* Conditionally render the code button */}
+                    {!project.disableCode && (
+                      <Link
+                        href={project.codeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-black-custom btn-icon"
+                      >
+                        <i className="bi bi-github btn-icon-start"></i> Code
+                      </Link>
+                    )}
                   </div>
                 </Card.Body>
               </Card>
@@ -124,7 +151,7 @@ const Projects = () => {
         </Row>
 
         <div className="text-center mt-5">
-          <Link 
+          <Link
             href="https://github.com/therickybobbeh"
             target="_blank"
             rel="noopener noreferrer"

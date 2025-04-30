@@ -33,7 +33,7 @@ const ResumeLayout = ({
       </section>
       
       {/* Content Section */}
-      <section className="py-5 bg-light">
+      <section className="py-5">
         <Container>
           {children}
         </Container>

@@ -18,10 +18,10 @@ export default function ResumePage() {
       <Row className="justify-content-center mb-4">
         <Col md={10} lg={8}>
           <Card className="border-0 shadow-sm">
-            <Card.Header className="bg-white p-3 d-flex justify-content-between align-items-center">
+            <Card.Header className="p-3 d-flex justify-content-between align-items-center">
               <Heading level={4} className="mb-0">Resume Download</Heading>
               <a 
-                className="btn btn-primary btn-sm rounded d-inline-flex align-items-center"
+                className="btn btn-primary-custom btn-sm rounded d-inline-flex align-items-center"
                 href={resumePdfPath}
                 download="Robert Cole - Software Engineer - Resume.pdf"
               >
@@ -45,7 +45,7 @@ export default function ResumePage() {
                       href={resumePdfPath}
                       download="Robert Cole - Software Engineer - Resume.pdf"
                     >
-                      <i className="bi bi-download me-2"></i>
+                      <i className="bi bi-download  me-2"></i>
                       Download PDF
                     </a>
                   </AnimatedCard>
@@ -69,25 +69,6 @@ export default function ResumePage() {
                     </a>
                   </AnimatedCard>
                 </Col>
-                
-                {/* <Col sm={6} md={4}>
-                  <AnimatedCard
-                    gradient="magenta" 
-                    className="text-center p-4"
-                    animationType="hover-lift"
-                  >
-                    <Icon name="file-earmark-text" size="lg" color="white" className="mb-3" />
-                    <Heading level={5} color="white" className="mb-3">Plain Text</Heading>
-                      <a 
-                      className="btn btn-outline-light btn-sm rounded d-inline-flex align-items-center"
-                      href={resumePdfPath}
-                      download="Robert Cole - Software Engineer - Resume.txt"
-                    >
-                      <i className="bi bi-download me-2"></i>
-                      Download TXT
-                    </a>
-                  </AnimatedCard>
-                </Col> */}
               </Row>
             </Card.Body>
           </Card>

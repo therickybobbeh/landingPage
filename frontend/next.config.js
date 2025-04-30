@@ -6,12 +6,15 @@ const nextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
   swcMinify: true,
+  // images: {
+  //   domains: [
+  //     process.env.NEXT_PUBLIC_APP_DOMAIN || 'localhost',
+  //     // Add any other domains you need to serve images from
+  //   ],
+  //   formats: ['image/webp'],
+  // },
   images: {
-    domains: [
-      process.env.NEXT_PUBLIC_APP_DOMAIN || 'localhost',
-      // Add any other domains you need to serve images from
-    ],
-    formats: ['image/webp'],
+    unoptimized: process.env.NODE_ENV === 'production' ? false : true,
   },
   // Add webpack configuration for PDF handling
   webpack: (config) => {

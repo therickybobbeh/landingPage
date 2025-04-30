@@ -10,7 +10,7 @@ const AboutMe = () => {
           <Col>
             <h2 className="display-5 fw-bold mb-3 text-white">About Me</h2>
             <p className="lead text-white-50 mb-0">
-              Software Engineer passionate about building innovative healthcare solutions
+              Software Engineer with about building innovative solutions and bringing ideas to life.
             </p>
           </Col>
         </Row>

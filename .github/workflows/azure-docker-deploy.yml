@@ -1,4 +1,4 @@
-name: Build & Push to Azure Container Registry
+name: Build & Deploy Frontend Landing Page
 
 on:
   push:
@@ -10,7 +10,6 @@ env:
   # Azure Container Registry details
   REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
   FRONTEND_IMAGE: portfolio-frontend
-  BACKEND_IMAGE: portfolio-backend
 
 jobs:
   build-and-push:
@@ -51,18 +50,6 @@ jobs:
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
           cache-to: type=inline
 
-      # Build and push backend image
-      - name: Build & Push backend
-        uses: docker/build-push-action@v4
-        with:
-          context: ./backend
-          push: true
-          tags: |
-            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}
-            ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:latest
-          cache-to: type=inline
-
       # Verify images exist in ACR
       - name: Verify images in ACR
         run: |
@@ -73,13 +60,8 @@ jobs:
           # List frontend image tags
           echo "Frontend image tags:"
           az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.FRONTEND_IMAGE }} --output table
-          
-          # List backend image tags
-          echo "Backend image tags:"
-          az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.BACKEND_IMAGE }} --output table
 
       - name: Summary
         run: |
-          echo "✅ Images successfully built and pushed to Azure Container Registry"
+          echo "✅ Frontend image successfully built and pushed to Azure Container Registry"
           echo "Frontend image: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}"
-          echo "Backend image: ${{ env.REGISTRY }}/${{ env.BACKEND_IMAGE }}:${{ github.sha }}"

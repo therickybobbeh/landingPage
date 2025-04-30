@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { Heading, Icon } from '../../atoms';
+import { Heading, Icon } from '../atoms';
 import Link from 'next/link';
 
 interface AdminLayoutProps {
@@ -31,7 +31,7 @@ const AdminLayout = ({
               Admin Dashboard
             </Heading>
             <div className="d-flex align-items-center">
-              <Link href="/" className="btn btn-sm btn-outline-light">
+              <Link href="/frontend/public" className="btn btn-sm btn-outline-light">
                 <Icon name="house" className="me-1" />
                 View Site
               </Link>

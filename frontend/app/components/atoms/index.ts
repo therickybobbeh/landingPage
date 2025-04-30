@@ -3,10 +3,10 @@ export { default as Heading } from './Typography/Heading';
 export { default as Text } from './Typography/Text';
 
 // Button component
-export { default as Button } from './Button/Button';
+export { default as Button } from './Button';
 
 // Avatar component
-export { default as Avatar } from './Avatar/Avatar';
+export { default as Avatar } from './Avatar';
 
 // Card components
 export { 
@@ -17,7 +17,7 @@ export {
   CardTitle,
   CardText,
   CardImg
-} from './Card/Card';
+} from './Card';
 
 // Icon component
-export { default as Icon } from './Icon/Icon';
+export { default as Icon } from './Icon';

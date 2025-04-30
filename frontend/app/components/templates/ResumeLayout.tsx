@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import MainLayout from '../MainLayout/MainLayout';
-import { Heading, Text } from '../../atoms';
+import MainLayout from './MainLayout';
+import { Heading, Text } from '../atoms';
 
 interface ResumeLayoutProps {
   children: React.ReactNode;

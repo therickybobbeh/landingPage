@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import ExperienceItem, { ExperienceItemProps } from '../../molecules/ExperienceItem';
+import ExperienceItem, { ExperienceItemProps } from '../molecules/ExperienceItem';
 
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [

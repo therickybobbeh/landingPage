@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Row, Col, Card, Nav } from 'react-bootstrap';
 import { Document, Page, pdfjs } from 'react-pdf';
-import ResumeLayout from '../components/templates/ResumeLayout/ResumeLayout';
+import ResumeLayout from '../components/templates/ResumeLayout';
 import { Heading, Text, Button, Icon } from '../components/atoms';
 import { AnimatedCard } from '../components/molecules';
 

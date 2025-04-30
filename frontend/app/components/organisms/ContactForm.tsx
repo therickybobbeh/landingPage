@@ -1,13 +1,13 @@
 "use client";
 import React, { useState, FormEvent } from 'react';
 import { Container, Row, Col, Form, Alert } from 'react-bootstrap';
-import Card, { CardHeader, CardBody, CardFooter } from '../../atoms/Card/Card';
-import Button from '../../atoms/Button/Button';
-import Heading from '../../atoms/Typography/Heading';
-import Text from '../../atoms/Typography/Text';
-import Icon from '../../atoms/Icon/Icon';
-import FormGroup from '../../molecules/FormGroup/FormGroup';
-import IconWithText from '../../molecules/IconWithText/IconWithText';
+import Card, { CardHeader, CardBody, CardFooter } from '../atoms/Card';
+import Button from '../atoms/Button';
+import Heading from '../atoms/Typography/Heading';
+import Text from '../atoms/Typography/Text';
+import Icon from '../atoms/Icon';
+import FormGroup from '../molecules/FormGroup';
+import IconWithText from '../molecules/IconWithText';
 
 interface ContactFormData {
   name: string;

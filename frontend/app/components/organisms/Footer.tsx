@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import Heading from '../../atoms/Typography/Heading';
-import Text from '../../atoms/Typography/Text';
-import Icon from '../../atoms/Icon/Icon';
-import Button from '../../atoms/Button/Button';
+import Heading from '../atoms/Typography/Heading';
+import Text from '../atoms/Typography/Text';
+import Icon from '../atoms/Icon';
+import Button from '../atoms/Button';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -38,7 +38,7 @@ const Footer = () => {
         <Row className="gy-4 mb-5">
           <Col lg={5} md={6}>
             <div className="mb-4">
-              <Link href="/" className="text-decoration-none">
+              <Link href="/frontend/public" className="text-decoration-none">
                 <Heading level={3} color="white" className="mb-0 fw-bold">
                   Dev<span className="text-primary">Portfolio</span>
                 </Heading>

@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
-import Button from '../../atoms/Button/Button';
-import Heading from '../../atoms/Typography/Heading';
+import Button from '../atoms/Button';
+import Heading from '../atoms/Typography/Heading';
 
 const Header = () => {
   const [expanded, setExpanded] = useState(false);
@@ -27,7 +27,7 @@ const Header = () => {
       onToggle={() => setExpanded(!expanded)}
     >
       <Container>
-        <Link href="/" passHref legacyBehavior>
+        <Link href="/frontend/public" passHref legacyBehavior>
           <Navbar.Brand className="text-white d-flex align-items-center">
             <Heading level={4} color="white" className="mb-0 fw-bold">
               Robert T. Cole

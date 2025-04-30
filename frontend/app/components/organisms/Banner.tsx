@@ -2,12 +2,12 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
-import Button from '../../atoms/Button/Button';
-import Heading from '../../atoms/Typography/Heading';
-import Text from '../../atoms/Typography/Text';
-import AnimatedCard from '../../molecules/AnimatedCard/AnimatedCard';
-import CodeAnimation from '../../animations/CodeAnimation';
-import Avatar from '../../atoms/Avatar/Avatar';
+import Button from '../atoms/Button';
+import Heading from '../atoms/Typography/Heading';
+import Text from '../atoms/Typography/Text';
+import AnimatedCard from '../molecules/AnimatedCard';
+import CodeAnimation from '../animations/CodeAnimation';
+import Avatar from '../atoms/Avatar';
 
 const Banner = () => {
   return (
@@ -63,7 +63,7 @@ const Banner = () => {
             </Text>
             
             <div className="d-flex flex-wrap gap-3">
-              <Link href="/#projects-section" passHref>
+              <Link href="/frontend/public#projects-section" passHref>
                 <Button 
                   gradient="warm" 
                   size="lg" 
@@ -75,7 +75,7 @@ const Banner = () => {
                   View My Work
                 </Button>
               </Link>
-              <Link href="/#contact-section" passHref>
+              <Link href="/frontend/public#contact-section" passHref>
                 <Button 
                   variant="outline-light" 
                   size="lg" 

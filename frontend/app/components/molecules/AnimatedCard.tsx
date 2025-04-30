@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import Card, { CardProps } from '../../atoms/Card/Card';
+import Card, { CardProps } from '../atoms/Card';
 
 interface AnimatedCardProps extends CardProps {
   animationType?: 'hover-lift' | 'hover-glow' | 'hover-scale' | 'tilt' | 'none';

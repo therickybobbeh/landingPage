@@ -1,8 +1,8 @@
 "use client";
 import React from 'react';
-import MainLayout from './components/templates/MainLayout/MainLayout';
-import Banner from './components/organisms/Banner/Banner';
-import ContactForm from './components/organisms/ContactForm/ContactForm';
+import MainLayout from './components/templates/MainLayout';
+import Banner from './components/organisms/Banner';
+import ContactForm from './components/organisms/ContactForm';
 import Projects from './components/organisms/Projects';
 import Skills from './components/organisms/Skills';
 import Experience from './components/organisms/Experience';

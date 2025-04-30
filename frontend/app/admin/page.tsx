@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
-import AdminLayout from '../components/templates/AdminLayout/AdminLayout';
+import AdminLayout from '../components/templates/AdminLayout';
 import { Card, CardBody, CardHeader, Heading, Text, Icon } from '../components/atoms';
 import { AnimatedCard, IconWithText } from '../components/molecules';
 

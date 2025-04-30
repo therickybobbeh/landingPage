@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from '../../atoms/Icon/Icon';
-import Text from '../../atoms/Typography/Text';
+import Icon from '../atoms/Icon';
+import Text from '../atoms/Typography/Text';
 
 export interface IconWithTextProps {
   iconName: string;

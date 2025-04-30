@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
-import Text from '../../atoms/Typography/Text';
+import Text from '../atoms/Typography/Text';
 
 export interface FormGroupProps {
   controlId: string;

@@ -10,10 +10,18 @@ env:
   # Azure Container Registry details
   REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
   FRONTEND_IMAGE: portfolio-frontend
+  # Azure deployment details
+  RESOURCE_GROUP: portfolio-rg
+  CONTAINER_APP_NAME: portfolio-frontend
+  CONTAINER_APP_ENV: portfolio-env
+  LOCATION: eastus
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: ${{ steps.deploy-to-container-apps.outputs.url }}
 
     steps:
       # Checkout repository
@@ -38,7 +46,7 @@ jobs:
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
-      # Build and push frontend image
+      # Build and push frontend image with production environment variables
       - name: Build & Push frontend
         uses: docker/build-push-action@v4
         with:
@@ -49,7 +57,9 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
           cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:latest
           cache-to: type=inline
-
+          build-args: |
+            NODE_ENV=production
+            
       # Verify images exist in ACR
       - name: Verify images in ACR
         run: |
@@ -61,7 +71,82 @@ jobs:
           echo "Frontend image tags:"
           az acr repository show-tags --name $(echo ${{ env.REGISTRY }} | cut -d '.' -f1) --repository ${{ env.FRONTEND_IMAGE }} --output table
 
-      - name: Summary
+      # Deploy to Azure Container Apps
+      - name: Deploy to Azure Container Apps
+        id: deploy-to-container-apps
         run: |
-          echo "✅ Frontend image successfully built and pushed to Azure Container Registry"
-          echo "Frontend image: ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }}"
+          # Check if Container Apps environment exists, create if not
+          env_exists=$(az containerapp env list --resource-group ${{ env.RESOURCE_GROUP }} --query "[?name=='${{ env.CONTAINER_APP_ENV }}'].name" -o tsv)
+          if [ -z "$env_exists" ]; then
+            echo "Creating Container Apps environment..."
+            az containerapp env create \
+              --name ${{ env.CONTAINER_APP_ENV }} \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --location ${{ env.LOCATION }}
+          fi
+          
+          # Check if Container App exists
+          app_exists=$(az containerapp list --resource-group ${{ env.RESOURCE_GROUP }} --query "[?name=='${{ env.CONTAINER_APP_NAME }}'].name" -o tsv)
+          
+          if [ -z "$app_exists" ]; then
+            echo "Creating new Container App..."
+            az containerapp create \
+              --name ${{ env.CONTAINER_APP_NAME }} \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --environment ${{ env.CONTAINER_APP_ENV }} \
+              --registry-server ${{ env.REGISTRY }} \
+              --registry-username ${{ secrets.ACR_USERNAME }} \
+              --registry-password ${{ secrets.ACR_PASSWORD }} \
+              --image ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }} \
+              --target-port 3000 \
+              --ingress external \
+              --env-vars NODE_ENV=production \
+              --query properties.configuration.ingress.fqdn -o tsv
+          else
+            echo "Updating existing Container App..."
+            az containerapp update \
+              --name ${{ env.CONTAINER_APP_NAME }} \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --image ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }} \
+              --env-vars NODE_ENV=production \
+              --set-env-vars NODE_ENV=production \
+              --query properties.configuration.ingress.fqdn -o tsv
+          fi
+          
+          # Get the FQDN for the deployed app
+          app_url=$(az containerapp show --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query "properties.configuration.ingress.fqdn" -o tsv)
+          echo "::set-output name=url::https://${app_url}"
+
+      # Configure custom domain with managed certificates (HTTPS)
+      - name: Configure custom domain with HTTPS (if custom domain exists)
+        if: ${{ secrets.CUSTOM_DOMAIN != '' }}
+        run: |
+          echo "Configuring custom domain with HTTPS..."
+          az containerapp hostname add \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --hostname ${{ secrets.CUSTOM_DOMAIN }}
+            
+          # Add managed certificate for the custom domain
+          az containerapp hostname bind \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --hostname ${{ secrets.CUSTOM_DOMAIN }} \
+            --environment ${{ env.CONTAINER_APP_ENV }} \
+            --validation-method CNAME
+          
+          echo "✅ Custom domain configured with HTTPS"
+          echo "Please add the following CNAME record to your DNS provider:"
+          az containerapp hostname show \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --hostname ${{ secrets.CUSTOM_DOMAIN }} \
+            --query "bindingDetails.customDomainConfiguration.validationDetails.cnameRecord"
+            
+      - name: Deployment Summary
+        run: |
+          echo "✅ Frontend successfully deployed to Azure Container Apps"
+          echo "Application URL: https://${app_url}"
+          if [ ! -z "${{ secrets.CUSTOM_DOMAIN }}" ]; then
+            echo "Custom Domain: https://${{ secrets.CUSTOM_DOMAIN }}"
+          fi

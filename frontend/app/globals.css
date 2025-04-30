@@ -127,7 +127,7 @@ button:hover, .button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
+  background: var(--purple);
   border-radius: 4px;
 }
 

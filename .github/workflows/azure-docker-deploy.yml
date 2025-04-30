@@ -24,6 +24,8 @@ env:
   CONTAINER_APP_NAME: portfolio-frontend
   CONTAINER_APP_ENV: portfolio-env
   LOCATION: eastus
+  # Flag for custom domain configuration
+  HAS_CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN != '' }}
 
 jobs:
   build-and-push:
@@ -135,7 +137,7 @@ jobs:
 
       # Configure custom domain with managed certificates (HTTPS)
       - name: Configure custom domain with HTTPS
-        if: secrets.CUSTOM_DOMAIN != ''
+        if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
           echo "Configuring custom domain with HTTPS..."
           az containerapp hostname add \

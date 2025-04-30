@@ -8,8 +8,7 @@ FROM base AS deps
 WORKDIR /app
 
 # Install dependencies required for building
-# Added: pkgconfig, cairo, pango, jpeg, giflib, and other dependencies for canvas
-RUN apk add --no-cache libc6-compat python3 make g++ pkgconfig cairo-dev pango-dev jpeg-dev giflib-dev pixman-dev pangomm-dev libjpeg-turbo-dev alpine-sdk
+RUN apk add --no-cache libc6-compat python3 make g++
 
 # Copy package files
 COPY package.json package-lock.json* ./

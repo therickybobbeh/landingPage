@@ -36,7 +36,7 @@ const Footer = () => {
             <div className="mb-4">
               <Link href="/frontend/public" className="text-decoration-none">
                 <Heading level={3} color="white" className="mb-0 fw-bold">
-                  Dev<span className="text-primary">Portfolio</span>
+                  Robert T. Cole
                 </Heading>
               </Link>
             </div>

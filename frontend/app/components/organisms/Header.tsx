@@ -11,7 +11,7 @@ const Header = () => {
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Projects', href: '/#projects-section' },
-    { label: 'Skills', href: '/#skills-section' },
+    { label: 'Skills', href: '/resume/#experience-section' },
     { label: 'Resume', href: '/resume' },
     { label: 'Contact', href: '/#contact-section' },
   ];
@@ -27,7 +27,7 @@ const Header = () => {
       onToggle={() => setExpanded(!expanded)}
     >
       <Container>
-        <Link href="/frontend/public" passHref legacyBehavior>
+        <Link href="/" passHref legacyBehavior>
           <Navbar.Brand className="text-white d-flex align-items-center">
             <Heading level={4} color="white" className="mb-0 fw-bold">
               Robert T. Cole
@@ -51,21 +51,6 @@ const Header = () => {
                 </Link>
               </Nav.Item>
             ))}
-
-            <Nav.Item className="mt-3 mt-lg-0 ms-lg-2">
-              <Link href="/login" passHref legacyBehavior>
-                <Button
-                  variant="outline-light"
-                  rounded
-                  size="sm"
-                  withIcon
-                  iconClassName="bi bi-lock me-2 text-white"
-                  onClick={() => setExpanded(false)}
-                >
-                  Admin
-                </Button>
-              </Link>
-            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>

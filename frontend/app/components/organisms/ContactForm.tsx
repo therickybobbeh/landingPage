@@ -55,14 +55,8 @@ const ContactForm = () => {
   ];
 
   return (
-    <section id="contact-section" className="section bg-dark py-5 position-relative">
-      {/* Background decorations */}
-      <div className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden">
-        <div className="position-absolute rounded-circle bg-primary opacity-10" 
-          style={{ width: '300px', height: '300px', filter: 'blur(80px)', top: '5%', right: '10%', zIndex: 0 }}></div>
-        <div className="position-absolute rounded-circle bg-primary opacity-10" 
-          style={{ width: '200px', height: '200px', filter: 'blur(60px)', bottom: '10%', left: '5%', zIndex: 0 }}></div>
-      </div>
+    <section id="contact-section" className="section py-5 position-relative">
+      {/* Background decorations removed - now using unified background */}
       
       <Container className="py-5 position-relative" style={{ zIndex: 1 }}>
         {/* Section header */}
@@ -98,24 +92,24 @@ const ContactForm = () => {
               </Card.Header>
               
               {/* Card body with white background */}
-              <Card.Body className="p-4 p-md-5">
+              <Card.Body className="p-3 p-md-5">
                 <Row className="g-4">
                   {contactMethods.map((method, index) => (
-                    <Col md={4} key={method.icon} className={index < contactMethods.length - 1 ? "mb-4 mb-md-0" : ""}>
-                      <div className="d-flex flex-column align-items-center align-items-md-start">
+                    <Col md={4} key={method.icon} className="mb-4 mb-md-0">
+                      <div className="d-flex flex-column h-100">
                         {/* Contact information with circular purple badge */}
-                        <div className="d-flex align-items-center mb-3">
-                          <div className="bg-primary-custom rounded-circle d-flex align-items-center justify-content-center shadow-sm me-3" 
+                        <div className="d-flex mb-3">
+                          <div className="bg-primary-custom rounded-circle d-flex align-items-center justify-content-center shadow-sm me-3 flex-shrink-0" 
                             style={{ width: "45px", height: "45px" }}>
                             <Icon name={method.icon} color="white" size="md" />
                           </div>
-                          <div>
-                            <div className="fw-semibold">{method.title}</div>
+                          <div className="overflow-hidden">
+                            <div className="fw-semibold text-break">{method.title}</div>
                             <Text variant="small" color="secondary">{method.subtitle}</Text>
                           </div>
                         </div>
                         {/* Action button */}
-                        <div>
+                        <div className="mt-auto">
                           <Button 
                             as="a"
                             href={method.href}
@@ -125,6 +119,7 @@ const ContactForm = () => {
                             withIcon
                             iconPosition="left"
                             iconClassName={`bi bi-${method.actionIcon}`}
+                            className="w-100 text-center justify-content-center"
                             {...(method.isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                           >
                             {method.actionText}
@@ -136,7 +131,7 @@ const ContactForm = () => {
                 </Row>
 
                 {/* Social links */}
-                <div className="text-center mt-5">
+                <div className="text-center mt-4 mt-md-5">
                   <Text color="secondary" className="mb-3">
                     Connect with me on social media
                   </Text>

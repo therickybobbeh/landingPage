@@ -24,7 +24,6 @@ const Footer = () => {
     'Web Development',
     'Mobile Apps',
     'API Development',
-    'DevOps Solutions',
     'Technical Consulting',
   ];
 

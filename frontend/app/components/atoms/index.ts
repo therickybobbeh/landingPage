@@ -21,3 +21,6 @@ export {
 
 // Icon component
 export { default as Icon } from './Icon';
+
+// Background component
+export { default as UnifiedBackground } from './UnifiedBackground';

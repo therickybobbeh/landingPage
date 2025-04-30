@@ -11,38 +11,9 @@ import Avatar from '../atoms/Avatar';
 
 const Banner = () => {
   return (
-    <section className="section bg-dark py-5 position-relative">
-      {/* Background decoration elements */}
-      <div className="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style={{ zIndex: 1 }}>
-        <div className="position-absolute rounded-circle bg-primary opacity-20" 
-          style={{ 
-            width: '300px', 
-            height: '300px',
-            filter: 'blur(80px)',
-            top: '10%',
-            left: '5%'
-          }}
-        ></div>
-        <div className="position-absolute rounded-circle bg-secondary opacity-15" 
-          style={{ 
-            width: '200px', 
-            height: '200px',
-            filter: 'blur(60px)',
-            top: '25%',
-            right: '15%'
-          }}
-        ></div>
-        <div className="position-absolute rounded-circle bg-info opacity-15" 
-          style={{ 
-            width: '250px', 
-            height: '250px',
-            filter: 'blur(70px)',
-            bottom: '15%',
-            right: '10%'
-          }}
-        ></div>
-      </div>
-
+    <section className="section py-5 position-relative">
+      {/* Background decoration elements removed - now using unified background */}
+      
       <Container className="py-5 position-relative min-vh-100 d-flex align-items-center" style={{ zIndex: 1 }}>
         <Row className="align-items-center g-5">
           <Col lg={7} className="order-lg-1 order-2">

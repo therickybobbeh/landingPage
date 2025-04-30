@@ -54,7 +54,7 @@ const projects: Project[] = [
 
 const Projects = () => {
   return (
-    <section id="projects-section" className="section section-gradient-charcoal">
+    <section id="projects-section" className="section">
       <Container className="section-content">
         <div className="section-header">
           <h2 className="section-title text-white">Featured Projects</h2>
@@ -125,7 +125,7 @@ const Projects = () => {
 
         <div className="text-center mt-5">
           <Link 
-            href="https://github.com/username"
+            href="https://github.com/therickybobbeh"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary-custom px-5 py-3 fw-bold btn-icon"

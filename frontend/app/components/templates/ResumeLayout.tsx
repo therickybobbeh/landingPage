@@ -17,7 +17,7 @@ const ResumeLayout = ({
   return (
     <MainLayout>
       {/* Header Section */}
-      <section className="bg-primary py-5">
+      <section className="bg-primary-custom py-5">
         <Container>
           <Row className="justify-content-center text-center">
             <Col md={8}>

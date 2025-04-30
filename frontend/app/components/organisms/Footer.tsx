@@ -4,16 +4,13 @@ import Link from 'next/link';
 import Heading from '../atoms/Typography/Heading';
 import Text from '../atoms/Typography/Text';
 import Icon from '../atoms/Icon';
-import Button from '../atoms/Button';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { name: 'github', url: 'https://github.com/' },
-    { name: 'linkedin', url: 'https://linkedin.com/' },
-    { name: 'twitter', url: 'https://twitter.com/' },
-    { name: 'medium', url: 'https://medium.com/' },
+    { name: 'github', url: 'https://github.com/therickybobbeh' },
+    { name: 'linkedin', url: 'https://www.linkedin.com/in/this-is-robert/' },
   ];
 
   const quickLinks = [
@@ -66,7 +63,7 @@ const Footer = () => {
             </div>
           </Col>
 
-          <Col lg={2} md={6} xs={6}>
+          <Col lg={3} md={6} xs={6}>
             <Heading level={5} color="white" className="mb-3">
               Quick Links
             </Heading>
@@ -81,7 +78,7 @@ const Footer = () => {
             </ul>
           </Col>
 
-          <Col lg={2} md={6} xs={6}>
+          <Col lg={4} md={6} xs={6}>
             <Heading level={5} color="white" className="mb-3">
               Services
             </Heading>
@@ -92,29 +89,6 @@ const Footer = () => {
                 </li>
               ))}
             </ul>
-          </Col>
-
-          <Col lg={3} md={6}>
-            <Heading level={5} color="white" className="mb-3">
-              Newsletter
-            </Heading>
-            <Text color="white-50" className="mb-3">
-              Subscribe to my newsletter for updates on my latest projects and tech insights.
-            </Text>
-            <div className="d-flex">
-              <input 
-                type="email" 
-                placeholder="Your Email" 
-                className="form-control form-control-sm form-control-dark rounded-0 rounded-start"
-              />
-              <Button 
-                variant="primary" 
-                size="sm" 
-                className="rounded-0 rounded-end"
-              >
-                <Icon name="send" color="white" size="xs" />
-              </Button>
-            </div>
           </Col>
         </Row>
 

@@ -6,7 +6,7 @@ export { default as Footer } from './Footer';
 export { default as Banner } from './Banner';
 export { default as ContactForm } from './ContactForm';
 import Experience from "@/app/components/organisms/Experience";
-export { default as ExperienceItem } from './ExperienceItem';
+export { default as ExperienceItem } from './Experience'
 
 export default Experience;
 

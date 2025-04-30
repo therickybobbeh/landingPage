@@ -21,6 +21,12 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Next.js build
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+# Set production environment variables
+ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN npm run build
 
 # Production image, copy all the files and run next
@@ -33,11 +39,14 @@ ENV NEXT_TELEMETRY_DISABLED=1
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy necessary files - standard Next.js deployment (not standalone)
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
+
+# Automatically leverage output traces to reduce image size
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 
 USER nextjs
 
@@ -45,5 +54,5 @@ EXPOSE 3000
 
 ENV PORT=3000
 
-# Start the application using npm start
-CMD ["npm", "start"]
+# Start the server using the production build
+CMD ["node", "server.js"]

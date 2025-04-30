@@ -11,7 +11,11 @@ export interface ButtonProps extends BSButtonProps {
     | 'outline-secondary'
     | 'outline-tertiary'
     | 'link'
-    | 'info';
+    | 'info'
+    | 'primary-custom'
+    | 'secondary-custom'
+    | 'outline-primary-custom'
+    | 'outline-secondary-custom';
   size?: 'sm' | 'lg';
   withIcon?: boolean;
   iconPosition?: 'left' | 'right';
@@ -40,6 +44,22 @@ const Button = ({
   switch (variant) {
     case 'tertiary':
       buttonVariant = 'info';
+      break;
+    case 'primary-custom':
+      buttonVariant = 'primary';
+      customClass += ' btn-primary-custom';
+      break;
+    case 'secondary-custom':
+      buttonVariant = 'secondary';
+      customClass += ' btn-secondary-custom';
+      break;
+    case 'outline-primary-custom':
+      buttonVariant = 'outline-primary';
+      customClass += ' btn-outline-primary-custom';
+      break;
+    case 'outline-secondary-custom':
+      buttonVariant = 'outline-secondary';
+      customClass += ' btn-outline-secondary-custom';
       break;
     // Map to standard Bootstrap variants for the rest
   }

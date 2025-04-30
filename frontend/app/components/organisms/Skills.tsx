@@ -99,19 +99,17 @@ const AboutMe = () => {
               <Card.Body className="p-4">
                 <h3 className="mb-3 text-primary-custom">Hello, I'm Robert Cole</h3>
                 <p className="mb-3">
-                  I'm a Software Engineer with extensive experience in full-stack development, creating robust healthcare applications
-                  using modern technologies. I specialize in Angular, Spring Boot, and healthcare integration standards like FHIR and HL7
-                  to deliver high-quality solutions for the healthcare industry.
+                I’m a Software Engineer with a strong background in full-stack development, building scalable, high-quality 
+                applications across domains including healthcare, data platforms, and cloud-native systems.
                 </p>
                 <p className="mb-3">
-                  My approach to development focuses on creating clean, maintainable code that delivers
-                  exceptional user experiences while meeting strict healthcare compliance requirements. I'm passionate about building 
-                  accessible applications that solve real-world healthcare problems.
+                I specialize in technologies like Angular and Spring Boot, and work extensively with integration standards such as FHIR 
+                and HL7. My focus is on writing clean, maintainable code and delivering reliable, production-ready solutions.
                 </p>
                 <p className="mb-4">
-                  Currently pursuing my Master's in Computer Science at Georgia Tech while working full-time, I continuously
-                  expand my knowledge in areas like distributed systems and cloud architecture. This academic pursuit complements
-                  my professional expertise in building scalable healthcare solutions.
+                I’m currently pursuing a Master’s in Computer Science with a specialization in Artificial Intelligence at Georgia Tech 
+                while working full-time. This academic work deepens my expertise in areas like distributed systems, intelligent infrastructure, 
+                and applied machine learning.
                 </p>
                 
                 <h4 className="border-bottom border-primary pb-2 mb-3">My Focus Areas</h4>

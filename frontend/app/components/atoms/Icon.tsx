@@ -3,7 +3,7 @@ import React from 'react';
 export interface IconProps {
   name: string;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  color?: 'primary' | 'secondary' | 'tertiary' | 'white' | 'dark' | 'muted';
+  color?: 'primary' | 'secondary' | 'tertiary' | 'white' | 'dark' | 'muted' | 'primary-custom' | 'secondary-custom' | 'tertiary-custom';
   className?: string;
 }
 
@@ -30,6 +30,9 @@ const Icon = ({
     white: 'text-white',
     dark: 'text-dark',
     muted: 'text-muted',
+    'primary-custom': 'text-primary-custom',
+    'secondary-custom': 'text-secondary-custom',
+    'tertiary-custom': 'text-tertiary-custom',
   };
 
   return (

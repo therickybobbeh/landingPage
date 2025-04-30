@@ -1,28 +1,75 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   reactStrictMode: true,
-  // Provide default values for environment variables
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  poweredByHeader: false,
+  compress: true,
+  productionBrowserSourceMaps: false,
+  swcMinify: true,
+  images: {
+    domains: [
+      process.env.NEXT_PUBLIC_APP_DOMAIN || 'localhost',
+      // Add any other domains you need to serve images from
+    ],
+    formats: ['image/webp'],
   },
-  // Configure webpack to handle canvas properly
+  // Add webpack configuration for PDF handling
   webpack: (config) => {
-    // Handle canvas binary files
+    // Handle PDF.js worker
     config.resolve.alias.canvas = false;
+    
+    // This is needed for react-pdf to work properly
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      canvas: false,
+      path: false,
+      os: false,
+    };
     
     return config;
   },
-  // Allow importing from these domains
-  images: {
-    domains: ['localhost'],
+  async headers() {
+    return [
+      {
+        // Apply these headers to all routes
+        source: '/:path*',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin',
+          },
+        ],
+      },
+    ];
   },
-  // Disable standalone mode to use standard Next.js deployment
-  // output: 'standalone',
-  // Set to development mode to bypass some strict checks
-  // experimental: {
-  //   // Disable static page generation to avoid server component issues
-  //   appDir: true,
-  // },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // Add any rewrites you need here
+      ],
+    };
+  },
 }
 
-module.exports = nextConfig;
+module.exports = nextConfig

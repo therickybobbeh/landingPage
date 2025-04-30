@@ -2,29 +2,24 @@ name: Build & Deploy Frontend Landing Page
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Deployment environment'
+        description: Deployment environment
         type: choice
-        options:
-          - production
-          - staging
-        default: 'production'
+        options: [ production, staging ]
+        default: production
         required: true
 
 env:
-  # Azure Container Registry details
   REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
   FRONTEND_IMAGE: portfolio-frontend
-  # Azure deployment details
   RESOURCE_GROUP: portfolio-rg
   CONTAINER_APP_NAME: portfolio-frontend
   CONTAINER_APP_ENV: portfolio-env
   LOCATION: eastus
-  # Flag for custom domain configuration
+  # Adding a flag to check if custom domain is provided
   HAS_CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN != '' }}
 
 jobs:
@@ -35,29 +30,30 @@ jobs:
       url: ${{ steps.deploy-to-container-apps.outputs.url }}
 
     steps:
-      # Checkout repository
+      # ----- decide deploy environment once, reuse everywhere -----
+      - name: Set DEPLOY_ENV
+        id: set-env
+        run: |
+          echo "DEPLOY_ENV=${{ github.event.inputs.environment || 'production' }}" >> "$GITHUB_ENV"
+
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # Login to Azure
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      # Login to ACR - using your stored credentials
-      - name: Login to Azure Container Registry
+      - name: Login to ACR
         uses: docker/login-action@v2
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
 
-      # Build and push frontend image with production environment variables
       - name: Build & Push frontend
         uses: docker/build-push-action@v4
         with:
@@ -70,7 +66,7 @@ jobs:
           cache-to: type=inline
           build-args: |
             NODE_ENV=production
-            NEXT_PUBLIC_ENVIRONMENT=${{ github.event.inputs.environment || 'production' }}
+            NEXT_PUBLIC_ENVIRONMENT=${{ env.DEPLOY_ENV }}
             
       # Verify images exist in ACR
       - name: Verify images in ACR
@@ -137,29 +133,32 @@ jobs:
 
       # Configure custom domain with managed certificates (HTTPS)
       - name: Configure custom domain with HTTPS
+        # Correct way to check if a secret exists and isn't empty
         if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
-          echo "Configuring custom domain with HTTPS..."
+          echo "Configuring custom domain with HTTPS for ${{ secrets.CUSTOM_DOMAIN }}..."
+          
+          # Add custom domain to Container App
           az containerapp hostname add \
-            --name ${{ env.CONTAINER_APP_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
+            --name ${{ env.CONTAINER_APP_NAME }} \
             --hostname ${{ secrets.CUSTOM_DOMAIN }}
-            
-          # Add managed certificate for the custom domain
-          az containerapp hostname bind \
-            --name ${{ env.CONTAINER_APP_NAME }} \
+          
+          # Get validation records - this will be needed for DNS configuration
+          validation_info=$(az containerapp hostname bind \
             --resource-group ${{ env.RESOURCE_GROUP }} \
+            --name ${{ env.CONTAINER_APP_NAME }} \
             --hostname ${{ secrets.CUSTOM_DOMAIN }} \
             --environment ${{ env.CONTAINER_APP_ENV }} \
-            --validation-method CNAME
+            --validation-method CNAME)
           
-          echo "✅ Custom domain configured with HTTPS"
-          echo "Please add the following CNAME record to your DNS provider:"
-          az containerapp hostname show \
-            --name ${{ env.CONTAINER_APP_NAME }} \
-            --resource-group ${{ env.RESOURCE_GROUP }} \
-            --hostname ${{ secrets.CUSTOM_DOMAIN }} \
-            --query "bindingDetails.customDomainConfiguration.validationDetails.cnameRecord"
+          # Output DNS configuration information
+          echo "===== DNS CONFIGURATION REQUIRED ====="
+          echo "$validation_info" | grep -A 2 "cnameRecord"
+          echo "Please add the above CNAME record to your GoDaddy DNS configuration"
+          echo "====================================="
+          
+          echo "✅ Custom domain configuration initiated"
       
       # Security scanning and validation
       - name: Run security scan
@@ -173,7 +172,8 @@ jobs:
         run: |
           echo "✅ Frontend successfully deployed to Azure Container Apps"
           app_url=$(az containerapp show --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query "properties.configuration.ingress.fqdn" -o tsv)
-          echo "Application URL: https://${app_url}"
-          if [ -n "${{ secrets.CUSTOM_DOMAIN }}" ]; then
-            echo "Custom Domain: https://${{ secrets.CUSTOM_DOMAIN }}"
+          echo "Default Application URL: https://${app_url}"
+          
+          if [[ -n "${{ secrets.CUSTOM_DOMAIN }}" ]]; then
+            echo "Custom Domain (after DNS setup): https://${{ secrets.CUSTOM_DOMAIN }}"
           fi

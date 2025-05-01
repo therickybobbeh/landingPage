@@ -159,24 +159,24 @@ jobs:
           fi
 
       # Configure custom domain if needed, with existence check
-      - name: Configure custom domain if needed
-        if: env.HAS_CUSTOM_DOMAIN == 'true'
-        run: |
-          echo "Checking if custom domain ${{ secrets.CUSTOM_DOMAIN }} is already configured..."
+      # - name: Configure custom domain if needed
+      #   if: env.HAS_CUSTOM_DOMAIN == 'true'
+      #   run: |
+      #     echo "Checking if custom domain ${{ secrets.CUSTOM_DOMAIN }} is already configured..."
           
-          # Check if hostname exists by listing hostnames (will show in output but won't fail if doesn't exist)
-          DOMAIN_EXISTS=$(az containerapp hostname list --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.CONTAINER_APP_NAME }} --query "[?hostname=='${{ secrets.CUSTOM_DOMAIN }}'].hostname" -o tsv)
+      #     # Check if hostname exists by listing hostnames (will show in output but won't fail if doesn't exist)
+      #     DOMAIN_EXISTS=$(az containerapp hostname list --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.CONTAINER_APP_NAME }} --query "[?hostname=='${{ secrets.CUSTOM_DOMAIN }}'].hostname" -o tsv)
           
-          if [ -z "$DOMAIN_EXISTS" ]; then
-            echo "Adding custom domain ${{ secrets.CUSTOM_DOMAIN }} to container app..."
-            az containerapp hostname add \
-              --resource-group ${{ env.RESOURCE_GROUP }} \
-              --name ${{ env.CONTAINER_APP_NAME }} \
-              --hostname ${{ secrets.CUSTOM_DOMAIN }}
-            echo "✅ Custom domain added. Certificate management is handled in Azure."
-          else
-            echo "✅ Custom domain ${{ secrets.CUSTOM_DOMAIN }} is already configured. No action needed."
-          fi
+      #     if [ -z "$DOMAIN_EXISTS" ]; then
+      #       echo "Adding custom domain ${{ secrets.CUSTOM_DOMAIN }} to container app..."
+      #       az containerapp hostname add \
+      #         --resource-group ${{ env.RESOURCE_GROUP }} \
+      #         --name ${{ env.CONTAINER_APP_NAME }} \
+      #         --hostname ${{ secrets.CUSTOM_DOMAIN }}
+      #       echo "✅ Custom domain added. Certificate management is handled in Azure."
+      #     else
+      #       echo "✅ Custom domain ${{ secrets.CUSTOM_DOMAIN }} is already configured. No action needed."
+      #     fi
 
       # Security scanning and validation
       - name: Run security scan

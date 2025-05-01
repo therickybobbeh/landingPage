@@ -6,11 +6,23 @@ import { Metadata } from 'next';
 import BootstrapClient from './components/BootstrapClient';
 
 export const metadata: Metadata = {
-  title: 'Developer Portfolio',
-  description: 'A professional portfolio for developers to showcase their work',
+  title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
+  description: 'Explore the portfolio of Bob Cole: full-stack engineer with expertise in angular, Next.js, FastAPI, PostgreSQL, and UI/UX design. Featuring Georgia Tech AI/CS projects, personal web apps, and more.',
   icons: {
     icon: '/favicon.ico',
   },
+  openGraph: {
+    title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
+    description: 'Browse Bob Cole’s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
+    images: [
+      {
+        url: '/preview.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Preview of Bob Cole’s Full-Stack Developer Portfolio',
+      },
+    ],
+  }
 };
 
 export default function RootLayout({

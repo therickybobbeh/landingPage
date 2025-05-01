@@ -38,7 +38,7 @@ const projects: Project[] = [
     title: "This website",
     description: "Personal project where I explore differnt tools to create frontends.",
     image: "/githubPreview/react.png",
-    technologies: ["react", "next.js", "azure", "typescript, CI/CD, github actions"],
+    technologies: ["react", "next.js", "azure", "typescript", "CI/CD", "github actions"],
     demoUrl: "",
     codeUrl: "https://github.com/therickybobbeh/landingPage",
     featured: false,

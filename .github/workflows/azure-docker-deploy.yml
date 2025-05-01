@@ -141,33 +141,56 @@ jobs:
           app_url=$(az containerapp show --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query "properties.configuration.ingress.fqdn" -o tsv)
           echo "::set-output name=url::https://${app_url}"
 
-        #  Configure custom domain with managed certificates (HTTPS)
+      # Configure custom domain with managed certificates (HTTPS)
       - name: Configure custom domain with HTTPS
         if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
           echo "Configuring custom domain with HTTPS for ${{ secrets.CUSTOM_DOMAIN }}..."
           
-          # Add custom domain to Container App
-          az containerapp hostname add \
+          # Check if the hostname already exists
+          hostname_exists=$(az containerapp hostname list \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
-            --hostname ${{ secrets.CUSTOM_DOMAIN }}
+            --query "[?hostname=='${{ secrets.CUSTOM_DOMAIN }}'].hostname" -o tsv)
           
-          # Get validation records using TXT validation instead of CNAME
-          validation_info=$(az containerapp hostname bind \
+          if [ -z "$hostname_exists" ]; then
+            # Add custom domain to Container App only if it doesn't exist
+            echo "Adding new custom domain..."
+            az containerapp hostname add \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.CONTAINER_APP_NAME }} \
+              --hostname ${{ secrets.CUSTOM_DOMAIN }}
+          else
+            echo "Custom domain already exists. Skipping domain addition step."
+          fi
+          
+          # Check if the hostname is already bound
+          binding_exists=$(az containerapp hostname show \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
             --hostname ${{ secrets.CUSTOM_DOMAIN }} \
-            --environment ${{ env.CONTAINER_APP_ENV }} \
-            --validation-method TXT)
+            --query "bindingType" -o tsv 2>/dev/null || echo "NotBound")
           
-          # Output DNS configuration information
-          echo "===== DNS CONFIGURATION REQUIRED ====="
-          echo "$validation_info"
-          echo "Please add the above validation record to your DNS configuration"
-          echo "====================================="
+          if [ "$binding_exists" == "NotBound" ] || [ "$binding_exists" == "Disabled" ]; then
+            # Bind the hostname with TXT validation if not already bound or if disabled
+            echo "Binding custom domain with TXT validation..."
+            validation_info=$(az containerapp hostname bind \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.CONTAINER_APP_NAME }} \
+              --hostname ${{ secrets.CUSTOM_DOMAIN }} \
+              --environment ${{ env.CONTAINER_APP_ENV }} \
+              --validation-method TXT)
+            
+            # Output DNS configuration information
+            echo "===== DNS CONFIGURATION REQUIRED ====="
+            echo "$validation_info"
+            echo "Please add the above validation record to your DNS configuration"
+            echo "====================================="
+          else
+            echo "Custom domain is already bound with binding type: $binding_exists"
+          fi
           
-          echo "✅ Custom domain configuration initiated"
+          echo "✅ Custom domain configuration check completed"
       
       # Security scanning and validation
       - name: Run security scan

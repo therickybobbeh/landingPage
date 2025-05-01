@@ -7,7 +7,6 @@ import Heading from '../atoms/Typography/Heading';
 import Text from '../atoms/Typography/Text';
 import AnimatedCard from '../molecules/AnimatedCard';
 import CodeAnimation from '../animations/CodeAnimation';
-import Avatar from '../atoms/Avatar';
 
 const Banner = () => {
   return (

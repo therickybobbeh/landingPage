@@ -12,6 +12,10 @@
     "start:prod": "NODE_ENV=production node .next/standalone/server.js",
     "start:https": "NODE_ENV=production node scripts/local-https.js",
     "lint": "next lint",
+    "lint:unused": "eslint . --ext .js,.jsx,.ts,.tsx --fix --max-warnings=0",
+    "css:purge": "npx purgecss --css app/globals.css,app/styles/**/*.css --content app/**/*.{js,jsx,ts,tsx} --output purged",
+    "css:find-unused": "npx purgecss --css app/globals.css,app/styles/**/*.css --content app/**/*.{js,jsx,ts,tsx} --rejected",
+    "cleanup": "npm run lint:unused && npm run css:find-unused",
     "production": "npm run build:prod && npm run start:standalone"
   },
   "dependencies": {
@@ -38,7 +42,9 @@
     "autoprefixer": "^10.4.16",
     "eslint": "^8.54.0",
     "eslint-config-next": "14.0.4",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "postcss": "^8.4.31",
+    "purgecss": "^7.0.2",
     "typescript": "^5.3.2"
   }
 }

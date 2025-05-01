@@ -238,7 +238,7 @@
 }
 
 .section-light {
-  background-color: var(--primary-100);
+  background-color: var(--neutral-100); /* Changed from var(--primary-100) to neutral gray */
   color: var(--text-primary);
 }
 

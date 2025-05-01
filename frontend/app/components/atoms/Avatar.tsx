@@ -54,11 +54,16 @@ const Avatar = ({
   
   return (
     <div style={avatarStyles} className={`position-relative ${className}`}>
-      <img
-        src={src}
-        alt={alt}
-        className="img-fluid rounded-circle w-100 h-100 object-fit-cover"
-      />
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={`${dimensions}px`}
+          className="rounded-circle object-fit-cover"
+          priority={size === 'lg' || size === 'xl'}
+        />
+      </div>
       
       {status && (
         <span 

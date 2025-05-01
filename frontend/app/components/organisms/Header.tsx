@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import Link from 'next/link';
-import Button from '../atoms/Button';
 import Heading from '../atoms/Typography/Heading';
 
 const Header = () => {

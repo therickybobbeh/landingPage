@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
-import { Container, Row, Col, Card, Image, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Card, Image as BootstrapImage, Carousel } from 'react-bootstrap';
+import Image from 'next/image';
 
 const AboutMe = () => {
   return (
@@ -21,7 +22,7 @@ const AboutMe = () => {
               <div className="position-relative d-inline-block">
                 <div className="card-gradient-purple rounded-circle position-absolute w-100 h-100" 
                   style={{ transform: 'translate(10px, 10px)', zIndex: 0 }}></div>
-                <Image 
+                <BootstrapImage 
                   src="/images/personal/headshot.jpeg" 
                   alt="Robert Cole - Profile Photo" 
                   roundedCircle 
@@ -38,7 +39,7 @@ const AboutMe = () => {
                   </div>
                   <div className="text-start">
                     <h6 className="mb-0 fw-bold text-black">Georgia Tech</h6>
-                    <small className="text-muted">Master's in Computer Science</small>
+                    <small className="text-muted">Master&apos;s in Computer Science</small>
                   </div>
                 </div>
                 
@@ -58,34 +59,43 @@ const AboutMe = () => {
                 <h5 className="text-white mb-3">Life Beyond Code</h5>
                 <Carousel className="interest-carousel shadow rounded bg-white">
                   <Carousel.Item>
-                    <img
-                      className="d-block w-100 rounded"
-                      src="/images/personal/snowboard.jpeg"
-                      alt="Snowboarding"
-                      style={{ height: '200px', objectFit: 'cover' }}
-                    />
+                    <div style={{ position: 'relative', height: '200px', width: '100%' }}>
+                      <Image
+                        src="/images/personal/snowboard.jpeg"
+                        alt="Snowboarding"
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        className="rounded"
+                      />
+                    </div>
                     <Carousel.Caption>
                       <h5 className="bg-dark bg-opacity-50 p-1 rounded">Snowboarding</h5>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img
-                      className="d-block w-100 rounded"
-                      src="/images/personal/fishing.jpeg"
-                      alt="Fishing"
-                      style={{ height: '200px', objectFit: 'cover' }}
-                    />
+                    <div style={{ position: 'relative', height: '200px', width: '100%' }}>
+                      <Image
+                        src="/images/personal/fishing.jpeg"
+                        alt="Fishing"
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        className="rounded"
+                      />
+                    </div>
                     <Carousel.Caption>
                       <h5 className="bg-dark bg-opacity-50 p-1 rounded">Fishing Adventures</h5>
                     </Carousel.Caption>
                   </Carousel.Item>
                   <Carousel.Item>
-                    <img
-                      className="d-block w-100 rounded"
-                      src="/images/personal/crab.jpeg"
-                      alt="Crabbing"
-                      style={{ height: '200px', objectFit: 'cover', objectPosition: 'center 15%' }}
-                    />
+                    <div style={{ position: 'relative', height: '200px', width: '100%' }}>
+                      <Image
+                        src="/images/personal/crab.jpeg"
+                        alt="Crabbing"
+                        fill
+                        style={{ objectFit: 'cover', objectPosition: 'center 15%' }}
+                        className="rounded"
+                      />
+                    </div>
                     {/* <Carousel.Caption>
                       <h5 className="bg-dark bg-opacity-50 p-1 rounded">Crabbing Experiences</h5>
                     </Carousel.Caption> */}
@@ -97,9 +107,9 @@ const AboutMe = () => {
           <Col lg={8} md={7}>
             <Card className="border-0 shadow-lg card-light-grey">
               <Card.Body className="p-4">
-                <h3 className="mb-3 text-primary-custom">Hello, I'm Robert Cole</h3>
+                <h3 className="mb-3 text-primary-custom">Hello, I&apos;m Robert Cole</h3>
                 <p className="mb-3">
-                I’m a Software Engineer with a strong background in full-stack development, building scalable, high-quality 
+                I&apos;m a Software Engineer with a strong background in full-stack development, building scalable, high-quality 
                 applications across domains including healthcare, data platforms, and cloud-native systems.
                 </p>
                 <p className="mb-3">
@@ -107,7 +117,7 @@ const AboutMe = () => {
                 and HL7. My focus is on writing clean, maintainable code and delivering reliable, production-ready solutions.
                 </p>
                 <p className="mb-4">
-                I’m currently pursuing a Master’s in Computer Science with a specialization in Artificial Intelligence at Georgia Tech 
+                I&apos;m currently pursuing a Master&apos;s in Computer Science with a specialization in Artificial Intelligence at Georgia Tech 
                 while working full-time. This academic work deepens my expertise in areas like distributed systems, intelligent infrastructure, 
                 and applied machine learning.
                 </p>
@@ -157,7 +167,7 @@ const AboutMe = () => {
                     <div className="card-light rounded-3 p-3 h-100 shadow-sm">
                       <div className="d-flex align-items-center">
                         <div className="bg-primary-light p-3 rounded-3 text-white me-3">
-                          <i className="bi bi-diagram-3 fs-4"></i>
+                          <i className="bi bi-diagram-3 fs-4 text-dark"></i>
                         </div>
                         <div>
                           <h5 className="mb-1">DevOps</h5>

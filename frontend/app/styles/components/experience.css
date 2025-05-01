@@ -17,6 +17,12 @@
   font-size: inherit;
 }
 
+/* Education item styling */
+.education-logo-container {
+  width: 64px;
+  height: 64px;
+}
+
 /* Make experience items more compact on mobile */
 @media (max-width: 768px) {
   .experience-logo-container {
@@ -37,11 +43,41 @@
   }
   
   .small-on-mobile {
-    font-size: 0.875rem;
+    font-size: 0.95rem; /* Increased from 0.875rem for better readability */
+  }
+  
+  /* Increase base font size for degrees and schools */
+  .fs-sm-5 {
+    font-size: 1.125rem !important; /* Larger text on mobile */
+  }
+  
+  .fs-sm-6 {
+    font-size: 1rem !important; /* Larger text on mobile */
   }
   
   .experience-badge {
     padding: 0.25rem 0.5rem !important;
-    font-size: 0.75rem !important;
+    font-size: 0.85rem !important; /* Increased from 0.75rem */
+  }
+  
+  /* Education specific mobile adjustments */
+  .education-logo-container {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .education-logo {
+    width: 28px;
+    height: 28px;
+  }
+  
+  /* Tighten vertical spacing */
+  hr.my-4.my-sm-1 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .mb-4.mb-sm-1 {
+    margin-bottom: 0.75rem !important;
   }
 }

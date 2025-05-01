@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 
 interface FloatingElementProps {
   children: React.ReactNode;
-  intensity?: number;
   className?: string;
   style?: React.CSSProperties;
   perspective?: number;
@@ -13,7 +12,6 @@ interface FloatingElementProps {
 
 const FloatingElement: React.FC<FloatingElementProps> = ({
   children,
-  intensity = 15,
   className = '',
   style = {},
   perspective = 1000,

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import Image from 'next/image';
 import ExperienceItem, { ExperienceItemProps } from '../molecules/ExperienceItem';
 
 const Experience = () => {
@@ -120,18 +121,22 @@ const Experience = () => {
           </Col>
         </Row>
 
-        <Row className="mb-5">
+        <Row className="mb-5 mb-sm-2">
           <Col lg={12}>
-            <div className="d-flex align-items-center mb-4">
-              <div className="bg-light rounded p-2 me-3" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Education Item - Georgia Tech */}
+            <div className="d-flex align-items-center mb-4 mb-sm-1">
+              <div className="bg-light rounded p-2 p-sm-1 me-3 me-sm-1 education-logo-container">
                 {education.logo ? (
-                  <img
-                    src={education.logo}
-                    alt={`${education.school} logo`}
-                    width={50}
-                    height={50}
-                    className="school-logo"
-                  />
+                  <div style={{ position: 'relative', width: '50px', height: '50px' }}>
+                    <Image
+                      src={education.logo}
+                      alt={`${education.school} logo`}
+                      fill
+                      sizes="50px"
+                      className="school-logo education-logo"
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
                 ) : (
                   <span className="text-primary-custom fs-3">
                     {education.school.charAt(0)}
@@ -139,27 +144,31 @@ const Experience = () => {
                 )}
               </div>
               <div>
-                <h3 className="fs-4 fw-bold mb-0 text-primary-custom">{education.degree}</h3>
+                <h3 className="fs-4 fs-sm-5 fw-bold mb-0 text-primary-custom">{education.degree}</h3>
                 <div className="d-flex align-items-center">
-                  <h4 className="fs-5 mb-0">{education.school}</h4>
+                  <h4 className="fs-5 fs-sm-6 mb-0">{education.school}</h4>
                 </div>
-                <div className="text-muted">
+                <div className="text-muted small">
                   <small>{education.duration}</small>
                 </div>
               </div>
             </div>
-            <hr className="my-4" />
+            <hr className="my-4 my-sm-1" />
 
-            <div className="d-flex align-items-center mb-4">
-              <div className="bg-light rounded p-2 me-3" style={{ width: '64px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            {/* Education Item - KSU */}
+            <div className="d-flex align-items-center mb-4 mb-sm-1">
+              <div className="bg-light rounded p-2 p-sm-1 me-3 me-sm-1 education-logo-container">
                 {educationUndergrad.logo ? (
-                  <img
-                    src={educationUndergrad.logo}
-                    alt={`${educationUndergrad.school} logo`}
-                    width={50}
-                    height={50}
-                    className="school-logo"
-                  />
+                  <div style={{ position: 'relative', width: '50px', height: '50px' }}>
+                    <Image
+                      src={educationUndergrad.logo}
+                      alt={`${educationUndergrad.school} logo`}
+                      fill
+                      sizes="50px"
+                      className="school-logo education-logo"
+                      style={{ objectFit: 'contain' }}
+                    />
+                  </div>
                 ) : (
                   <span className="text-secondary fs-3">
                     {educationUndergrad.school.charAt(0)}
@@ -167,16 +176,16 @@ const Experience = () => {
                 )}
               </div>
               <div>
-                <h3 className="fs-4 fw-bold mb-0 text-secondary">{educationUndergrad.degree}</h3>
+                <h3 className="fs-4 fs-sm-5 fw-bold mb-0 text-secondary">{educationUndergrad.degree}</h3>
                 <div className="d-flex align-items-center">
-                  <h4 className="fs-5 mb-0">{educationUndergrad.school}</h4>
+                  <h4 className="fs-5 fs-sm-6 mb-0">{educationUndergrad.school}</h4>
                 </div>
-                <div className="text-muted">
+                <div className="text-muted small">
                   <small>{educationUndergrad.duration}</small>
                 </div>
               </div>
             </div>
-            <hr className="my-4" />
+            <hr className="my-4 my-sm-1" />
           </Col>
         </Row>
 

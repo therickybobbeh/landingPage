@@ -94,7 +94,7 @@ const ContactForm = () => {
               {/* Card body with white background */}
               <Card.Body className="p-3 p-md-5">
                 <Row className="g-4">
-                  {contactMethods.map((method, index) => (
+                  {contactMethods.map((method) => (
                     <Col md={4} key={method.icon} className="mb-4 mb-md-0">
                       <div className="d-flex flex-column h-100">
                         {/* Contact information with circular purple badge */}

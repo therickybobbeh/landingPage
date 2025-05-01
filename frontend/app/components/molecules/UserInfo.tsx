@@ -1,7 +1,6 @@
 import React from 'react';
 import Avatar from '../atoms/Avatar';
 import Text from '../atoms/Typography/Text';
-import { Row, Col } from 'react-bootstrap';
 
 export interface UserInfoProps {
   avatarSrc: string;

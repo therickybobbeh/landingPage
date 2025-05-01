@@ -52,7 +52,7 @@ const projects: Project[] = [
     description: "An ai made from scratch using purely knowledge based implemntaion. \
       The AI is designed to solve the Ravens Progressive Matrices, a non-verbal test of intelligence \
       that requires pattern recognition and logical reasoning. \n\n\
-      To access this project please email me individually, Georgia tech has asked me to not share it publicly.",
+      To access this project please email me individually, Georgia Tech has asked me to not share it publicly.",
     image: "/githubPreview/ravensScale.png",
     technologies: ["Python", "openCv", "numpy"],
     demoUrl: "https://social-dash.example.com",

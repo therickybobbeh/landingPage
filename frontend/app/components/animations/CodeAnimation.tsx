@@ -30,7 +30,6 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({
     '// Let\'s collaborate on your next project!'
   ];
 
-  const fullCode = codeLines.join('\n');
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedCode, currentLine, isTyping]);
+  }, [displayedCode, currentLine, isTyping, codeLines]);
 
   const containerHeight = typeof height === 'number' ? `${height}px` : height;
 

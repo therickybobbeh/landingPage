@@ -15,7 +15,7 @@ on:
 env:
   REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
   FRONTEND_IMAGE: portfolio-frontend
-  RESOURCE_GROUP: portfolio-rg
+  RESOURCE_GROUP: devProfile
   CONTAINER_APP_NAME: portfolio-frontend
   CONTAINER_APP_ENV: portfolio-env
   LOCATION: eastus

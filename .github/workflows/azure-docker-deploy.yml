@@ -158,19 +158,25 @@ jobs:
             echo "url=https://${app_url}" >> $GITHUB_OUTPUT
           fi
 
-      # Configure custom domain with managed certificates (HTTPS) - Simplified
-      - name: Configure custom domain
+      # Configure custom domain if needed, with existence check
+      - name: Configure custom domain if needed
         if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
-          echo "Adding custom domain for ${{ secrets.CUSTOM_DOMAIN }}..."
+          echo "Checking if custom domain ${{ secrets.CUSTOM_DOMAIN }} is already configured..."
           
-          # Just add the hostname to the container app since certs are managed in Azure
-          az containerapp hostname add \
-            --resource-group ${{ env.RESOURCE_GROUP }} \
-            --name ${{ env.CONTAINER_APP_NAME }} \
-            --hostname ${{ secrets.CUSTOM_DOMAIN }}
+          # Check if hostname exists by listing hostnames (will show in output but won't fail if doesn't exist)
+          DOMAIN_EXISTS=$(az containerapp hostname list --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.CONTAINER_APP_NAME }} --query "[?hostname=='${{ secrets.CUSTOM_DOMAIN }}'].hostname" -o tsv)
           
-          echo "✅ Custom domain added. Certificate management is handled in Azure."
+          if [ -z "$DOMAIN_EXISTS" ]; then
+            echo "Adding custom domain ${{ secrets.CUSTOM_DOMAIN }} to container app..."
+            az containerapp hostname add \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.CONTAINER_APP_NAME }} \
+              --hostname ${{ secrets.CUSTOM_DOMAIN }}
+            echo "✅ Custom domain added. Certificate management is handled in Azure."
+          else
+            echo "✅ Custom domain ${{ secrets.CUSTOM_DOMAIN }} is already configured. No action needed."
+          fi
 
       # Security scanning and validation
       - name: Run security scan

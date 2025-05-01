@@ -15,9 +15,9 @@ on:
 env:
   REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
   FRONTEND_IMAGE: portfolio-frontend
-  RESOURCE_GROUP: devProfile
+  RESOURCE_GROUP: pd-management-dev
   CONTAINER_APP_NAME: portfolio-frontend
-  CONTAINER_APP_ENV: portfolio-env
+  CONTAINER_APP_ENV: pd-management-dev-env
   LOCATION: eastus
   # Adding a flag to check if custom domain is provided
   HAS_CUSTOM_DOMAIN: ${{ secrets.CUSTOM_DOMAIN != '' }}

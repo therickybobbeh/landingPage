@@ -41,10 +41,10 @@ const Footer = () => {
               </Link>
             </div>
             
-            <Text color="white-50" className="mb-4">
+            {/* <Text color="white-50" className="mb-4">
               Developing innovative solutions and building digital experiences that make a difference.
               Let's work together to bring your ideas to life.
-            </Text>
+            </Text> */}
             
             <div className="d-flex gap-2">
               {socialLinks.map((social) => (

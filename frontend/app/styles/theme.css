@@ -368,67 +368,35 @@
   margin-bottom: 3rem;
 }
 
-/* Form styles */
-.form-control-dark {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
-  color: var(--bs-white);
+/* Make sections more compact on mobile */
+@media (max-width: 768px) {
+  .section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
 }
 
-.form-control-dark:focus {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: var(--bs-primary);
-  color: var(--bs-white);
-  box-shadow: 0 0 0 0.25rem rgba(112, 46, 192, 0.25);
-}
+@media (max-width: 576px) {
+  .section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
 
-.form-label-light {
-  color: var(--bs-white);
-}
-
-/* Icon circle for consistent icon display */
-.icon-circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-.center-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Animation classes */
-.transition-all {
-  transition: all 0.3s ease;
-}
-
-/* Width utilities for avatar images and icons */
-.width-24 { width: 24px; height: 24px; }
-.width-32 { width: 32px; height: 32px; }
-.width-48 { width: 48px; height: 48px; }
-.width-64 { width: 64px; height: 64px; }
-.width-96 { width: 96px; height: 96px; }
-
-/* Hover effect utility */
-.hover-text-primary:hover {
-  color: var(--bs-primary) !important;
-}
-
-/* Spacing for sections */
-.section {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  position: relative;
-}
-
-.section-content {
-  position: relative;
-  z-index: 1;
+  .section-title {
+    font-size: 1.75rem;
+  }
+  .section-subtitle {
+    font-size: 0.9375rem;
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* Textarea expandable */

@@ -11,15 +11,16 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
+  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
   openGraph: {
     title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
-    description: 'Browse Bob Cole’s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
+    description: 'Browse Bob Cole\'s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
     images: [
       {
         url: '/preview.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Preview of Bob Cole’s Full-Stack Developer Portfolio',
+        alt: 'Preview of Bob Cole\'s Full-Stack Developer Portfolio',
       },
     ],
   }

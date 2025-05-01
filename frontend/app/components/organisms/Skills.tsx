@@ -86,9 +86,9 @@ const AboutMe = () => {
                       alt="Crabbing"
                       style={{ height: '200px', objectFit: 'cover', objectPosition: 'center 15%' }}
                     />
-                    <Carousel.Caption>
+                    {/* <Carousel.Caption>
                       <h5 className="bg-dark bg-opacity-50 p-1 rounded">Crabbing Experiences</h5>
-                    </Carousel.Caption>
+                    </Carousel.Caption> */}
                   </Carousel.Item>
                 </Carousel>
               </div>

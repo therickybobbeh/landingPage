@@ -28,65 +28,63 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
   workType = 'Full-time',
 }) => {
   return (
-    <Card className="mb-4 card-custom shadow-sm border-0">
-      <Card.Body className="p-4">
-        <Row className="align-items-center mb-3">
+    <Card className="mb-3 card-custom shadow-sm border-0">
+      <Card.Body className="p-4 p-sm-3">
+        <Row className="align-items-center mb-3 mb-sm-2 g-2">
           <Col xs="auto">
             {logo ? (
-              <div className="rounded p-2" style={{ 
-                width: '64px', 
-                height: '64px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'center',
-                background: typeof logo === 'object' && logo.background === true ? '#000000' : '#ffffff' 
+              <div className="rounded p-2 p-sm-1 experience-logo-container" style={{ 
+                background: typeof logo === 'object' && logo.background === true ? '#000000' : '#ffffff'
               }}>
                 <Image
                   src={typeof logo === 'string' ? logo : logo.photo}
                   alt={`${company} logo`}
                   width={50}
                   height={50}
-                  className="company-logo"
+                  className="company-logo experience-logo"
                 />
               </div>
             ) : (
-              <div className="bg-light rounded p-2 d-flex align-items-center justify-content-center" style={{ width: '64px', height: '64px' }}>
-                <span className="text-primary-custom fs-3">
+              <div className="bg-light rounded p-2 p-sm-1 d-flex align-items-center justify-content-center experience-logo-container">
+                <span className="text-primary-custom fs-3 fs-sm-4">
                   {company.charAt(0)}
                 </span>
               </div>
             )}
           </Col>
           <Col>
-            <h3 className="fs-4 fw-bold mb-0 text-primary-custom">{position}</h3>
+            <h3 className="fs-4 fs-sm-5 fw-bold mb-0 text-primary-custom">{position}</h3>
             <div className="d-flex flex-wrap align-items-center">
-              <h4 className="fs-5 mb-0">{company}</h4>
-              <span className="mx-2 text-muted">•</span>
-              <span className="badge bg-light text-dark me-2">{workType}</span>
+              <h4 className="fs-5 fs-sm-6 mb-0">{company}</h4>
+              <span className="mx-2 mx-sm-1 text-muted">•</span>
+              <span className="badge bg-light text-dark me-2 me-sm-1">{workType}</span>
             </div>
-            <div className="text-muted">
+            <div className="text-muted small">
               <small>{duration} | {location}</small>
             </div>
           </Col>
         </Row>
 
-        <p className="mb-3">{description}</p>
+        <p className="mb-3 mb-sm-2 small-on-mobile">{description}</p>
 
         {responsibilities.length > 0 && (
           <>
-            <h5 className="fw-bold fs-5 mb-2">Key Responsibilities & Achievements</h5>
-            <ul className="mb-3">
+            <h5 className="fw-bold fs-5 fs-sm-6 mb-2 mb-sm-1">Key Responsibilities & Achievements</h5>
+            <ul className="mb-3 mb-sm-2 small-on-mobile ps-4">
               {responsibilities.map((item, index) => (
-                <li key={index}>{item}</li>
+                <li key={index} className="small-on-mobile">{item}</li>
               ))}
             </ul>
           </>
         )}
 
         {skills.length > 0 && (
-          <div className="mt-3">
+          <div className="mt-3 mt-sm-2">
             {skills.map((skill, index) => (
-              <Badge key={index} bg="primary-custom" className="me-2 mb-2 py-2 px-3">
+              <Badge 
+                key={index} 
+                bg="primary-custom" 
+                className="me-2 mb-2 py-2 px-3 experience-badge">
                 {skill}
               </Badge>
             ))}

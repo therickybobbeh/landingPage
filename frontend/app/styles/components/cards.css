@@ -56,6 +56,22 @@
   padding: 2rem;
 }
 
+/* Make card padding more compact on mobile */
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .card-body-lg {
+    padding: 1.5rem;
+  }
+  
+  /* Disable hover transform on mobile for better performance */
+  .card-hover:hover {
+    transform: none;
+  }
+}
+
 /* Card header styles */
 .card-header-accent {
   background-color: var(--primary);
@@ -67,4 +83,35 @@
   background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
   color: white;
   border-bottom: 0;
+}
+
+/* Responsive card image sizes */
+.card-img-top {
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-img-top {
+    height: 180px;
+  }
+}
+
+/* Card grid improvements */
+.card-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+}
+
+@media (max-width: 576px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }

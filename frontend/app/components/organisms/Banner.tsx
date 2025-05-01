@@ -34,7 +34,7 @@ const Banner = () => {
             </Text>
             
             <div className="d-flex flex-wrap gap-3">
-              <Link href="/frontend/public#projects-section" passHref>
+              <Link href="/#projects-section" passHref>
                 <Button 
                   gradient="warm" 
                   size="lg" 
@@ -46,7 +46,19 @@ const Banner = () => {
                   View My Work
                 </Button>
               </Link>
-              <Link href="/frontend/public#contact-section" passHref>
+              <Link href="/resume" passHref>
+                <Button 
+                  gradient="cool" 
+                  size="lg" 
+                  rounded 
+                  withIcon 
+                  iconClassName="bi bi-file-earmark-text"
+                  iconPosition="left"
+                >
+                  My Resume
+                </Button>
+              </Link>
+              <Link href="/#contact-section" passHref>
                 <Button 
                   variant="outline-light" 
                   size="lg" 

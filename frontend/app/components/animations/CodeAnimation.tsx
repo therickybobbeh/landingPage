@@ -17,7 +17,7 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({
 
   const codeLines = [
     'const portfolio = {',
-    '  name: "Full Stack Developer",',
+    '  name: "Robert T. Cole",',
     '  skills: [',
     '    "Angular", "TypeScript",',
     '    "Spring Boot", "Java",',

@@ -38,7 +38,7 @@ const projects: Project[] = [
     title: "This website",
     description: "Personal project where I explore differnt tools to create frontends.",
     image: "/githubPreview/react.png",
-    technologies: ["react", "next.js", "azure", "typescript"],
+    technologies: ["react", "next.js", "azure", "typescript, CI/CD, github actions"],
     demoUrl: "",
     codeUrl: "https://github.com/therickybobbeh/landingPage",
     featured: false,
@@ -54,7 +54,7 @@ const projects: Project[] = [
       that requires pattern recognition and logical reasoning. \n\n\
       To access this project please email me individually the school has not given me permission to share it publicly.",
     image: "/githubPreview/ravensScale.png",
-    technologies: ["Next.js", "TypeScript", "FastAPI", "Redis"],
+    technologies: ["Python", "openCv", "numpy"],
     demoUrl: "https://social-dash.example.com",
     codeUrl: "https://github.com/username/social-dashboard",
     featured: true,

@@ -27,7 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment || 'production' }}
-      url: ${{ steps.deploy-to-container-apps.outputs.url }}
+      # Use custom domain URL if available, otherwise use container app URL
+      url: ${{ env.HAS_CUSTOM_DOMAIN == 'true' && format('https://{0}', secrets.CUSTOM_DOMAIN) || steps.deploy-to-container-apps.outputs.url }}
 
     steps:
       # ----- decide deploy environment once, reuse everywhere -----
@@ -141,37 +142,29 @@ jobs:
           app_url=$(az containerapp show --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query "properties.configuration.ingress.fqdn" -o tsv)
           echo "url=https://${app_url}" >> $GITHUB_OUTPUT
 
-      # Configure custom domain with managed certificates (HTTPS)
+      # Configure custom domain with managed certificates (HTTPS) - Simplified
       - name: Configure custom domain with HTTPS
         if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
           echo "Configuring custom domain with HTTPS for ${{ secrets.CUSTOM_DOMAIN }}..."
           
-          # Simplified approach - skip hostname add, directly bind
-          # This pattern is more resilient and avoids issues with standardized hostnames
+          # First add the hostname silently (in case it doesn't exist yet)
+          az containerapp hostname add \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --hostname ${{ secrets.CUSTOM_DOMAIN }} \
+            2>/dev/null || true
+            
+          # Then bind with TXT validation (works whether domain is new or existing)
           echo "Binding custom domain with TXT validation..."
-          validation_info=$(az containerapp hostname bind \
+          az containerapp hostname bind \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
             --hostname ${{ secrets.CUSTOM_DOMAIN }} \
             --environment ${{ env.CONTAINER_APP_ENV }} \
-            --validation-method TXT)
+            --validation-method TXT
           
-          # Output DNS configuration information
-          echo "===== DNS CONFIGURATION REQUIRED ====="
-          echo "$validation_info"
-          echo "Please add the above validation record to your DNS configuration"
-          echo "====================================="
-          
-          echo "✅ Custom domain configuration check completed"
-          
-          # Reference commands for manual hostname management if needed:
-          # 
-          # List all hostnames to get the exact standardised values:
-          # az containerapp hostname list --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.CONTAINER_APP_NAME }}
-          #
-          # Delete an unwanted hostname:
-          # az containerapp hostname delete --resource-group ${{ env.RESOURCE_GROUP }} --name ${{ env.CONTAINER_APP_NAME }} --hostname <standardised_hostname>
+          echo "✅ Custom domain configuration completed. Check DNS settings in Azure Portal."
       
       # Security scanning and validation
       - name: Run security scan

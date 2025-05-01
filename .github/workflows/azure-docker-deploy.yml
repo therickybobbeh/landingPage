@@ -27,10 +27,21 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.event.inputs.environment || 'production' }}
-      # Use custom domain URL if available, otherwise use container app URL
-      url: ${{ env.HAS_CUSTOM_DOMAIN == 'true' && format('https://{0}', secrets.CUSTOM_DOMAIN) || steps.deploy-to-container-apps.outputs.url }}
+      # Fix: Use a safe URL reference and avoid mixing expressions with secrets
+      url: ${{ steps.set-output-url.outputs.url }}
 
     steps:
+      # Add this step to correctly set the URL output
+      - name: Set output URL
+        id: set-output-url
+        run: |
+          if [[ "${{ secrets.CUSTOM_DOMAIN }}" != "" ]]; then
+            echo "url=https://${{ secrets.CUSTOM_DOMAIN }}" >> $GITHUB_OUTPUT
+          else
+            # We'll use the next step's output as fallback
+            echo "url=" >> $GITHUB_OUTPUT
+          fi
+
       # ----- decide deploy environment once, reuse everywhere -----
       - name: Set DEPLOY_ENV
         id: set-env
@@ -141,6 +152,11 @@ jobs:
           # Get the FQDN for the deployed app
           app_url=$(az containerapp show --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query "properties.configuration.ingress.fqdn" -o tsv)
           echo "url=https://${app_url}" >> $GITHUB_OUTPUT
+          
+          # Update the output URL if it wasn't set by custom domain
+          if [[ -z "${{ steps.set-output-url.outputs.url }}" ]]; then
+            echo "url=https://${app_url}" >> $GITHUB_OUTPUT
+          fi
 
       # Configure custom domain with managed certificates (HTTPS) - Simplified
       - name: Configure custom domain with HTTPS

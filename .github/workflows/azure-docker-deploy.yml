@@ -147,11 +147,23 @@ jobs:
         run: |
           echo "Configuring custom domain with HTTPS for ${{ secrets.CUSTOM_DOMAIN }}..."
           
-          # Check if the hostname already exists - improved check with better error handling
-          hostname_exists=$(az containerapp hostname list \
+          # First check if any hostnames exist at all
+          existing_hostnames=$(az containerapp hostname list \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
-            --query "[?contains(hostname, '${{ secrets.CUSTOM_DOMAIN }}')].hostname" -o tsv)
+            --output tsv 2>/dev/null || echo "")
+          
+          # More robust check for existing hostname
+          if [ -n "$existing_hostnames" ]; then
+            # Only run the contains query if we have hostnames to check
+            hostname_exists=$(az containerapp hostname list \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --name ${{ env.CONTAINER_APP_NAME }} \
+              --query "[?contains(hostname, '${{ secrets.CUSTOM_DOMAIN }}')].hostname" \
+              --output tsv 2>/dev/null || echo "")
+          else
+            hostname_exists=""
+          fi
           
           if [ -z "$hostname_exists" ]; then
             # Add custom domain to Container App only if it doesn't exist
@@ -161,23 +173,36 @@ jobs:
               --name ${{ env.CONTAINER_APP_NAME }} \
               --hostname ${{ secrets.CUSTOM_DOMAIN }}
               
-            # Get the new hostname in standardized format
+            # Get the standardized hostname after adding
+            echo "Retrieving the standardized hostname..."
+            sleep 5  # Short delay to ensure Azure has processed the add operation
+            
             hostname_exists=$(az containerapp hostname list \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --name ${{ env.CONTAINER_APP_NAME }} \
-              --query "[?contains(hostname, '${{ secrets.CUSTOM_DOMAIN }}')].hostname" -o tsv)
+              --query "[?contains(hostname, '${{ secrets.CUSTOM_DOMAIN }}')].hostname" \
+              --output tsv)
+              
+            if [ -z "$hostname_exists" ]; then
+              echo "Warning: Could not retrieve standardized hostname after adding. Using original domain name."
+              hostname_exists="${{ secrets.CUSTOM_DOMAIN }}"
+            else
+              echo "Retrieved standardized hostname: $hostname_exists"
+            fi
           else
             echo "Custom domain already exists as $hostname_exists. Skipping domain addition step."
           fi
           
-          # Check if the hostname is already bound - improved check with better error handling
+          # Check if the hostname is already bound
+          echo "Checking binding status for $hostname_exists..."
           binding_status=$(az containerapp hostname list \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
-            --query "[?contains(hostname, '${{ secrets.CUSTOM_DOMAIN }}')].bindingType" -o tsv 2>/dev/null || echo "NotBound")
+            --query "[?hostname=='$hostname_exists'].bindingType" \
+            --output tsv 2>/dev/null || echo "NotBound")
           
-          if [ "$binding_status" == "NotBound" ] || [ "$binding_status" == "Disabled" ]; then
-            # Bind the hostname with TXT validation if not already bound or if disabled
+          if [[ "$binding_status" == "NotBound" || "$binding_status" == "Disabled" || -z "$binding_status" ]]; then
+            # Bind the hostname with TXT validation
             echo "Binding custom domain with TXT validation..."
             validation_info=$(az containerapp hostname bind \
               --resource-group ${{ env.RESOURCE_GROUP }} \

@@ -13,7 +13,7 @@ on:
         required: true
 
 env:
-  REGISTRY: therickybobbeharc-ctc3e3gyg6ffbth7.azurecr.io
+  REGISTRY: pdmgmtacrdevy5pur2ngrjbwy.azurecr.io
   FRONTEND_IMAGE: portfolio-frontend
   RESOURCE_GROUP: pd-management-dev
   CONTAINER_APP_NAME: portfolio-frontend

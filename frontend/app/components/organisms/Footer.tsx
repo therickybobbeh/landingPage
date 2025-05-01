@@ -97,14 +97,7 @@ const Footer = () => {
         <Row className="align-items-center">
           <Col md={6} className="text-center text-md-start mb-3 mb-md-0">
             <Text color="white-50" variant="small" className="mb-0">
-              © {currentYear} DevPortfolio. All rights reserved.
-            </Text>
-          </Col>
-          <Col md={6} className="text-center text-md-end">
-            <Text color="white-50" variant="small" className="mb-0">
-              <Link href="/privacy" className="text-decoration-none text-white-50">Privacy Policy</Link>
-              {" | "}
-              <Link href="/terms" className="text-decoration-none text-white-50">Terms of Service</Link>
+              © {currentYear} Robert Cole. All rights reserved.
             </Text>
           </Col>
         </Row>

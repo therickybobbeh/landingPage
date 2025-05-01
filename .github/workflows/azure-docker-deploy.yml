@@ -159,29 +159,19 @@ jobs:
           fi
 
       # Configure custom domain with managed certificates (HTTPS) - Simplified
-      - name: Configure custom domain with HTTPS
+      - name: Configure custom domain
         if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
-          echo "Configuring custom domain with HTTPS for ${{ secrets.CUSTOM_DOMAIN }}..."
+          echo "Adding custom domain for ${{ secrets.CUSTOM_DOMAIN }}..."
           
-          # First add the hostname silently (in case it doesn't exist yet)
+          # Just add the hostname to the container app since certs are managed in Azure
           az containerapp hostname add \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
-            --hostname ${{ secrets.CUSTOM_DOMAIN }} \
-            2>/dev/null || true
-            
-          # Then bind with TXT validation (works whether domain is new or existing)
-          echo "Binding custom domain with TXT validation..."
-          az containerapp hostname bind \
-            --resource-group ${{ env.RESOURCE_GROUP }} \
-            --name ${{ env.CONTAINER_APP_NAME }} \
-            --hostname ${{ secrets.CUSTOM_DOMAIN }} \
-            --environment ${{ env.CONTAINER_APP_ENV }} \
-            --validation-method TXT
+            --hostname ${{ secrets.CUSTOM_DOMAIN }}
           
-          echo "✅ Custom domain configuration completed. Check DNS settings in Azure Portal."
-      
+          echo "✅ Custom domain added. Certificate management is handled in Azure."
+
       # Security scanning and validation
       - name: Run security scan
         run: |

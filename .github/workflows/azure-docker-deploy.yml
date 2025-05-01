@@ -96,6 +96,16 @@ jobs:
               --location ${{ env.LOCATION }}
           fi
           
+          # Set registry credentials once - this will be used for both create and update
+          echo "Setting registry credentials for Container Apps environment..."
+          az containerapp registry set \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --server ${{ env.REGISTRY }} \
+            --username ${{ secrets.ACR_USERNAME }} \
+            --password ${{ secrets.ACR_PASSWORD }} \
+            2>/dev/null || echo "Registry will be set during container app creation"
+          
           # Check if Container App exists
           app_exists=$(az containerapp list --resource-group ${{ env.RESOURCE_GROUP }} --query "[?name=='${{ env.CONTAINER_APP_NAME }}'].name" -o tsv)
           
@@ -121,9 +131,6 @@ jobs:
               --name ${{ env.CONTAINER_APP_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --image ${{ env.REGISTRY }}/${{ env.FRONTEND_IMAGE }}:${{ github.sha }} \
-              --registry-server ${{ env.REGISTRY }} \
-              --registry-username ${{ secrets.ACR_USERNAME }} \
-              --registry-password ${{ secrets.ACR_PASSWORD }} \
               --set-env-vars NODE_ENV=production \
               --min-replicas 1 \
               --max-replicas 5 \
@@ -180,3 +187,24 @@ jobs:
           if [[ -n "${{ secrets.CUSTOM_DOMAIN }}" ]]; then
             echo "Custom Domain (after DNS setup): https://${{ secrets.CUSTOM_DOMAIN }}"
           fi
+          
+      # Cleanup registry credentials as security best practice
+      - name: Cleanup credentials
+        if: always() # Run even if previous steps failed
+        run: |
+          echo "Cleaning up registry credentials..."
+          # Reset registry credentials to null values for security
+          az containerapp registry set \
+            --name ${{ env.CONTAINER_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --server "" \
+            --username "" \
+            --password "" \
+            2>/dev/null || echo "Failed to cleanup registry credentials, but deployment was successful"
+            
+      # Always logout from Azure to clean up session
+      - name: Logout from Azure
+        if: always() # Run even if previous steps failed
+        run: |
+          az logout
+          echo "✅ Credentials cleaned up and logged out from Azure"

@@ -141,9 +141,8 @@ jobs:
           app_url=$(az containerapp show --name ${{ env.CONTAINER_APP_NAME }} --resource-group ${{ env.RESOURCE_GROUP }} --query "properties.configuration.ingress.fqdn" -o tsv)
           echo "::set-output name=url::https://${app_url}"
 
-      # Configure custom domain with managed certificates (HTTPS)
+        #  Configure custom domain with managed certificates (HTTPS)
       - name: Configure custom domain with HTTPS
-        # Correct way to check if a secret exists and isn't empty
         if: env.HAS_CUSTOM_DOMAIN == 'true'
         run: |
           echo "Configuring custom domain with HTTPS for ${{ secrets.CUSTOM_DOMAIN }}..."
@@ -154,18 +153,18 @@ jobs:
             --name ${{ env.CONTAINER_APP_NAME }} \
             --hostname ${{ secrets.CUSTOM_DOMAIN }}
           
-          # Get validation records - this will be needed for DNS configuration
+          # Get validation records using TXT validation instead of CNAME
           validation_info=$(az containerapp hostname bind \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --name ${{ env.CONTAINER_APP_NAME }} \
             --hostname ${{ secrets.CUSTOM_DOMAIN }} \
             --environment ${{ env.CONTAINER_APP_ENV }} \
-            --validation-method CNAME)
+            --validation-method TXT)
           
           # Output DNS configuration information
           echo "===== DNS CONFIGURATION REQUIRED ====="
-          echo "$validation_info" | grep -A 2 "cnameRecord"
-          echo "Please add the above CNAME record to your GoDaddy DNS configuration"
+          echo "$validation_info"
+          echo "Please add the above validation record to your DNS configuration"
           echo "====================================="
           
           echo "✅ Custom domain configuration initiated"

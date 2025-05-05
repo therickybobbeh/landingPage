@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Metadata } from 'next';
 import BootstrapClient from './components/BootstrapClient';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
@@ -33,6 +34,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Tag */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-NTQ0183SW4"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-NTQ0183SW4');
+          `}
+        </Script>
+      </head>
       <body>
         <BootstrapClient />
         {children}

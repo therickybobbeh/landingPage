@@ -18,12 +18,21 @@ export const metadata: Metadata = {
     description: 'Browse Bob Cole\'s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
     images: [
       {
-        url: '/preview.jpeg',
+        url: 'https://www.bob-cole.com/preview.jpeg', // Updated to use the correct preview.jpeg file
         width: 1200,
         height: 630,
         alt: 'Preview of Bob Cole\'s Full-Stack Developer Portfolio',
       },
     ],
+    siteName: 'Bob Cole Portfolio',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
+    description: 'Explore the portfolio of Bob Cole: full-stack engineer with expertise in Angular, Next.js, FastAPI, PostgreSQL, and UI/UX design.',
+    images: ['https://www.bob-cole.com/preview.jpeg'], // Updated to use the same preview image
   }
 };
 

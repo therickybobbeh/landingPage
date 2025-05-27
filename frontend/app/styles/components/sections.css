@@ -15,6 +15,35 @@
   padding: 8rem 0;
 }
 
+/* Responsive section padding */
+@media (max-width: 768px) {
+  .section {
+    padding: 3rem 0;
+  }
+  
+  .section-sm {
+    padding: 2rem 0;
+  }
+  
+  .section-lg {
+    padding: 5rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .section {
+    padding: 1.5rem 0; /* Reduced from 2rem */
+  }
+  
+  .section-sm {
+    padding: 1rem 0;
+  }
+  
+  .section-lg {
+    padding: 2.5rem 0;
+  }
+}
+
 /* Section backgrounds */
 .section-dark {
   background-color: var(--black-800);
@@ -74,6 +103,31 @@
   left: -50px;
 }
 
+/* Make decorations smaller on mobile */
+@media (max-width: 768px) {
+  .section-decoration img {
+    max-width: 80%;
+    height: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-decoration img {
+    max-width: 50%;
+    height: auto;
+  }
+  
+  .section-decoration-top-right {
+    top: -20px;
+    right: -20px;
+  }
+  
+  .section-decoration-bottom-left {
+    bottom: -20px;
+    left: -20px;
+  }
+}
+
 /* Section dividers */
 .section-divider {
   position: absolute;
@@ -89,6 +143,13 @@
   display: block;
   width: calc(100% + 1.3px);
   height: 70px;
+}
+
+/* Make dividers smaller on mobile */
+@media (max-width: 576px) {
+  .section-divider svg {
+    height: 30px; /* Reduced from 40px */
+  }
 }
 
 .divider-wave .shape-fill {
@@ -120,6 +181,40 @@
   margin: 0 auto;
 }
 
+/* Responsive section headers */
+@media (max-width: 768px) {
+  .section-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    max-width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .section-header {
+    margin-bottom: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+}
+
 /* Background blur decorations for sections */
 .bg-blur-circle {
   position: absolute;
@@ -146,4 +241,47 @@
 .bg-blur-circle-sm {
   width: 200px;
   height: 200px;
+}
+
+/* Make blur circles smaller on mobile */
+@media (max-width: 768px) {
+  .bg-blur-circle-lg {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .bg-blur-circle-md {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .bg-blur-circle-sm {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .bg-blur-circle {
+    filter: blur(40px);
+  }
+}
+
+@media (max-width: 576px) {
+  .bg-blur-circle-lg {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .bg-blur-circle-md {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .bg-blur-circle-sm {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .bg-blur-circle {
+    filter: blur(30px);
+  }
 }

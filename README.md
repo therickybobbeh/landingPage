@@ -1,113 +1,83 @@
-# 📎 Project Requirements Document
+# Portfolio Landing Page
 
-## 1. Project Overview
-**Name**: Developer Portfolio Landing Page  
-**Description**: A full-stack personal portfolio application to showcase development work. Visitors can view a resume, explore GitHub repositories, and leave messages. Includes a secure admin dashboard for managing submissions and donations.
+A modern, responsive portfolio landing page built with Next.js, following atomic design principles and styled with Bootstrap.
 
-## 2. Tech Stack
-| Layer | Technology | Notes |
-| ----- | ---------- | ----- |
-| Frontend | Next.js | New work should go in /frontend |
-| Backend | FastAPI | RESTful API framework |
-| Database | PostgreSQL | Managed via Docker |
-| Container | Docker | Dev and Prod parity |
-| Orchestration | Docker Compose | For service orchestration |
-| Auth | JWT / OAuth2 | Token-based authentication |
+## Project Overview
 
-## 3. Project Structure
+This project is a portfolio landing page that showcases development work, projects, and skills. It's built as a static site using Next.js and follows atomic design principles for component organization.
+
+## Tech Stack
+
+- **Frontend**: Next.js with TypeScript
+- **Styling**: Bootstrap
+- **Containerization**: Docker
+- **CI/CD**: GitHub Actions deploying to Azure Container Registry
+
+## Project Structure
+
 ```
 project-root/
-├── frontend/                # ✅ New Next.js frontend (build here)
-├── nextjs-fronend/          # Legacy template (do not modify, use as reference)
-├── backend/                 # FastAPI backend
-│   └── app/
-│       ├── main.py
-│       ├── api/
-│       ├── models/
-│       └── services/
-├── docker-compose.yml       # Service orchestration
-├── .env                     # Environment variables
-└── README.md
+├── frontend/             # Next.js frontend with atomic design structure
+│   ├── app/              # Next.js app directory
+│   │   ├── components/   # Components organized according to atomic design
+│   │   │   ├── atoms/    # Basic building blocks
+│   │   │   ├── molecules/# Simple component groups
+│   │   │   ├── organisms/# Complex UI components
+│   │   │   └── templates/# Page layouts
+│   │   └── styles/       # Global styles and Bootstrap customizations
+│   └── public/           # Static assets
+├── docker-compose.yml    # Local development container configuration
+└── .github/workflows/    # CI/CD pipeline configuration
 ```
 
-## 4. Environment Variables (.env)
+## Atomic Design Implementation
+
+This project follows atomic design principles to create a modular, maintainable UI:
+
+1. **Atoms**: Basic building blocks (Button, Typography, Avatar, Icon)
+2. **Molecules**: Groups of atoms that work together (FormGroup, UserInfo, AnimatedCard)
+3. **Organisms**: Complex components composed of molecules and atoms (Banner, Header, Footer)
+4. **Templates**: Page-level layouts that arrange organisms
+5. **Pages**: Complete screens using templates and filling them with content
+
+## Development
+
+### Prerequisites
+
+- Docker and Docker Compose
+- Node.js 18+ (for local development without Docker)
+
+### Running Locally
+
+With Docker:
+```bash
+docker-compose up
 ```
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=admin
-POSTGRES_DB=myapp_db
-DATABASE_URL=postgresql://postgres:admin@db:5432/myapp_db
-SECRET_KEY=supersecretkey
-FRONTEND_URL=http://localhost:3000
-NEXT_PUBLIC_API_URL=http://localhost:8000
+
+Without Docker:
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-## 5. Docker Compose Services
-### ✅ Frontend (/frontend)
-- Port: 3000
-- Depends on: Backend
-- Config: NEXT_PUBLIC_API_URL=http://localhost:8000
-- Note: Do not modify /nextjs-fronend; use it for inspiration only.
+## Deployment
 
-### ✅ Backend (FastAPI)
-- Port: 8000
-- Depends on: PostgreSQL
-- Reads from: DATABASE_URL
+The application is automatically deployed via GitHub Actions when changes are pushed to the main branch. The workflow:
 
-### ✅ Database (PostgreSQL)
-- Port: 5432
-- Volumes for data persistence
-- Initialized with optional seed SQL scripts
+1. Builds the Docker image
+2. Pushes it to Azure Container Registry
+3. Updates the deployment in Azure
 
-## 6. Functional Requirements
-- User Authentication (OAuth2/JWT)
-- Landing page with:
-  - Embedded PDF resume
-  - GitHub link
-  - Profile picture placeholder
-  - Donation section via Stripe/PayPal (planned)
-- Message submission form saved to database
-- Owner login with secure dashboard to view/manage messages
+## Bootstrap Migration
 
-## 7. Non-Functional Requirements
-- Security: HTTPS in prod, secrets via env vars, secure CORS policy
-- Scalability: Microservice-ready containers
-- Maintainability: Clear separation of concerns, typed models
-- Portability: Full container support with Docker Compose
-- Logging: Log to file or stdout; track errors and API calls
+This project uses Bootstrap for styling. All components are built using Bootstrap's utility classes and components rather than custom CSS where possible.
 
-## 8. Best Practices
-### Frontend (Next.js)
-- .env.local for dev, .env.production for prod
-- Use functional components and hooks
-- Separate API layer with reusable client
-- Validate data on client and server side
-- Start new work in /frontend, do not modify /nextjs-fronend
+## Project Features
 
-### Backend (FastAPI)
-- Use pydantic for validation and models
-- Route modules for clean APIs (e.g., /api/messages)
-- Dependency injection with Depends()
-- Enable Swagger UI (/docs) in dev only
-
-### Database
-- SQLAlchemy or ORM to abstract raw queries
-- Alembic for version-controlled migrations
-- Seed scripts for staging/testing environments
-
-### DevOps
-- Dockerize everything
-- Health checks for critical services
-- Use volumes for DB persistence
-- Use a Makefile or bootstrap.sh to spin up the dev environment quickly
-
-## 9. Deployment Plan
-- Staging & Production environments on separate branches
-- Reverse proxy with Nginx or Caddy
-- SSL termination (Let's Encrypt)
-- Use GitHub Actions or similar CI/CD pipeline
-- Secrets managed via .env or secrets manager
-
-## ✅ Optional Extras
-- Implement caching with Redis (optional)
-- Admin dashboard for user/message management
-- Audit logging for all sensitive data changes
+- Responsive design for all device sizes
+- Portfolio projects showcase
+- Skills and experience sections
+- Contact form
+- PDF resume viewer
+- Atomic design component architecture

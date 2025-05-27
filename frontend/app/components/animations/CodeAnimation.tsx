@@ -17,21 +17,19 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({
 
   const codeLines = [
     'const portfolio = {',
-    '  name: "Full Stack Developer",',
+    '  name: "Robert T. Cole",',
     '  skills: [',
-    '    "React", "Next.js",',
-    '    "FastAPI", "PostgreSQL",',
-    '    "Docker", "AWS"',
+    '    "Angular", "TypeScript",',
+    '    "Spring Boot", "Java",',
+    '    "Azure", "FastAPI",',
+    '    "PostgreSQL", "Docker"',
     '  ],',
-    '  projects: 25,',
-    '  clients: 10,',
-    '  passion: "Building exceptional web experiences",',
+    '  passion: "Building scalable and maintainable software solutions and exploring AI",',
     '};',
     '',
     '// Let\'s collaborate on your next project!'
   ];
 
-  const fullCode = codeLines.join('\n');
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,7 +66,7 @@ const CodeAnimation: React.FC<CodeAnimationProps> = ({
     }
 
     return () => clearTimeout(timeout);
-  }, [displayedCode, currentLine, isTyping]);
+  }, [displayedCode, currentLine, isTyping, codeLines]);
 
   const containerHeight = typeof height === 'number' ? `${height}px` : height;
 

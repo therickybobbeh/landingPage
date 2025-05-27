@@ -5,6 +5,7 @@
 @import './styles/components/cards.css';
 @import './styles/components/forms.css';
 @import './styles/components/sections.css';
+@import './styles/components/experience.css';
 @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css');
 
 :root {
@@ -21,6 +22,17 @@
   }
 }
 
+/* Mobile-optimized base font size */
+html {
+  font-size: 16px;
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 14px; /* Reduce base font size on mobile */
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -30,10 +42,37 @@ body {
     )
     rgb(var(--background-start-rgb));
   min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
+}
+
+/* Responsive typography */
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+  h4 { font-size: 1.25rem; }
+  h5 { font-size: 1.1rem; }
+  h6 { font-size: 1rem; }
+}
+
+@media (max-width: 576px) {
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+  h4 { font-size: 1.1rem; }
+  h5 { font-size: 1rem; }
+  h6 { font-size: 0.9rem; }
 }
 
 a {
@@ -127,7 +166,7 @@ button:hover, .button:hover {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-light);
+  background: var(--purple);
   border-radius: 4px;
 }
 

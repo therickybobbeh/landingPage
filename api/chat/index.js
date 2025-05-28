@@ -1,6 +1,6 @@
 const OpenAI = require('openai');
-// Import the shared prompt from the frontend utils
-const { SYSTEM_PROMPT, FALLBACK_RESPONSES, generateFallbackResponse } = require('../../frontend/app/utils/chatPrompt');
+// Import the local prompt file instead of trying to access the frontend one
+const { SYSTEM_PROMPT, FALLBACK_RESPONSES, generateFallbackResponse } = require('../chatPrompt');
 
 // Initialize OpenAI client with error handling
 const getOpenAIClient = () => {

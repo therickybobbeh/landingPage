@@ -1,83 +1,164 @@
-# Portfolio Landing Page
+# Portfolio Website with Azure Static Web Apps and Azure Functions
 
-A modern, responsive portfolio landing page built with Next.js, following atomic design principles and styled with Bootstrap.
+This project is a portfolio website built with Next.js for the frontend and Azure Functions for the backend API. It showcases professional experience, skills, and projects while featuring an AI-powered chat assistant.
 
-## Project Overview
+## Architecture
 
-This project is a portfolio landing page that showcases development work, projects, and skills. It's built as a static site using Next.js and follows atomic design principles for component organization.
+- **Frontend**: Next.js deployed on Azure Static Web Apps
+- **API**: Azure Functions for serverless backend
+- **Integration**: Seamless API routing through Azure Static Web Apps proxy
 
-## Tech Stack
+## Features
 
-- **Frontend**: Next.js with TypeScript
-- **Styling**: Bootstrap
-- **Containerization**: Docker
-- **CI/CD**: GitHub Actions deploying to Azure Container Registry
+- Responsive design using Bootstrap
+- AI-powered chat assistant using OpenAI's API
+- Resume viewing capabilities
+- Project showcase
+- Professional experience timeline
 
-## Project Structure
-
-```
-project-root/
-├── frontend/             # Next.js frontend with atomic design structure
-│   ├── app/              # Next.js app directory
-│   │   ├── components/   # Components organized according to atomic design
-│   │   │   ├── atoms/    # Basic building blocks
-│   │   │   ├── molecules/# Simple component groups
-│   │   │   ├── organisms/# Complex UI components
-│   │   │   └── templates/# Page layouts
-│   │   └── styles/       # Global styles and Bootstrap customizations
-│   └── public/           # Static assets
-├── docker-compose.yml    # Local development container configuration
-└── .github/workflows/    # CI/CD pipeline configuration
-```
-
-## Atomic Design Implementation
-
-This project follows atomic design principles to create a modular, maintainable UI:
-
-1. **Atoms**: Basic building blocks (Button, Typography, Avatar, Icon)
-2. **Molecules**: Groups of atoms that work together (FormGroup, UserInfo, AnimatedCard)
-3. **Organisms**: Complex components composed of molecules and atoms (Banner, Header, Footer)
-4. **Templates**: Page-level layouts that arrange organisms
-5. **Pages**: Complete screens using templates and filling them with content
-
-## Development
+## Local Development
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Node.js 18+ (for local development without Docker)
+- Node.js 18+ (for Next.js and Azure Functions)
+- Azure Functions Core Tools (`npm install -g azure-functions-core-tools@4`)
+- Azure CLI (optional, for deployment)
+
+### Setup
+
+1. Clone the repository
+   ```bash
+   git clone <repository-url>
+   cd testing
+   ```
+
+2. Install dependencies for the frontend
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+3. Install dependencies for the API
+   ```bash
+   cd ../api
+   npm install
+   ```
+
+4. Set up environment variables
+
+   Create a `.env.local` file in the `frontend` directory:
+   ```
+   NEXT_PUBLIC_AZURE_STATIC_WEB_APPS=false
+   NEXT_PUBLIC_FUNCTION_API_URL=http://localhost:7071/api/chat
+   ```
+
+   Add your OpenAI API key to `api/local.settings.json`:
+   ```json
+   {
+     "IsEncrypted": false,
+     "Values": {
+       "AzureWebJobsStorage": "",
+       "FUNCTIONS_WORKER_RUNTIME": "node",
+       "OPENAI_API_KEY": "your-openai-api-key-here",
+       "CORS_ALLOWED_ORIGINS": "http://localhost:3000,https://*.azurestaticapps.net"
+     },
+     "Host": {
+       "LocalHttpPort": 7071,
+       "CORS": "*",
+       "CORSCredentials": false
+     }
+   }
+   ```
 
 ### Running Locally
 
-With Docker:
-```bash
-docker-compose up
-```
+1. Start the Azure Functions API
+   ```bash
+   cd api
+   func start
+   ```
 
-Without Docker:
-```bash
-cd frontend
-npm install
-npm run dev
-```
+2. In another terminal, start the Next.js frontend
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+
+3. Open your browser to http://localhost:3000
 
 ## Deployment
 
-The application is automatically deployed via GitHub Actions when changes are pushed to the main branch. The workflow:
+The project is configured to deploy automatically via GitHub Actions when changes are pushed to the main branch:
 
-1. Builds the Docker image
-2. Pushes it to Azure Container Registry
-3. Updates the deployment in Azure
+1. The frontend is deployed to Azure Static Web Apps
+2. The API is deployed as a function app within Azure Static Web Apps
+3. Environment variables are managed in the Azure Portal
 
-## Bootstrap Migration
+### Manual Deployment
 
-This project uses Bootstrap for styling. All components are built using Bootstrap's utility classes and components rather than custom CSS where possible.
+To deploy manually:
 
-## Project Features
+1. Deploy the frontend
+   ```bash
+   cd frontend
+   npm run build
+   npx swa deploy ./out --env production
+   ```
 
-- Responsive design for all device sizes
-- Portfolio projects showcase
-- Skills and experience sections
-- Contact form
-- PDF resume viewer
-- Atomic design component architecture
+2. Deploy the API
+   ```bash
+   cd api
+   func azure functionapp publish <your-function-app-name>
+   ```
+
+## Project Structure
+
+- `/frontend`: Next.js frontend application
+  - `/app`: Next.js app directory (components, pages, and API routes)
+  - `/public`: Static assets
+  - `/scripts`: Utility scripts
+
+- `/api`: Azure Functions backend
+  - `/chat`: Chat function that integrates with OpenAI API
+
+## Adding New Features
+
+### Frontend
+
+Add new components following the Atomic Design methodology:
+- Atoms: Basic UI elements
+- Molecules: Combinations of atoms
+- Organisms: Complex components
+- Templates: Page layouts
+- Pages: Full screens
+
+### API
+
+Add new Azure Functions:
+1. Create a new directory in `/api`
+2. Add `function.json` to define bindings
+3. Add `index.js` for the function logic
+4. Update local settings if needed
+
+## Troubleshooting
+
+### CORS Issues
+If experiencing CORS issues:
+- Ensure the function has the correct CORS settings in `host.json`
+- Check that the frontend is using the correct API URL
+
+### API Connection Issues
+If the frontend can't connect to the API:
+- Check that the environment variables are set correctly
+- Verify the API is running and accessible
+- Check network requests in browser developer tools
+
+### Deployment Issues
+If deployment fails:
+- Check the GitHub Actions logs
+- Verify that the Azure Static Web Apps API token is set correctly
+- Ensure the OPENAI_API_KEY is set in the Azure Portal for the function app
+
+## License
+
+[Your chosen license]

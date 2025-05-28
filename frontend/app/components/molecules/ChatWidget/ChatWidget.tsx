@@ -11,6 +11,17 @@ interface Message {
   content: string;
 }
 
+// Function to get the API URL based on environment
+const getApiUrl = () => {
+  // For production in Azure Static Web Apps, use the relative API route which will be properly proxied
+  if (process.env.NEXT_PUBLIC_AZURE_STATIC_WEB_APPS === 'true') {
+    return '/api/chat';
+  }
+  
+  // For local development, use the local Azure Functions endpoint
+  return process.env.NEXT_PUBLIC_FUNCTION_API_URL || 'http://localhost:7071/api/chat';
+};
+
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
@@ -76,8 +87,8 @@ const ChatWidget = () => {
     setApiError(null); // Clear any previous error
 
     try {
-      // Make the actual API call to the backend
-      const response = await fetch('/api/chat', {
+      // Make the API call to the appropriate endpoint based on environment
+      const response = await fetch(getApiUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 

@@ -1,0 +1,7 @@
+# Production settings for Azure Functions
+# These settings will be loaded into environment variables in Azure
+WEBSITE_NODE_DEFAULT_VERSION=~22
+FUNCTIONS_WORKER_RUNTIME=node
+OPENAI_API_KEY=
+# Don't hardcode the API key here - set it in Azure Portal or through GitHub secrets
+# When deploying through the Static Web Apps workflow, the CORS will be set automatically

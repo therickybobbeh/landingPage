@@ -98,3 +98,4 @@ docker-volumes/
 .cache/
 .sass-cache/
 frontend/.next
+/AZURE-DEPLOYMENT.md

@@ -2,12 +2,14 @@
   "routes": [
     {
       "route": "/api/chat",
-      "methods": ["POST"],
-      "allowedRoles": ["anonymous"]
+      "methods": ["POST", "OPTIONS"],
+      "allowedRoles": ["anonymous"],
+      "backendUri": "https://%BACKEND_API_HOSTNAME%/api/chat"
     },
     {
       "route": "/api/*",
-      "methods": ["GET", "POST"]
+      "methods": ["GET", "POST", "OPTIONS"],
+      "allowedRoles": ["anonymous"]
     },
     {
       "route": "/*",
@@ -20,9 +22,14 @@
     "exclude": ["/images/*.{png,jpg,gif,svg,webp}", "/css/*", "/*.{ico,json}"]
   },
   "globalHeaders": {
-    "content-security-policy": "default-src 'self' 'unsafe-inline'; connect-src 'self' https://*.openai.com https://*.analytics.google.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
+    "content-security-policy": "default-src 'self' 'unsafe-inline'; connect-src 'self' https://*.openai.com https://*.analytics.google.com https://*.azurewebsites.net; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; img-src 'self' data:; style-src 'self' 'unsafe-inline';",
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
   },
   "mimeTypes": {
     ".json": "application/json"
+  },
+  "platform": {
+    "apiRuntime": "node:16"
   }
 }

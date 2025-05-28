@@ -78,7 +78,7 @@ INTERESTING FACTS:
 - Robert is currently pursuing a Master's degree in Artificial Intelligence at Georgia Tech, which showcases his dedication to continuous learning and professional growth.
 - He has a strong background in cybersecurity, having earned a Bachelor's degree in Cybersecurity from Kennesaw State University.
 - Has backpacked through philmont in new mexico over 100 miles in 12 days, showcasing his endurance and love for the outdoors.
-- Has sailed across the Florida keys
+- Has sailed across the Florida keys, sea base
 
 PROFESSIONAL RECOMMENDATION:
 Justin Chao (Principal Engineer at Optum) notes that Robert is "a dedicated engineer with an exceptional work ethic and a strong commitment to delivering results" with "solid expertise in DevOps practices" and "a comprehensive understanding of the full software development lifecycle." Justin highlights Robert's "technical proficiency spans full-stack development with Angular and Spring Boot, along with deep knowledge of healthcare interoperability standards such as FHIR and HL7."

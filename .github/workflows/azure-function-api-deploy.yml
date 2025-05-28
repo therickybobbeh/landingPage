@@ -26,6 +26,11 @@ jobs:
         # Use npm install instead of npm ci since package-lock.json might not exist
         npm install
 
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:

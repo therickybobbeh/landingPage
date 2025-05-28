@@ -4,7 +4,7 @@
       "route": "/api/chat",
       "methods": ["POST", "OPTIONS"],
       "allowedRoles": ["anonymous"],
-      "backendUri": "https://%BACKEND_API_HOSTNAME%/api/chat"
+      "backendUri": "https://portfolio-api-func.azurewebsites.net/api/chat"
     },
     {
       "route": "/api/*",

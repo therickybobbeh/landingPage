@@ -223,7 +223,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message });
     } catch (apiError: any) {
       // Log the error but use fallback response system
-      console.error('Error with OpenAI API:', apiError);
+      console.error('Error with OpenAI API:', apiError); 
       
       // Check if it's a rate limit or quota error
       const isQuotaError = apiError.status === 429 || 

@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import Button from '../atoms/Button';
@@ -7,6 +7,13 @@ import Heading from '../atoms/Typography/Heading';
 import Text from '../atoms/Typography/Text';
 import AnimatedCard from '../molecules/AnimatedCard';
 import CodeAnimation from '../animations/CodeAnimation';
+
+// Create a custom event to communicate with the ChatWidget
+const toggleChat = () => {
+  // Create and dispatch a custom event that ChatWidget will listen for
+  const event = new CustomEvent('toggle-chat-widget');
+  window.dispatchEvent(event);
+};
 
 const Banner = () => {
   return (
@@ -69,6 +76,17 @@ const Banner = () => {
                   Get In Touch
                 </Button>
               </Link>
+              <Button 
+                variant="outline-secondary" 
+                size="lg" 
+                rounded
+                withIcon
+                iconClassName="bi bi-chat-dots-fill"
+                iconPosition="left"
+                onClick={toggleChat}
+              >
+                Chat With Me
+              </Button>
             </div>
 
           </Col>

@@ -29,7 +29,9 @@ const ChatWidget = () => {
   useEffect(() => {
     if (isOpen && inputRef.current) {
       setTimeout(() => {
-        inputRef.current.focus();
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
       }, 300);
     }
   }, [isOpen]);
@@ -40,6 +42,21 @@ const ChatWidget = () => {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
+  // Listen for the custom event to toggle the chat widget
+  useEffect(() => {
+    const handleToggleChat = () => {
+      setIsOpen(prevIsOpen => !prevIsOpen);
+      setApiError(null); // Clear any error when toggling
+    };
+
+    window.addEventListener('toggle-chat-widget', handleToggleChat);
+    
+    // Clean up the event listener when component unmounts
+    return () => {
+      window.removeEventListener('toggle-chat-widget', handleToggleChat);
+    };
+  }, []);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -115,7 +132,7 @@ const ChatWidget = () => {
         <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center p-3">
           <div className="d-flex align-items-center">
             <Icon name="chat-fill" className="me-2" color="white" />
-            <span className="fw-semibold">Chat with Bob</span>
+            <span className="fw-semibold">Chat with Robert</span>
           </div>
           <Button 
             variant="link"
@@ -156,7 +173,7 @@ const ChatWidget = () => {
             )}
             {apiError && (
               <div className="alert alert-danger small py-2 mb-0">
-                <Icon name="exclamation-triangle-fill" className="me-2" color="danger" />
+                <Icon name="exclamation-triangle-fill" className="me-2" color="secondary" />
                 Connection error: {apiError}
               </div>
             )}

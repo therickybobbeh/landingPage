@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Button, Card, Form, InputGroup } from 'react-bootstrap';
+import { Button, Card, Form, InputGroup, Badge } from 'react-bootstrap';
 import { Icon } from '../../atoms';
 import styles from './ChatWidget.module.css';
 
@@ -138,7 +138,7 @@ const ChatWidget = () => {
     <div className={styles.chatWidgetContainer}>
       {/* Chat Panel */}
       <Card 
-        className={`${styles.chatPanel} ${isOpen ? styles.open : ''} shadow mb-2`}
+        className={`${styles.chatPanel} ${isOpen ? styles.open : ''} shadow border-0 rounded-3 overflow-hidden`}
       >
         <Card.Header className="bg-primary text-white d-flex justify-content-between align-items-center p-3">
           <div className="d-flex align-items-center">
@@ -157,24 +157,45 @@ const ChatWidget = () => {
         
         <div className="d-flex flex-column" style={{ height: '350px' }}>
           {/* Messages area */}
-          <div className={styles.messagesContainer}>
+          <div className="flex-grow-1 overflow-auto p-3 d-flex flex-column gap-3">
             {messages.map((msg, index) => (
               <div 
                 key={index}
                 className={`d-flex ${msg.role === 'user' ? 'justify-content-end' : 'justify-content-start'}`}
               >
+                {msg.role === 'assistant' && (
+                  <div className="avatar me-2 align-self-end">
+                    <Badge bg="primary" className="rounded-circle d-flex align-items-center justify-content-center" style={{ width: '28px', height: '28px' }}>
+                      <Icon name="person" color="white" size="sm" />
+                    </Badge>
+                  </div>
+                )}
                 <div 
-                  className={`${styles.message} rounded-3 p-2 px-3 ${
-                    msg.role === 'user' ? styles.userMessage : styles.assistantMessage
+                  className={`p-3 rounded-3 ${
+                    msg.role === 'user' 
+                      ? 'bg-primary text-white rounded-bottom-end-0' 
+                      : 'bg-light text-dark rounded-bottom-start-0'
                   }`}
+                  style={{ 
+                    maxWidth: '75%',
+                    boxShadow: '0 1px 2px rgba(0,0,0,.1)',
+                    wordBreak: 'break-word'
+                  }}
                 >
                   {msg.content}
                 </div>
+                {msg.role === 'user' && (
+                  <div className="avatar ms-2 align-self-end">
+                    <Badge bg="secondary" className="rounded-circle d-flex align-items-center justify-content-center" style={{ width: '28px', height: '28px' }}>
+                      <Icon name="person" color="white" size="sm" />
+                    </Badge>
+                  </div>
+                )}
               </div>
             ))}
             {isLoading && (
               <div className="d-flex justify-content-start">
-                <div className="bg-light rounded-3 p-2 px-3 d-flex align-items-center">
+                <div className="bg-light rounded-3 p-3 d-flex align-items-center">
                   <div className="spinner-grow spinner-grow-sm text-primary me-2" role="status">
                     <span className="visually-hidden">Loading...</span>
                   </div>
@@ -184,7 +205,7 @@ const ChatWidget = () => {
             )}
             {apiError && (
               <div className="alert alert-danger small py-2 mb-0">
-                <Icon name="exclamation-triangle-fill" className="me-2" color="secondary" />
+                <Icon name="exclamation-triangle-fill" className="me-2" color="danger" />
                 Connection error: {apiError}
               </div>
             )}

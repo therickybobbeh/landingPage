@@ -1,4 +1,4 @@
-/* ChatWidget.module.css - Fixed z-index to prevent being hidden */
+/* ChatWidget.module.css - Simplified to work better with Bootstrap classes */
 
 .chatWidgetContainer {
   position: fixed;
@@ -22,7 +22,8 @@
   width: 350px;
   transform: scale(0);
   transform-origin: bottom right;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
   z-index: 1050; /* Match z-index with container */
   position: absolute;
   bottom: 70px; /* Position above the toggle button */
@@ -31,38 +32,27 @@
 
 .chatPanel.open {
   transform: scale(1);
+  opacity: 1;
 }
 
-.messagesContainer {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.message {
-  max-width: 85%;
-  word-break: break-word;
-}
-
-.userMessage {
-  background-color: var(--primary-light);
-  color: white;
-  border-bottom-right-radius: 4px;
-}
-
-.assistantMessage {
-  background-color: white;
-  border-bottom-left-radius: 4px;
-}
-
-/* Media queries for mobile devices */
+/* Media queries for mobile devices - improved for Bootstrap compatibility */
 @media (max-width: 576px) {
   .chatPanel {
-    width: 290px;
+    width: 300px;
     right: 0;
     bottom: 70px;
+  }
+  
+  /* Ensure the widget doesn't get too close to the edge on very small screens */
+  .chatWidgetContainer {
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+/* For very small screens, make the chat panel take more screen width */
+@media (max-width: 375px) {
+  .chatPanel {
+    width: 280px;
   }
 }

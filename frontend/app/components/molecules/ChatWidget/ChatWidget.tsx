@@ -28,7 +28,7 @@ const ChatWidget = () => {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'assistant', 
-      content: "👋 Hi there! Ask me anything about Bob's experience, skills, or projects." 
+      content: "👋 Hi there! Ask me anything about Robert's experience, skills, or projects." 
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);

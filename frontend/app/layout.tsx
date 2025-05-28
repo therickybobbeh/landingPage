@@ -8,21 +8,21 @@ import Script from 'next/script';
 import ChatWidget from './components/molecules/ChatWidget/ChatWidget';
 
 export const metadata: Metadata = {
-  title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
+  title: 'Robert Cole | Full-Stack Software Engineer Portfolio',
   description: 'Explore the portfolio of Bob Cole: full-stack engineer with expertise in angular, Next.js, FastAPI, PostgreSQL, and UI/UX design. Featuring Georgia Tech AI/CS projects, personal web apps, and more.',
   icons: {
     icon: '/favicon.ico',
   },
   viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
   openGraph: {
-    title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
-    description: 'Browse Bob Cole\'s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
+    title: 'Robert Cole | Full-Stack Software Engineer Portfolio',
+    description: 'Browse Robert Cole\'s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
     images: [
       {
         url: 'https://www.bob-cole.com/preview.jpeg', // Updated to use the correct preview.jpeg file
         width: 1200,
         height: 630,
-        alt: 'Preview of Bob Cole\'s Full-Stack Developer Portfolio',
+        alt: 'Preview of Robert Cole\'s Full-Stack Developer Portfolio',
       },
     ],
     siteName: 'Bob Cole Portfolio',
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
-    description: 'Explore the portfolio of Bob Cole: full-stack engineer with expertise in Angular, Next.js, FastAPI, PostgreSQL, and UI/UX design.',
+    title: 'Robert Cole | Full-Stack Software Engineer Portfolio',
+    description: 'Explore the portfolio of Robert Cole: full-stack engineer with expertise in Angular, Next.js, FastAPI, PostgreSQL, and UI/UX design.',
     images: ['https://www.bob-cole.com/preview.jpeg'], // Updated to use the same preview image
   }
 };

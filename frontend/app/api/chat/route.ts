@@ -60,7 +60,7 @@ function sanitizeUserInput(input: string): string {
   
   // Remove potentially dangerous characters and patterns
   let sanitized = input
-    .replace(/```.*?```/gs, '') // Remove code blocks
+    .replace(/```[\s\S]*?```/g, '') // Remove code blocks (modified to work with ES5)
     .replace(/`.*?`/g, '')      // Remove inline code
     .replace(/\\\\/g, '\\')     // Normalize backslashes
     .replace(/\$\{/g, '\\${')   // Escape template literals

@@ -235,7 +235,7 @@ module.exports = async function (context, req) {
             }
             
             // For other errors, return a more specific error
-            throw apiError;
+            throw apiError; 
         }
     } catch (error) {
         // Detailed error logging

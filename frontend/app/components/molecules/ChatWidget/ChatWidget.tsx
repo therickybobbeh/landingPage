@@ -205,7 +205,7 @@ const ChatWidget = () => {
             )}
             {apiError && (
               <div className="alert alert-danger small py-2 mb-0">
-                <Icon name="exclamation-triangle-fill" className="me-2" color="danger" />
+                <Icon name="exclamation-triangle-fill" className="me-2" color="secondary" />
                 Connection error: {apiError}
               </div>
             )}

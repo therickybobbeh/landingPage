@@ -12,7 +12,7 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_APP_DOMAIN || 'localhost',
       // Add any other domains you need to serve images from
     ],
-    formats: ['image/webp', 'image/jpeg', 'image/png'],
+    formats: ['image/webp'], // Only webp is supported alongside default formats
     remotePatterns: [
       {
         protocol: 'https',

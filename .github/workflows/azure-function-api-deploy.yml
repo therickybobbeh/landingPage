@@ -31,10 +31,18 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    # Add a step to list Azure Function Apps to help diagnose the issue
+    - name: List Azure Function Apps
+      run: |
+        echo "Listing available Azure Function Apps:"
+        az functionapp list --output table
+        echo "If your function app is not in this list, please verify the subscription and resource group."
+
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:
-        app-name: 'portfolio-api-func'
+        # Update this to match the exact name shown in the Azure portal
+        app-name: 'portfolio-api-func' # You may need to update this name
         slot-name: 'production'
         package: 'api'
         publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }}

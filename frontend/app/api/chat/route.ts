@@ -260,7 +260,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(
       { error: 'An error occurred while processing your request' },
-      { status: 500 }
+      { status: 500 } 
     );
   }
 }

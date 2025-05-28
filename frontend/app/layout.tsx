@@ -45,6 +45,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Bootstrap Icons - Added CDN link */}
+        <link 
+          rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        />
+        
         {/* Google Analytics Tag */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-NTQ0183SW4"

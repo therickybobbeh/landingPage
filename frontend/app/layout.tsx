@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { Metadata } from 'next';
 import BootstrapClient from './components/BootstrapClient';
 import Script from 'next/script';
+import ChatWidget from './components/molecules/ChatWidget/ChatWidget';
 
 export const metadata: Metadata = {
   title: 'Bob Cole | Full-Stack Software Engineer Portfolio',
@@ -61,6 +62,7 @@ export default function RootLayout({
       <body>
         <BootstrapClient />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );

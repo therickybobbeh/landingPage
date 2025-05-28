@@ -6,15 +6,19 @@ const nextConfig = {
   compress: true,
   productionBrowserSourceMaps: false,
   swcMinify: true,
-  // images: {
-  //   domains: [
-  //     process.env.NEXT_PUBLIC_APP_DOMAIN || 'localhost',
-  //     // Add any other domains you need to serve images from
-  //   ],
-  //   formats: ['image/webp'],
-  // },
   images: {
-    unoptimized: process.env.NODE_ENV === 'production' ? false : true,
+    unoptimized: true, // Always use unoptimized for Azure Static Web Apps
+    domains: [
+      process.env.NEXT_PUBLIC_APP_DOMAIN || 'localhost',
+      // Add any other domains you need to serve images from
+    ],
+    formats: ['image/webp', 'image/jpeg', 'image/png'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
   },
   // Add webpack configuration for PDF handling
   webpack: (config) => {
@@ -32,6 +36,9 @@ const nextConfig = {
     
     return config;
   },
+  // Asset prefix for production environment
+  assetPrefix: process.env.NEXT_PUBLIC_AZURE_STATIC_WEB_APPS === 'true' ? '/' : '',
+  basePath: '',
   async headers() {
     return [
       {

@@ -19,12 +19,18 @@
   ],
   "navigationFallback": {
     "rewrite": "/index.html",
-    "exclude": ["/images/*.{png,jpg,gif,svg,webp}", "/css/*", "/*.{ico,json}"]
+    "exclude": ["/images/*.{png,jpg,gif}", "/css/*", "/js/*"]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
   },
   "globalHeaders": {
-    "content-security-policy": "default-src 'self' 'unsafe-inline'; connect-src 'self' https://*.openai.com https://*.analytics.google.com https://*.azurewebsites.net; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; font-src 'self' https://cdn.jsdelivr.net;",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS"
+    "content-security-policy": "default-src 'self' 'unsafe-inline' 'unsafe-eval' https://your-function-app-name.azurewebsites.net; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https://*.azurewebsites.net; frame-src 'self'",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-XSS-Protection": "1; mode=block"
   },
   "mimeTypes": {
     ".json": "application/json"

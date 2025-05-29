@@ -20,31 +20,35 @@ jobs:
       with:
         node-version: '22.x'
 
-    - name: Install dependencies
+    - name: Set up Function App configuration
       run: |
         cd api
-        # Use npm install instead of npm ci since package-lock.json might not exist
-        npm install
+        # Ensure node version is explicitly set
+        if ! grep -q '"engines"' package.json; then
+          node -e 'const pkg = require("./package.json"); pkg.engines = pkg.engines || {"node": "~22"}; require("fs").writeFileSync("package.json", JSON.stringify(pkg, null, 2));'
+        fi
+        # Ensure proper openai version is specified
+        if ! grep -q '"openai"' package.json; then
+          node -e 'const pkg = require("./package.json"); pkg.dependencies = pkg.dependencies || {}; pkg.dependencies.openai = pkg.dependencies.openai || "^4.0.0"; require("fs").writeFileSync("package.json", JSON.stringify(pkg, null, 2));'
+        fi
+        # Create a lightweight function project
+        npm install --no-package-lock
 
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    # Add a step to list Azure Function Apps to help diagnose the issue
     - name: List Azure Function Apps
       run: |
         echo "Listing available Azure Function Apps:"
         az functionapp list --output table
-        echo "If your function app is not in this list, please verify the subscription and resource group."
 
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1
       with:
-        # Update this to match the exact name shown in the Azure portal
-        app-name: 'portfolio-api-func' # You may need to update this name
+        app-name: 'portfolio-api-func' # Update with your actual Function App name
         slot-name: 'production'
         package: 'api'
-        publish-profile: ${{ secrets.AZURE_FUNCTION_PUBLISH_PROFILE }}
-        # Uncomment below if you need to set environment variables
-        # app-settings-json: ${{ secrets.FUNCTION_APP_SETTINGS }}
+        respect-funcignore: true
+        scm-do-build-during-deployment: true # Let Azure build the package

@@ -20,7 +20,7 @@ const nextConfig = {
       },
     ],
   },
-  // Add webpack configuration for PDF handling
+  // Add webpack configuration for PDF handling and icon support
   webpack: (config) => {
     // Handle PDF.js worker
     config.resolve.alias.canvas = false;
@@ -33,6 +33,20 @@ const nextConfig = {
       path: false,
       os: false,
     };
+    
+    // Make sure the file-loader properly handles SVG files
+    const fileLoaderRule = config.module.rules.find(
+      (rule) => rule.test && rule.test.test('.svg')
+    );
+    if (fileLoaderRule) {
+      fileLoaderRule.exclude = /\.svg$/;
+    }
+    
+    config.module.rules.push({
+      test: /\.svg$/,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    });
     
     return config;
   },

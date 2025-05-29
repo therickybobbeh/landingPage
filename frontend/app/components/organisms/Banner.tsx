@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Link from 'next/link';
 import Button from '../atoms/Button';
@@ -16,8 +16,32 @@ const toggleChat = () => {
 };
 
 const Banner = () => {
+  const bannerRef = useRef<HTMLElement>(null);
+  const [hasScrolledPast, setHasScrolledPast] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!bannerRef.current || hasScrolledPast) return;
+      
+      const bannerElement = bannerRef.current;
+      const bannerBottom = bannerElement.offsetTop + bannerElement.offsetHeight / 3;
+      
+      // Check if user has scrolled past the banner
+      if (window.scrollY > bannerBottom) {
+        setHasScrolledPast(true);
+        toggleChat();
+      }
+    };
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    
+    // Clean up the event listener when component unmounts
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasScrolledPast]); // Depend on hasScrolledPast to avoid unnecessary checks
+
   return (
-    <section className="section py-5 position-relative">
+    <section ref={bannerRef} className="section py-5 position-relative">
       {/* Background decoration elements removed - now using unified background */}
       
       <Container className="py-5 position-relative min-vh-100 d-flex align-items-center" style={{ zIndex: 1 }}>

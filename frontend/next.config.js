@@ -20,7 +20,7 @@ const nextConfig = {
       },
     ],
   },
-  // Add webpack configuration for PDF handling and icon support
+  // Add webpack configuration for PDF handling and icon support - fixed for Next.js 14 compatibility
   webpack: (config) => {
     // Handle PDF.js worker
     config.resolve.alias.canvas = false;
@@ -34,17 +34,12 @@ const nextConfig = {
       os: false,
     };
     
-    // Make sure the file-loader properly handles SVG files
-    const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test('.svg')
-    );
-    if (fileLoaderRule) {
-      fileLoaderRule.exclude = /\.svg$/;
-    }
-    
+    // Fixed approach for handling SVG files
     config.module.rules.push({
       test: /\.svg$/,
-      issuer: /\.[jt]sx?$/,
+      issuer: {
+        and: [/\.(js|ts)x?$/]
+      },
       use: ['@svgr/webpack'],
     });
     

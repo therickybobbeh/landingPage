@@ -84,6 +84,8 @@ Justin Chao (Principal Engineer at Optum) notes that Robert is "a dedicated engi
 
 PROJECTS:
 - Personal Portfolio: Built with Next.js and Bootstrap, deployed to Azure Static Web Apps
+- Created dialysis application for paitents to track dialysis treatments using FHIR/HL7 standards on python FastAPI, angular frontend, and PostgreSQL database with hapifhir
+- Created non neural network based AI to solve ravens scale matrices, using python numpy and opencv
 - EHR Integration Platform: Led modernization efforts expanding product by 59% across markets
 - Healthcare APIs: Developed secure FHIR/HL7 standards-based APIs
 - Microservices: Containerized applications for faster, more reliable deployments

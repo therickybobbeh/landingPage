@@ -24,7 +24,7 @@ const Banner = () => {
       if (!bannerRef.current || hasScrolledPast) return;
       
       const bannerElement = bannerRef.current;
-      const bannerBottom = bannerElement.offsetTop + bannerElement.offsetHeight / 3;
+      const bannerBottom = (bannerElement.offsetTop + bannerElement.offsetHeight) / 3;
       
       // Check if user has scrolled past the banner
       if (window.scrollY > bannerBottom) {

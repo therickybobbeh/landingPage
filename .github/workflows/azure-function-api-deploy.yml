@@ -44,10 +44,10 @@ jobs:
         echo "Listing available Azure Function Apps:"
         az functionapp list --output table
 
-    - name: Check Function App runtime settings
-      run: |
-        echo "Checking Function App runtime settings:"
-        az functionapp config show --name portfolio-api-func --resource-group portfolio --query "nodeVersion" --output tsv
+    # - name: Check Function App runtime settings
+    #   run: |
+    #     echo "Checking Function App runtime settings:"
+    #     az functionapp config show --name portfolio-api-func --resource-group portfolio --query "nodeVersion" --output tsv
 
     # - name: Clear deployment locks
     #   run: |
@@ -55,10 +55,10 @@ jobs:
     #     az resource invoke-action --action cleanupSnapshots --resource-group portfolio --resource-type Microsoft.Web/sites --name portfolio-api-func
     #     sleep 30
 
-    - name: Update Function App settings
-      run: |
-        echo "Updating Function App to use Node.js 22:"
-        az functionapp config set --name portfolio-api-func --resource-group portfolio --node-version 22 --linux-fx-version "NODE|22"
+    # - name: Update Function App settings
+    #   run: |
+    #     echo "Updating Function App to use Node.js 22:"
+    #     az functionapp config set --name portfolio-api-func --resource-group portfolio --node-version 22 --linux-fx-version "NODE|22"
 
     - name: Deploy to Azure Function App
       uses: Azure/functions-action@v1

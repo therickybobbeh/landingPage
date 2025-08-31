@@ -1,0 +1,51 @@
+{
+  "scan_date": "2025-08-31T18:53:11.875108",
+  "project_path": "/home/runner/work/landingPage/landingPage",
+  "vulnerabilities": [],
+  "warnings": [
+    {
+      "type": "docker_security",
+      "description": "Files copied without explicit ownership",
+      "location": "frontend/Dockerfile",
+      "recommendation": "Use COPY --chown to set proper file ownership"
+    }
+  ],
+  "info": [
+    {
+      "type": "security_config",
+      "description": "HTTPS enforcement is enabled in production",
+      "location": "frontend/.env.production"
+    },
+    {
+      "type": "input_validation",
+      "description": "Input sanitization functions found",
+      "location": "frontend/app/api/chat/route.ts"
+    },
+    {
+      "type": "prompt_injection_protection",
+      "description": "Prompt injection protection patterns found",
+      "location": "frontend/app/api/chat/route.ts"
+    },
+    {
+      "type": "input_length_validation",
+      "description": "Input length validation found",
+      "location": "frontend/app/api/chat/route.ts"
+    },
+    {
+      "type": "input_validation",
+      "description": "Input sanitization functions found",
+      "location": "api/chat/index.js"
+    },
+    {
+      "type": "prompt_injection_protection",
+      "description": "Prompt injection protection patterns found",
+      "location": "api/chat/index.js"
+    },
+    {
+      "type": "input_length_validation",
+      "description": "Input length validation found",
+      "location": "api/chat/index.js"
+    }
+  ],
+  "security_score": 100
+}

@@ -63,6 +63,23 @@ const projects: Project[] = [
     disableDemo: true,
     disableCode: true,
   },
+  {
+    id: 4,
+    title: "Dependency Scanner",
+    description: "A comprehensive dependency scanning tool designed to analyze project \
+     dependencies and identify security vulnerabilities. The application features both a CLI \
+     interface for developer workflows and a web interface for easy visualization of scan results.\
+      This tool helps teams maintain secure codebases by detecting outdated or vulnerable dependencies.",
+    image: "/githubPreview/dep-scanner.png",
+    technologies: ["Python", "AWS", "Flask", "PyPI", "Docker", "CI/CD"],
+    demoUrl: "http://depscan-prod-alb-1243821159.us-east-1.elb.amazonaws.com/",
+    codeUrl: "https://github.com/therickybobbeh/dep-scanner",
+    featured: true,
+    gradient: "card-gradient-blue",
+    showImage: true,
+    disableDemo: false,
+    disableCode: false,
+  }
 ];
 
 const Projects = () => {

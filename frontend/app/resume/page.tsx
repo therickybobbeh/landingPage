@@ -7,7 +7,7 @@ import Icon from '../components/atoms/Icon';
 import Experience from '../components/organisms/Experience';
 import ResumeLayout from '../components/templates/ResumeLayout';
 
-const resumePdfPath = '/Robert Cole - Software Engineer - Resume copy.pdf';
+const resumePdfPath = '/RobertCole_Resume.pdf';
 
 export default function ResumePage() {
   return (
@@ -23,7 +23,7 @@ export default function ResumePage() {
               <Heading level={4} className="mb-0">Resume</Heading>
               <a 
                 href={resumePdfPath}
-                download="Robert Cole - Software Engineer - Resume.pdf"
+                download="RobertCole_Resume.pdf"
                 className="btn btn-primary d-inline-flex align-items-center"
               >
                 <i className="bi bi-download me-2"></i>

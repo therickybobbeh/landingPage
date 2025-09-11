@@ -34,7 +34,7 @@ const Footer = () => {
         <Row className="gy-4 mb-5">
           <Col lg={5} md={6}>
             <div className="mb-4">
-              <Link href="/frontend/public" className="text-decoration-none">
+              <Link href="/" className="text-decoration-none">
                 <Heading level={3} color="white" className="mb-0 fw-bold">
                   Robert T. Cole
                 </Heading>
@@ -69,7 +69,9 @@ const Footer = () => {
             <ul className="list-unstyled">
               {quickLinks.map((link) => (
                 <li key={link.label} className="mb-2">
-                  <Link href={link.url} className="text-white-50 text-decoration-none hover-text-primary">
+                  <Link
+                    href={link.url}
+                    className="text-white-50 text-decoration-none hover-text-primary">
                     {link.label}
                   </Link>
                 </li>

@@ -5,7 +5,6 @@ const nextConfig = {
   poweredByHeader: false,
   compress: true,
   productionBrowserSourceMaps: false,
-  swcMinify: true,
   images: {
     unoptimized: true, // Always use unoptimized for Azure Static Web Apps
     domains: [

@@ -2,10 +2,16 @@ import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import BootstrapClient from './components/BootstrapClient';
 import Script from 'next/script';
 import ChatWidget from './components/molecules/ChatWidget/ChatWidget';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 1.0,
+}
 
 export const metadata: Metadata = {
   title: 'Robert Cole | Full-Stack Software Engineer Portfolio',
@@ -13,7 +19,6 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
   },
-  viewport: 'width=device-width, initial-scale=1.0, maximum-scale=1.0',
   openGraph: {
     title: 'Robert Cole | Full-Stack Software Engineer Portfolio',
     description: 'Browse Robert Cole\'s professional portfolio showcasing full-stack projects, web design work, and graduate studies at Georgia Tech.',
@@ -43,7 +48,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
         {/* Bootstrap Icons - Added CDN link */}
         <link 
@@ -65,7 +70,7 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body>
+      <body suppressHydrationWarning={true}>
         <BootstrapClient />
         {children}
         <ChatWidget />

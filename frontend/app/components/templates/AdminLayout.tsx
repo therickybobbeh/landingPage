@@ -31,7 +31,7 @@ const AdminLayout = ({
               Admin Dashboard
             </Heading>
             <div className="d-flex align-items-center">
-              <Link href="/frontend/public" className="btn btn-sm btn-outline-light">
+              <Link href="/" className="btn btn-sm btn-outline-light">
                 <Icon name="house" className="me-1" />
                 View Site
               </Link>
@@ -39,15 +39,14 @@ const AdminLayout = ({
           </div>
         </Container>
       </header>
-      
       <div className="flex-grow-1 d-flex">
         {/* Sidebar */}
         <aside className="bg-dark text-white" style={{ width: '240px', minHeight: 'calc(100vh - 60px)' }}>
           <div className="p-3">
             <Nav className="flex-column">
               {navItems.map((item) => (
-                <Link 
-                  key={item.key} 
+                <Link
+                  key={item.key}
                   href={item.href}
                   className={`nav-link py-2 px-3 rounded mb-2 ${activeItem === item.key ? 'bg-primary' : 'text-white'}`}
                 >
@@ -58,7 +57,9 @@ const AdminLayout = ({
               
               <hr className="my-3 border-secondary" />
               
-              <Link href="/api/auth/signout" className="nav-link py-2 px-3 text-danger">
+              <Link
+                href="/api/auth/signout"
+                className="nav-link py-2 px-3 text-danger">
                 <Icon name="box-arrow-right" className="me-2" />
                 Logout
               </Link>

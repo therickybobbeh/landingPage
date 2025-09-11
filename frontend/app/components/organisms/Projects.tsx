@@ -145,8 +145,7 @@ const Projects = () => {
                         href={project.demoUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-primary-custom flex-grow-1 btn-icon"
-                      >
+                        className="btn btn-primary-custom flex-grow-1 btn-icon">
                         <i className="bi bi-display btn-icon-start"></i> Live Demo
                       </Link>
                     )}
@@ -156,8 +155,7 @@ const Projects = () => {
                         href={project.codeUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-black-custom btn-icon"
-                      >
+                        className="btn btn-black-custom btn-icon">
                         <i className="bi bi-github btn-icon-start"></i> Code
                       </Link>
                     )}
@@ -174,8 +172,7 @@ const Projects = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-primary-custom px-5 py-3 fw-bold btn-icon"
-            style={{ boxShadow: '0 4px 15px rgba(122, 215, 227, 0.3)' }}
-          >
+            style={{ boxShadow: '0 4px 15px rgba(122, 215, 227, 0.3)' }}>
             <i className="bi bi-github btn-icon-start"></i>
             View More on GitHub
           </Link>

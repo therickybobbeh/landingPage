@@ -43,7 +43,6 @@ const Banner = () => {
   return (
     <section ref={bannerRef} className="section py-5 position-relative">
       {/* Background decoration elements removed - now using unified background */}
-      
       <Container className="py-5 position-relative min-vh-100 d-flex align-items-center" style={{ zIndex: 1 }}>
         <Row className="align-items-center g-5">
           <Col lg={7} className="order-lg-1 order-2">
@@ -64,7 +63,7 @@ const Banner = () => {
             </Text>
             
             <div className="d-flex flex-wrap gap-3">
-              <Link href="/#projects-section" passHref>
+              <Link href="/#projects-section">
                 <Button 
                   gradient="warm" 
                   size="lg" 
@@ -76,7 +75,7 @@ const Banner = () => {
                   View My Work
                 </Button>
               </Link>
-              <Link href="/resume" passHref>
+              <Link href="/resume">
                 <Button 
                   gradient="cool" 
                   size="lg" 
@@ -88,7 +87,7 @@ const Banner = () => {
                   My Resume
                 </Button>
               </Link>
-              <Link href="/#contact-section" passHref>
+              <Link href="/#contact-section">
                 <Button 
                   variant="outline-light" 
                   size="lg" 

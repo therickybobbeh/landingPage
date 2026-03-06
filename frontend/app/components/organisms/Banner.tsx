@@ -87,6 +87,18 @@ const Banner = () => {
                   My Resume
                 </Button>
               </Link>
+              <Link href="https://www.linkedin.com/in/this-is-robert/" target="_blank" rel="noopener noreferrer">
+                <Button 
+                  variant="outline-light" 
+                  size="lg" 
+                  rounded
+                  withIcon
+                  iconClassName="bi bi-linkedin"
+                  iconPosition="left"
+                >
+                  LinkedIn
+                </Button>
+              </Link>
               <Link href="/#contact-section">
                 <Button 
                   variant="outline-light" 
@@ -127,7 +139,7 @@ const Banner = () => {
                 <CodeAnimation />
                 {/* Tech Tags */}
                 <div className="d-flex flex-wrap gap-2 mt-3">
-                  {['React', 'Next.js', 'TypeScript', 'Bootstrap', 'FastAPI'].map((tech, index) => (
+                  {['React', 'Next.js', 'TypeScript', 'Java', 'Spring Boot', 'AWS'].map((tech, index) => (
                     <span 
                       key={index}
                       className="badge rounded-pill bg-white bg-opacity-10 text-white"

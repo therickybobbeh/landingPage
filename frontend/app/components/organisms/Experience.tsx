@@ -8,9 +8,37 @@ import ExperienceItem, { ExperienceItemProps } from '../molecules/ExperienceItem
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [
     {
+      company: "Bank of America",
+      position: "Software Engineer",
+      duration: "2025 - Present",
+      location: "Charlotte, NC",
+      description:
+        "Software Engineer at one of the world's largest financial institutions, developing enterprise-grade applications within large-scale distributed systems. Contributing to core banking platforms with a focus on reliability, security, and performance in a highly regulated environment.",
+      responsibilities: [
+        "Develop and maintain enterprise Java and Spring Boot microservices supporting critical banking operations",
+        "Build responsive front-end features using React and TypeScript, improving the customer and internal user experience",
+        "Collaborate cross-functionally with product, security, and compliance teams to meet strict regulatory requirements",
+        "Contribute to CI/CD pipeline improvements and cloud infrastructure on AWS, increasing deployment efficiency",
+        "Participate in code reviews and architecture discussions to uphold high standards of code quality and security"
+      ],
+      skills: [
+        "Java",
+        "Spring Boot",
+        "React",
+        "TypeScript",
+        "REST APIs",
+        "Microservices",
+        "AWS",
+        "CI/CD",
+        "PostgreSQL",
+        "Security & Compliance"
+      ],
+      workType: "Full-time"
+    },
+    {
       company: "Optum / United Health Group",
       position: "Software Engineer",
-      duration: "Jan 2023 - Present",
+      duration: "Jan 2023 - Jan 2025",
       location: "Raleigh, NC",
       description:
         "Full-stack engineer building enterprise healthcare software for a Fortune 100 company. My work involves modernizing cloud integrations, standardizing and transforming healthcare data, and delivering scalable web applications using Angular, Spring Boot, and PostgreSQL. I’ve contributed to improving deployment pipelines, onboarding processes, and reducing security vulnerabilities through proactive code quality improvements.",

@@ -8,32 +8,32 @@ import ExperienceItem, { ExperienceItemProps } from '../molecules/ExperienceItem
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [
     {
-      company: "Bank of America",
+      company: "Medica (Contracted via On-Demand Group)",
       position: "Software Engineer",
       duration: "2025 - Present",
-      location: "Charlotte, NC",
+      location: "Minneapolis, MN",
       description:
-        "Software Engineer at one of the world's largest financial institutions, developing enterprise-grade applications within large-scale distributed systems. Contributing to core banking platforms with a focus on reliability, security, and performance in a highly regulated environment.",
+        "Led greenfield engineering initiatives supporting Medica's internal platforms and infrastructure. Delivered solutions contributing to ~$2M in estimated cost savings through improved efficiency, reduced processing delays, and infrastructure optimization.",
       responsibilities: [
-        "Develop and maintain enterprise Java and Spring Boot microservices supporting critical banking operations",
-        "Build responsive front-end features using React and TypeScript, improving the customer and internal user experience",
-        "Collaborate cross-functionally with product, security, and compliance teams to meet strict regulatory requirements",
-        "Contribute to CI/CD pipeline improvements and cloud infrastructure on AWS, increasing deployment efficiency",
-        "Participate in code reviews and architecture discussions to uphold high standards of code quality and security"
+        "Designed and developed an internal network-mapping and API observability tool, visualizing APIs as nodes within an interactive network bubble chart",
+        "Architected and implemented a transition from batch-based company data processing to real-time streaming, significantly improving data freshness and operational responsiveness",
+        "Built event-driven data pipelines using Confluent Kafka, deployed on on-prem Kubernetes clusters and Confluent cloud instances",
+        "Implemented scalable GraphQL APIs using Hasura and Apollo to enable real-time data access across systems",
+        "Partnered with the DevOps team to manage, deploy, and troubleshoot production workloads across distributed environments"
       ],
       skills: [
-        "Java",
-        "Spring Boot",
-        "React",
-        "TypeScript",
-        "REST APIs",
-        "Microservices",
-        "AWS",
-        "CI/CD",
-        "PostgreSQL",
-        "Security & Compliance"
+        "Confluent Kafka",
+        "Kubernetes",
+        "GraphQL",
+        "Hasura",
+        "Apollo",
+        "Real-Time Streaming",
+        "Event-Driven Architecture",
+        "API Observability",
+        "Network Visualization",
+        "DevOps"
       ],
-      workType: "Full-time"
+      workType: "Contract"
     },
     {
       company: "Optum / United Health Group",

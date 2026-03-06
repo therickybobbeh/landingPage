@@ -113,9 +113,10 @@ const AboutMe = () => {
                 applications across industries including financial services, healthcare, and cloud-native systems.
                 </p>
                 <p className="mb-3">
-                Currently at Bank of America, I develop enterprise-grade software using Java, Spring Boot, and React, 
-                working within large-scale distributed systems in a highly regulated financial environment. Previously at 
-                Optum / United Health Group, I specialized in healthcare integrations using FHIR, HL7, and Angular.
+                Currently contracting through On-Demand Group at Medica, I lead greenfield engineering initiatives supporting
+                internal platforms and infrastructure (including an API observability tool and a real-time Kafka-based data
+                streaming pipeline). Previously at Optum / United Health Group, I specialized in healthcare integrations using
+                FHIR, HL7, and Angular.
                 </p>
                 <p className="mb-4">
                 I&apos;m currently pursuing a Master&apos;s in Computer Science with a specialization in Artificial Intelligence at Georgia Tech 
@@ -158,8 +159,8 @@ const AboutMe = () => {
                           <i className="bi bi-bank fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Financial & Healthcare Tech</h5>
-                          <p className="mb-0 text-muted small">Banking Systems, FHIR, HL7, APIs</p>
+                          <h5 className="mb-1">Healthcare & Data Tech</h5>
+                          <p className="mb-0 text-muted small">Healthcare Systems, FHIR, HL7, Kafka, GraphQL</p>
                         </div>
                       </div>
                     </div>

@@ -11,7 +11,7 @@ const AboutMe = () => {
           <Col>
             <h2 className="display-5 fw-bold mb-3 text-white">About Me</h2>
             <p className="lead text-white-50 mb-0">
-              Software Engineer with about building innovative solutions and bringing ideas to life.
+              Software Engineer passionate about building innovative solutions and bringing ideas to life.
             </p>
           </Col>
         </Row>
@@ -110,11 +110,13 @@ const AboutMe = () => {
                 <h3 className="mb-3 text-primary-custom">Hello, I&apos;m Robert Cole</h3>
                 <p className="mb-3">
                 I&apos;m a Software Engineer with a strong background in full-stack development, building scalable, high-quality 
-                applications across domains including healthcare, data platforms, and cloud-native systems.
+                applications across industries including financial services, healthcare, and cloud-native systems.
                 </p>
                 <p className="mb-3">
-                I specialize in technologies like Angular and Spring Boot, and work extensively with integration standards such as FHIR 
-                and HL7. My focus is on writing clean, maintainable code and delivering reliable, production-ready solutions.
+                Currently contracting through On-Demand Group at Medica, I lead greenfield engineering initiatives supporting
+                internal platforms and infrastructure (including an API observability tool and a real-time Kafka-based data
+                streaming pipeline). Previously at Optum / United Health Group, I specialized in healthcare integrations using
+                FHIR, HL7, and Angular.
                 </p>
                 <p className="mb-4">
                 I&apos;m currently pursuing a Master&apos;s in Computer Science with a specialization in Artificial Intelligence at Georgia Tech 
@@ -132,7 +134,7 @@ const AboutMe = () => {
                         </div>
                         <div>
                           <h5 className="mb-1">Frontend Development</h5>
-                          <p className="mb-0 text-muted small">Angular, TypeScript, RxJS</p>
+                          <p className="mb-0 text-muted small">React, Angular, TypeScript, Next.js</p>
                         </div>
                       </div>
                     </div>
@@ -145,7 +147,7 @@ const AboutMe = () => {
                         </div>
                         <div>
                           <h5 className="mb-1">Backend Development</h5>
-                          <p className="mb-0 text-muted small">Spring Boot, Java, PostgreSQL</p>
+                          <p className="mb-0 text-muted small">Java, Spring Boot, Python, PostgreSQL</p>
                         </div>
                       </div>
                     </div>
@@ -154,11 +156,11 @@ const AboutMe = () => {
                     <div className="card-light rounded-3 p-3 h-100 shadow-sm">
                       <div className="d-flex align-items-center">
                         <div className="bg-tertiary p-3 rounded-3 text-dark me-3">
-                          <i className="bi bi-heart-pulse fs-4"></i>
+                          <i className="bi bi-bank fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Healthcare Integration</h5>
-                          <p className="mb-0 text-muted small">FHIR, HL7, SMART on FHIR</p>
+                          <h5 className="mb-1">Healthcare & Data Tech</h5>
+                          <p className="mb-0 text-muted small">Healthcare Systems, FHIR, HL7, Kafka, GraphQL</p>
                         </div>
                       </div>
                     </div>
@@ -170,8 +172,8 @@ const AboutMe = () => {
                           <i className="bi bi-diagram-3 fs-4 text-dark"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">DevOps</h5>
-                          <p className="mb-0 text-muted small">Docker, Microservices, CI/CD</p>
+                          <h5 className="mb-1">Cloud & DevOps</h5>
+                          <p className="mb-0 text-muted small">AWS, Azure, Docker, CI/CD, Microservices</p>
                         </div>
                       </div>
                     </div>

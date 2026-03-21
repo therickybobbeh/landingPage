@@ -14,6 +14,11 @@ const Header = () => {
     { label: 'Contact', href: '/#contact-section' },
   ];
 
+  const socialItems = [
+    { icon: 'bi-linkedin', href: 'https://www.linkedin.com/in/this-is-robert/', label: 'LinkedIn' },
+    { icon: 'bi-github', href: 'https://github.com/therickybobbeh', label: 'GitHub' },
+  ];
+
   return (
     <Navbar
       expand="lg"
@@ -47,6 +52,20 @@ const Header = () => {
                 </Link>
               </Nav.Item>
             ))}
+            <Nav.Item className="d-flex gap-2 ms-lg-3">
+              {socialItems.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  className="nav-link text-white px-2"
+                >
+                  <i className={`bi ${social.icon}`}></i>
+                </a>
+              ))}
+            </Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Container>

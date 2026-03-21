@@ -8,9 +8,37 @@ import ExperienceItem, { ExperienceItemProps } from '../molecules/ExperienceItem
 const Experience = () => {
   const experiences: ExperienceItemProps[] = [
     {
+      company: "Medica (Contracted via On-Demand Group)",
+      position: "Software Engineer",
+      duration: "2025 - Present",
+      location: "Minneapolis, MN",
+      description:
+        "Led greenfield engineering initiatives supporting Medica's internal platforms and infrastructure. Delivered solutions contributing to ~$2M in estimated cost savings through improved efficiency, reduced processing delays, and infrastructure optimization.",
+      responsibilities: [
+        "Designed and developed an internal network-mapping and API observability tool, visualizing APIs as nodes within an interactive network bubble chart",
+        "Architected and implemented a transition from batch-based company data processing to real-time streaming, significantly improving data freshness and operational responsiveness",
+        "Built event-driven data pipelines using Confluent Kafka, deployed on on-prem Kubernetes clusters and Confluent cloud instances",
+        "Implemented scalable GraphQL APIs using Hasura and Apollo to enable real-time data access across systems",
+        "Partnered with the DevOps team to manage, deploy, and troubleshoot production workloads across distributed environments"
+      ],
+      skills: [
+        "Confluent Kafka",
+        "Kubernetes",
+        "GraphQL",
+        "Hasura",
+        "Apollo",
+        "Real-Time Streaming",
+        "Event-Driven Architecture",
+        "API Observability",
+        "Network Visualization",
+        "DevOps"
+      ],
+      workType: "Contract"
+    },
+    {
       company: "Optum / United Health Group",
       position: "Software Engineer",
-      duration: "Jan 2023 - Present",
+      duration: "Jan 2023 - Jan 2025",
       location: "Raleigh, NC",
       description:
         "Full-stack engineer building enterprise healthcare software for a Fortune 100 company. My work involves modernizing cloud integrations, standardizing and transforming healthcare data, and delivering scalable web applications using Angular, Spring Boot, and PostgreSQL. I’ve contributed to improving deployment pipelines, onboarding processes, and reducing security vulnerabilities through proactive code quality improvements.",

@@ -49,17 +49,18 @@ const Banner = () => {
             <div className="d-flex align-items-center mb-3">
               <div className="bg-info" style={{ width: '30px', height: '2px' }}></div>
               <Text color="white" weight="bold" className="ms-2 mb-0">
-                Full Stack Developer
+                Full Stack Engineer · Healthcare &amp; Compliance
               </Text>
             </div>
-            
+
             <Heading level={1} variant="display" color="white" weight="bold" className="mb-4">
-              Crafting Digital <span className="text-secondary">Experiences</span> with Modern Technology
+              Building Reliable Software for <span className="text-secondary">Regulated</span> and Secure Environments
             </Heading>
-            
+
             <Text color="white-50" variant="lead" className="mb-5">
-              I design and develop custom web applications that solve real-world problems.
-              From responsive frontends to scalable backends, I bring your digital vision to life.
+              Years of experience shipping full-stack applications inside HIPAA-regulated healthcare and
+              insurance systems &mdash; from FHIR/HL7 integrations to event-driven streaming pipelines and
+              hardened DevOps practices on Azure, AWS, and Kubernetes.
             </Text>
             
             <div className="d-flex flex-wrap gap-3">
@@ -139,7 +140,7 @@ const Banner = () => {
                 <CodeAnimation />
                 {/* Tech Tags */}
                 <div className="d-flex flex-wrap gap-2 mt-3">
-                  {['React', 'Next.js', 'TypeScript', 'Java', 'Spring Boot', 'AWS'].map((tech, index) => (
+                  {['Java', 'Spring Boot', 'TypeScript', 'React', 'Kafka', 'FHIR', 'Azure', 'AWS'].map((tech, index) => (
                     <span 
                       key={index}
                       className="badge rounded-pill bg-white bg-opacity-10 text-white"

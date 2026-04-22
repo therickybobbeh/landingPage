@@ -11,7 +11,8 @@ const AboutMe = () => {
           <Col>
             <h2 className="display-5 fw-bold mb-3 text-white">About Me</h2>
             <p className="lead text-white-50 mb-0">
-              Software Engineer passionate about building innovative solutions and bringing ideas to life.
+              Full-stack software engineer with years of experience building and operating
+              highly compliant systems in regulated, secure environments.
             </p>
           </Col>
         </Row>
@@ -109,19 +110,25 @@ const AboutMe = () => {
               <Card.Body className="p-4">
                 <h3 className="mb-3 text-primary-custom">Hello, I&apos;m Robert Cole</h3>
                 <p className="mb-3">
-                I&apos;m a Software Engineer with a strong background in full-stack development, building scalable, high-quality 
-                applications across industries including financial services, healthcare, and cloud-native systems.
+                I&apos;m a software engineer with a background spanning full-stack development, cloud-native
+                systems, and cybersecurity. Most of my career has been spent inside HIPAA-regulated
+                healthcare and insurance environments &mdash; places where security, auditability, and data
+                integrity are non-negotiable &mdash; so I build with those constraints in mind from day one.
                 </p>
                 <p className="mb-3">
-                Currently contracting through On-Demand Group at Medica, I lead greenfield engineering initiatives supporting
-                internal platforms and infrastructure (including an API observability tool and a real-time Kafka-based data
-                streaming pipeline). Previously at Optum / United Health Group, I specialized in healthcare integrations using
-                FHIR, HL7, and Angular.
+                Currently contracting through On-Demand Group at Medica, I lead greenfield engineering
+                initiatives on internal platforms, including an API observability tool and a real-time
+                Kafka-based data streaming pipeline, while partnering with DevOps to harden deployments
+                across Kubernetes and Confluent Cloud. Previously at Optum / UnitedHealth Group, I shipped
+                Angular and Spring Boot applications, led cloud modernization of EHR integrations using
+                FHIR, HL7, and SMART on FHIR, and drove a 95% reduction in security vulnerabilities through
+                disciplined dependency hygiene and refactoring.
                 </p>
                 <p className="mb-4">
-                I&apos;m currently pursuing a Master&apos;s in Computer Science with a specialization in Artificial Intelligence at Georgia Tech 
-                while working full-time. This academic work deepens my expertise in areas like distributed systems, intelligent infrastructure, 
-                and applied machine learning.
+                I&apos;m pursuing a Master&apos;s in Computer Science with an AI specialization at Georgia
+                Tech while working full-time, and I hold a BS in Cybersecurity from Kennesaw State. That
+                combination &mdash; engineering, AI, and security &mdash; shapes how I think about every
+                system I build.
                 </p>
                 
                 <h4 className="border-bottom border-primary pb-2 mb-3">My Focus Areas</h4>
@@ -130,11 +137,11 @@ const AboutMe = () => {
                     <div className="card-light rounded-3 p-3 h-100 shadow-sm">
                       <div className="d-flex align-items-center">
                         <div className="bg-primary p-3 rounded-3 text-white me-3">
-                          <i className="bi bi-laptop fs-4"></i>
+                          <i className="bi bi-layers fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Frontend Development</h5>
-                          <p className="mb-0 text-muted small">React, Angular, TypeScript, Next.js</p>
+                          <h5 className="mb-1">Full-Stack Engineering</h5>
+                          <p className="mb-0 text-muted small">Java, Spring Boot, TypeScript, Angular, React, Next.js</p>
                         </div>
                       </div>
                     </div>
@@ -143,11 +150,11 @@ const AboutMe = () => {
                     <div className="card-light rounded-3 p-3 h-100 shadow-sm">
                       <div className="d-flex align-items-center">
                         <div className="bg-secondary p-3 rounded-3 text-white me-3">
-                          <i className="bi bi-server fs-4"></i>
+                          <i className="bi bi-shield-check fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Backend Development</h5>
-                          <p className="mb-0 text-muted small">Java, Spring Boot, Python, PostgreSQL</p>
+                          <h5 className="mb-1">Compliant &amp; Secure Systems</h5>
+                          <p className="mb-0 text-muted small">HIPAA environments, vulnerability remediation, SOC &amp; cybersecurity background</p>
                         </div>
                       </div>
                     </div>
@@ -156,11 +163,11 @@ const AboutMe = () => {
                     <div className="card-light rounded-3 p-3 h-100 shadow-sm">
                       <div className="d-flex align-items-center">
                         <div className="bg-tertiary p-3 rounded-3 text-dark me-3">
-                          <i className="bi bi-bank fs-4"></i>
+                          <i className="bi bi-heart-pulse fs-4"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Healthcare & Data Tech</h5>
-                          <p className="mb-0 text-muted small">Healthcare Systems, FHIR, HL7, Kafka, GraphQL</p>
+                          <h5 className="mb-1">Healthcare Interoperability</h5>
+                          <p className="mb-0 text-muted small">FHIR, HL7, SMART on FHIR, Epic, EHR integrations</p>
                         </div>
                       </div>
                     </div>
@@ -172,8 +179,34 @@ const AboutMe = () => {
                           <i className="bi bi-diagram-3 fs-4 text-dark"></i>
                         </div>
                         <div>
-                          <h5 className="mb-1">Cloud & DevOps</h5>
-                          <p className="mb-0 text-muted small">AWS, Azure, Docker, CI/CD, Microservices</p>
+                          <h5 className="mb-1">Cloud &amp; DevOps in Regulated Envs</h5>
+                          <p className="mb-0 text-muted small">Azure, AWS, Docker, Kubernetes, Terraform, CI/CD</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className="card-light rounded-3 p-3 h-100 shadow-sm">
+                      <div className="d-flex align-items-center">
+                        <div className="bg-primary p-3 rounded-3 text-white me-3">
+                          <i className="bi bi-broadcast-pin fs-4"></i>
+                        </div>
+                        <div>
+                          <h5 className="mb-1">Streaming &amp; Data Platforms</h5>
+                          <p className="mb-0 text-muted small">Confluent Kafka, GraphQL, Hasura, Apollo, PostgreSQL</p>
+                        </div>
+                      </div>
+                    </div>
+                  </Col>
+                  <Col md={6}>
+                    <div className="card-light rounded-3 p-3 h-100 shadow-sm">
+                      <div className="d-flex align-items-center">
+                        <div className="bg-secondary p-3 rounded-3 text-white me-3">
+                          <i className="bi bi-cpu fs-4"></i>
+                        </div>
+                        <div>
+                          <h5 className="mb-1">Applied AI &amp; ML</h5>
+                          <p className="mb-0 text-muted small">Python, OpenCV, NumPy, knowledge-based reasoning, Georgia Tech MS</p>
                         </div>
                       </div>
                     </div>

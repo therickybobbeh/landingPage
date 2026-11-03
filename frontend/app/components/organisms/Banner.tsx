@@ -49,20 +49,21 @@ const Banner = () => {
             <div className="d-flex align-items-center mb-3">
               <div className="bg-info" style={{ width: '30px', height: '2px' }}></div>
               <Text color="white" weight="bold" className="ms-2 mb-0">
-                Full Stack Developer
+                Cloud and Full Stack Engineer
               </Text>
             </div>
             
             <Heading level={1} variant="display" color="white" weight="bold" className="mb-4">
-              Crafting Digital <span className="text-secondary">Experiences</span> with Modern Technology
+              Cloud infrastructure and the <span className="text-secondary">apps</span> that run on it
             </Heading>
             
             <Text color="white-50" variant="lead" className="mb-5">
-              I design and develop custom web applications that solve real-world problems.
-              From responsive frontends to scalable backends, I bring your digital vision to life.
+              I build and troubleshoot AWS and Azure deployments, web applications, and APIs.
+              My work spans React and Next.js, Java and Python services, and healthcare integrations.
             </Text>
             
             <div className="d-flex flex-wrap gap-3">
+              <a className="btn btn-info btn-lg rounded-pill align-self-center" href="/freelance.html">Freelance services</a>
               <Link href="/#projects-section">
                 <Button 
                   gradient="warm" 
